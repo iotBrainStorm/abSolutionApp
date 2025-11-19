@@ -60,7 +60,8 @@
         loadMainPage();
       });
     </script>
-    <script>
+    <script type="module">
+      import { auth, database } from "../js/firebase-config.js";
       window.handleLogout = async function () {
         try {
           await auth.signOut();
