@@ -19,7 +19,7 @@
       .coaching-box {
         background: white;
         border-radius: 20px;
-        padding: 40px;
+        padding: 25px;
         max-width: 800px;
         width: 100%;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -27,13 +27,13 @@
 
       .coaching-header {
         text-align: center;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
       }
 
       .coaching-header h1 {
         color: #333;
         font-size: 2rem;
-        margin-bottom: 10px;
+        margin-bottom: 3px;
       }
 
       .coaching-header .subtitle {
@@ -43,7 +43,7 @@
 
       .welcome-message {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 20px;
+        padding: 10px;
         border-radius: 12px;
         color: white;
         margin-bottom: 30px;
@@ -64,21 +64,35 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
-        margin-bottom: 30px;
       }
 
       .coaching-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(90deg, #667eea, #833ee4, #833ee4, #6a11cb);
+        background-size: 300% 300%;
+        animation: gradientAnimation 10s ease infinite;
+
         border-radius: 15px;
-        padding: 30px;
+        padding: 10px;
         text-align: center;
         cursor: pointer;
         transition: all 0.3s ease;
         color: white;
-        border: 3px solid transparent;
         display: flex;
         flex-direction: column;
         align-items: center;
+      }
+
+      /* Gradient Animation */
+      @keyframes gradientAnimation {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
       }
 
       .coaching-card:hover {
@@ -98,6 +112,7 @@
         padding: 10px;
         border-radius: 12px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.3));
       }
 
       .coaching-icon {
@@ -106,9 +121,25 @@
       }
 
       .coaching-name {
-        font-size: 1.3rem;
-        font-weight: 600;
+        font-size: 1.5rem;
+        font-weight: 400;
         margin-bottom: 15px;
+        color: #f2ff00;
+
+        animation: zoomPulse 2s ease-in-out infinite;
+        display: inline-block; /* important for scaling */
+      }
+
+      @keyframes zoomPulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.08);
+        } /* small zoom */
+        100% {
+          transform: scale(1);
+        }
       }
 
       .coaching-details {
@@ -167,7 +198,7 @@
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
-        margin-top: 10px;
+        margin-top: 20px;
       }
 
       .logout-btn:hover {
@@ -233,15 +264,6 @@
         <div class="coaching-grid" id="coachingGrid">
           <!-- Coaching cards will be dynamically loaded here -->
         </div>
-
-        <button
-          class="continue-btn"
-          id="continueBtn"
-          disabled
-          onclick="window.continueToClasses()"
-        >
-          Continue to Classes →
-        </button>
 
         <button class="logout-btn" onclick="window.handleLogout()">
           ← Logout
@@ -358,7 +380,7 @@
                             }
                         </div>
                         <div class="coaching-detail-item">
-                            <strong>📞 Contact:</strong> ${
+                            <strong>📞 Mob:</strong> ${
                               coaching.contact || "N/A"
                             }
                         </div>
@@ -370,28 +392,12 @@
       }
 
       function selectCoaching(coachingId, cardElement) {
-        // Remove previous selection
-        document.querySelectorAll(".coaching-card").forEach((card) => {
-          card.classList.remove("selected");
-        });
-
-        // Add selection to clicked card
-        cardElement.classList.add("selected");
-        selectedCoaching = coachingId;
-
-        // Enable continue button
-        document.getElementById("continueBtn").disabled = false;
-
         // Store selection
         sessionStorage.setItem("selectedCoaching", coachingId);
-      }
 
-      // Export functions to window for onclick handlers
-      window.continueToClasses = function () {
-        if (selectedCoaching) {
-          window.location.href = "main.html";
-        }
-      };
+        // Navigate directly to classes page
+        window.location.href = "main.html";
+      }
 
       window.handleLogout = async function () {
         try {

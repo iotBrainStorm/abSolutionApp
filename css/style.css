@@ -149,7 +149,7 @@ body {
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  /* gap: 8px; */
 }
 
 .form-group label {

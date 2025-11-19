@@ -196,7 +196,7 @@
       .form-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
+        gap: 15px;
         margin-bottom: 25px;
       }
 
@@ -671,7 +671,7 @@
                   placeholder="e.g., class-9"
                   required
                 />
-                <small>Use lowercase with hyphens (e.g., class-9, sem-1)</small>
+                <!-- <small>Use lowercase with hyphens (e.g., class-9, sem-1)</small> -->
               </div>
               <div class="form-group">
                 <label>Icon*</label>
@@ -689,11 +689,11 @@
               <div class="form-group">
                 <label>Card Color*</label>
                 <input type="color" id="class-color" value="#4CAF50" required />
-                <span
+                <!-- <span
                   class="color-preview"
                   id="class-color-preview"
                   style="background: #4caf50"
-                ></span>
+                ></span> -->
               </div>
             </div>
             <input type="hidden" id="class-edit-key" value="" />
@@ -778,11 +778,11 @@
                   value="#FF9800"
                   required
                 />
-                <span
+                <!-- <span
                   class="color-preview"
                   id="subject-color-preview"
                   style="background: #ff9800"
-                ></span>
+                ></span> -->
               </div>
             </div>
             <input type="hidden" id="subject-edit-key" value="" />
@@ -875,11 +875,11 @@
                   value="#2196F3"
                   required
                 />
-                <span
+                <!-- <span
                   class="color-preview"
                   id="testtype-color-preview"
                   style="background: #2196f3"
-                ></span>
+                ></span> -->
               </div>
             </div>
             <input type="hidden" id="testtype-edit-key" value="" />
@@ -2226,21 +2226,24 @@
           if (snapshot.exists()) {
             const coachings = snapshot.val();
             Object.entries(coachings).forEach(([key, coaching]) => {
-              select.innerHTML += `<option value="${coaching.id}">${coaching.icon} ${coaching.name}</option>`;
+              // Show only coaching name in dropdown (no icon/image path)
+              const optionText = coaching.name;
+
+              select.innerHTML += `<option value="${coaching.id}">${optionText}</option>`;
               if (subjectSelect) {
-                subjectSelect.innerHTML += `<option value="${coaching.id}">${coaching.icon} ${coaching.name}</option>`;
+                subjectSelect.innerHTML += `<option value="${coaching.id}">${optionText}</option>`;
               }
               if (testtypeSelect) {
-                testtypeSelect.innerHTML += `<option value="${coaching.id}">${coaching.icon} ${coaching.name}</option>`;
+                testtypeSelect.innerHTML += `<option value="${coaching.id}">${optionText}</option>`;
               }
               if (chapterSelect) {
-                chapterSelect.innerHTML += `<option value="${coaching.id}">${coaching.icon} ${coaching.name}</option>`;
+                chapterSelect.innerHTML += `<option value="${coaching.id}">${optionText}</option>`;
               }
               if (pdfSelect) {
-                pdfSelect.innerHTML += `<option value="${coaching.id}">${coaching.icon} ${coaching.name}</option>`;
+                pdfSelect.innerHTML += `<option value="${coaching.id}">${optionText}</option>`;
               }
               if (accessSelect) {
-                accessSelect.innerHTML += `<option value="${coaching.id}">${coaching.icon} ${coaching.name}</option>`;
+                accessSelect.innerHTML += `<option value="${coaching.id}">${optionText}</option>`;
               }
             });
           }
