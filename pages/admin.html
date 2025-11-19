@@ -1,0 +1,3801 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Coaching Management System</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .admin-container {
+        max-width: 1600px;
+        margin: 0 auto;
+      }
+
+      .admin-header {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .admin-header h1 {
+        color: #333;
+        font-size: 2rem;
+      }
+
+      .admin-header .user-info {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .logout-btn {
+        padding: 10px 25px;
+        background: #ff4444;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .logout-btn:hover {
+        background: #cc0000;
+        transform: translateY(-2px);
+      }
+
+      .tabs {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-auto-rows: 65px;
+        gap: 10px;
+        margin-bottom: 30px;
+      }
+
+      .tab-btn {
+        padding: 9px 9px;
+        background: white;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #667eea;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .tab-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .tab-btn.active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: 1px solid white;
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+      }
+
+      .tab-content {
+        display: none;
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 3px solid #667eea;
+      }
+
+      .section-header h2 {
+        color: #333;
+        font-size: 1.8rem;
+      }
+
+      .btn-primary {
+        padding: 12px 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn-success {
+        background: #4caf50;
+      }
+
+      .btn-success:hover {
+        background: #45a049;
+      }
+
+      .btn-danger {
+        background: #f44336;
+      }
+
+      .btn-danger:hover {
+        background: #da190b;
+      }
+
+      .btn-cancel {
+        padding: 12px 30px;
+        background: #6c757d;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        margin-left: 10px;
+      }
+
+      .btn-cancel:hover {
+        background: #5a6268;
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary {
+        padding: 12px 30px;
+        background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        margin-left: 10px;
+      }
+
+      .btn-secondary:hover {
+        background: linear-gradient(135deg, #7f8c8d 0%, #6c7a7b 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(127, 140, 141, 0.4);
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 25px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-group label {
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #333;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        padding: 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .form-group small {
+        color: #666;
+        margin-top: 5px;
+        font-size: 0.85rem;
+      }
+
+      .form-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+        padding-top: 25px;
+        border-top: 2px solid #f0f0f0;
+        justify-content: flex-end;
+      }
+
+      .form-actions button {
+        min-width: 140px;
+      }
+
+      .data-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 10px;
+        margin-top: 20px;
+      }
+
+      .data-table th,
+      .data-table td {
+        padding: 15px;
+        text-align: center;
+        background: white;
+      }
+
+      .data-table th {
+        background: #eee7ff;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .data-table tbody tr {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      .data-table tbody tr:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .data-table tbody tr td:first-child {
+        border-radius: 10px 0 0 10px;
+      }
+
+      .data-table tbody tr td:last-child {
+        border-radius: 0 10px 10px 0;
+      }
+
+      .action-buttons {
+        gap: 10px;
+      }
+
+      .btn-small {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+      }
+
+      .btn-edit {
+        background: #2196f3;
+        color: white;
+      }
+
+      .btn-edit:hover {
+        background: #0b7dda;
+      }
+
+      .btn-delete {
+        background: #f44336;
+        color: white;
+      }
+
+      .btn-delete:hover {
+        background: #da190b;
+      }
+
+      .alert {
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+
+      .alert-success {
+        background: #d4edda;
+        color: #155724;
+        border-left: 4px solid #28a745;
+      }
+
+      .alert-error {
+        background: #f8d7da;
+        color: #721c24;
+        border-left: 4px solid #f44336;
+      }
+
+      .alert-info {
+        background: #d1ecf1;
+        color: #0c5460;
+        border-left: 4px solid #17a2b8;
+      }
+
+      .loading {
+        text-align: center;
+        padding: 40px;
+        color: #666;
+      }
+
+      .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #667eea;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(5px);
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .modal.active {
+        display: flex;
+      }
+
+      .modal-content {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: slideUp 0.3s ease;
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .modal-header {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: #333;
+        text-align: center;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #f0f0f0;
+      }
+
+      .modal-body {
+        margin-bottom: 30px;
+      }
+
+      .modal-body p {
+        color: #666;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .modal-footer {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+      }
+
+      .modal-footer .btn-danger {
+        padding: 14px 35px;
+        font-size: 1.05rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+      }
+
+      .modal-footer .btn-danger:hover {
+        box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
+      }
+
+      .modal-footer .btn-primary {
+        padding: 14px 35px;
+        font-size: 1.05rem;
+        background: #6c757d;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+      }
+
+      .modal-footer .btn-primary:hover {
+        background: #5a6268;
+        box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+      }
+
+      .color-preview {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        border: 3px solid #ddd;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .color-preview:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      input[type="color"] {
+        width: 80px;
+        height: 50px;
+        border: 3px solid #e0e0e0;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      input[type="color"]:hover {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .icon-select {
+        font-size: 2rem;
+      }
+
+      .no-data {
+        text-align: center;
+        padding: 40px;
+        color: #999;
+        font-size: 1.1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="admin-container">
+      <div class="admin-header">
+        <div>
+          <h1>🎓 Admin Dashboard</h1>
+          <p class="user-info" id="userEmail">Loading...</p>
+        </div>
+        <button class="logout-btn" onclick="handleLogout()">Logout</button>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('coaching')">
+          🏢 Coaching Management
+        </button>
+        <button class="tab-btn" onclick="switchTab('class')">
+          📚 Class Management
+        </button>
+        <button class="tab-btn" onclick="switchTab('subject')">
+          📖 Subject Management
+        </button>
+        <button class="tab-btn" onclick="switchTab('testtype')">
+          📝 Test Type Management
+        </button>
+        <button class="tab-btn" onclick="switchTab('chapter')">
+          📑 Chapter Management
+        </button>
+        <button class="tab-btn" onclick="switchTab('pdf')">
+          📄 PDF Management
+        </button>
+        <button class="tab-btn" onclick="switchTab('access')">
+          🔐 Access Control
+        </button>
+        <button class="tab-btn" onclick="switchTab('import-export')">
+          💾 Import/Export
+        </button>
+      </div>
+
+      <div id="alert-container"></div>
+
+      <!-- Coaching Management Tab -->
+      <div id="coaching-tab" class="tab-content active">
+        <div class="section-header">
+          <h2>🏢 Coaching Management</h2>
+          <button class="btn-primary" onclick="showAddCoachingForm()">
+            + Add Coaching
+          </button>
+        </div>
+
+        <div id="add-coaching-form" style="display: none; margin-bottom: 30px">
+          <form id="coachingForm" onsubmit="saveCoaching(event)">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Coaching ID*</label>
+                <input
+                  type="text"
+                  id="coaching-id"
+                  placeholder="e.g., COACH001"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Coaching Name*</label>
+                <input
+                  type="text"
+                  id="coaching-name"
+                  placeholder="Excellence Coaching"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Icon*</label>
+                <select id="coaching-icon" class="icon-select" required>
+                  <option value="🎓">🎓 Cap</option>
+                  <option value="📚">📚 Books</option>
+                  <option value="🏫">🏫 School</option>
+                  <option value="🎯">🎯 Target</option>
+                  <option value="⚡">⚡ Lightning</option>
+                  <option value="🌟">🌟 Star</option>
+                  <option value="🏆">🏆 Trophy</option>
+                  <option value="💡">💡 Bulb</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Owner Name*</label>
+                <input
+                  type="text"
+                  id="coaching-owner"
+                  placeholder="Mr. John Doe"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Contact Number*</label>
+                <input
+                  type="tel"
+                  id="coaching-contact"
+                  placeholder="+91 9876543210"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Place/Location*</label>
+                <input
+                  type="text"
+                  id="coaching-place"
+                  placeholder="New Delhi, India"
+                  required
+                />
+              </div>
+            </div>
+            <input type="hidden" id="coaching-edit-key" value="" />
+            <button type="submit" class="btn-primary">💾 Save Coaching</button>
+            <button
+              type="button"
+              class="btn-cancel"
+              onclick="cancelCoachingForm()"
+            >
+              ❌ Cancel
+            </button>
+          </form>
+        </div>
+
+        <div id="coaching-list">
+          <div class="loading">
+            <div class="spinner"></div>
+            Loading coaching centers...
+          </div>
+        </div>
+      </div>
+
+      <!-- Class Management Tab -->
+      <div id="class-tab" class="tab-content">
+        <div class="section-header">
+          <h2>📚 Class Management</h2>
+          <button class="btn-primary" onclick="showAddClassForm()">
+            + Add Class
+          </button>
+        </div>
+
+        <div id="add-class-form" style="display: none; margin-bottom: 30px">
+          <form id="classForm" onsubmit="saveClass(event)">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Select Coaching*</label>
+                <select id="class-coaching-id" required>
+                  <option value="">-- Select Coaching --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Class Name*</label>
+                <input
+                  type="text"
+                  id="class-name"
+                  placeholder="e.g., Class IX"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Class ID*</label>
+                <input
+                  type="text"
+                  id="class-id"
+                  placeholder="e.g., class-9"
+                  required
+                />
+                <small>Use lowercase with hyphens (e.g., class-9, sem-1)</small>
+              </div>
+              <div class="form-group">
+                <label>Icon*</label>
+                <select id="class-icon" class="icon-select" required>
+                  <option value="📘">📘 Blue Book</option>
+                  <option value="📗">📗 Green Book</option>
+                  <option value="📙">📙 Orange Book</option>
+                  <option value="📕">📕 Red Book</option>
+                  <option value="🎓">🎓 Graduation</option>
+                  <option value="🏥">🏥 Medical</option>
+                  <option value="⚡">⚡ Engineering</option>
+                  <option value="📚">📚 Stack Books</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Card Color*</label>
+                <input type="color" id="class-color" value="#4CAF50" required />
+                <span
+                  class="color-preview"
+                  id="class-color-preview"
+                  style="background: #4caf50"
+                ></span>
+              </div>
+            </div>
+            <input type="hidden" id="class-edit-key" value="" />
+            <button type="submit" class="btn-primary">💾 Save Class</button>
+            <button
+              type="button"
+              class="btn-cancel"
+              onclick="cancelClassForm()"
+            >
+              ❌ Cancel
+            </button>
+          </form>
+        </div>
+
+        <div id="class-list">
+          <div class="loading">
+            <div class="spinner"></div>
+            Loading classes...
+          </div>
+        </div>
+      </div>
+
+      <!-- Subject Management Tab -->
+      <div id="subject-tab" class="tab-content">
+        <div class="section-header">
+          <h2>📖 Subject Management</h2>
+          <button class="btn-primary" onclick="showAddSubjectForm()">
+            + Add Subject
+          </button>
+        </div>
+
+        <div id="add-subject-form" style="display: none; margin-bottom: 30px">
+          <form id="subjectForm" onsubmit="saveSubject(event)">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Select Coaching*</label>
+                <select
+                  id="subject-coaching-id"
+                  onchange="loadClassesForSubject()"
+                  required
+                >
+                  <option value="">-- Select Coaching --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Select Class*</label>
+                <select id="subject-class-id" required>
+                  <option value="">-- Select Class --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Subject Name*</label>
+                <input
+                  type="text"
+                  id="subject-name"
+                  placeholder="e.g., Mathematics"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Select Icon*</label>
+                <select id="subject-icon" class="icon-select" required>
+                  <option value="📐">📐 Mathematics</option>
+                  <option value="⚗️">⚗️ Chemistry</option>
+                  <option value="🔬">🔬 Physics</option>
+                  <option value="🧬">🧬 Biology</option>
+                  <option value="🌍">🌍 Geography</option>
+                  <option value="📜">📜 History</option>
+                  <option value="💬">💬 English</option>
+                  <option value="🖥️">🖥️ Computer</option>
+                  <option value="💼">💼 Commerce</option>
+                  <option value="⚖️">⚖️ Economics</option>
+                  <option value="🎨">🎨 Arts</option>
+                  <option value="📊">📊 Statistics</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Select Color*</label>
+                <input
+                  type="color"
+                  id="subject-color"
+                  value="#FF9800"
+                  required
+                />
+                <span
+                  class="color-preview"
+                  id="subject-color-preview"
+                  style="background: #ff9800"
+                ></span>
+              </div>
+            </div>
+            <input type="hidden" id="subject-edit-key" value="" />
+            <button type="submit" class="btn-primary">💾 Save Subject</button>
+            <button
+              type="button"
+              class="btn-cancel"
+              onclick="cancelSubjectForm()"
+            >
+              ❌ Cancel
+            </button>
+          </form>
+        </div>
+
+        <div id="subject-list">
+          <div class="loading">
+            <div class="spinner"></div>
+            Loading subjects...
+          </div>
+        </div>
+      </div>
+
+      <!-- Test Type Management Tab -->
+      <div id="testtype-tab" class="tab-content">
+        <div class="section-header">
+          <h2>📝 Test Type Management</h2>
+          <button class="btn-primary" onclick="showAddTestTypeForm()">
+            + Add Test Type
+          </button>
+        </div>
+
+        <div id="add-testtype-form" style="display: none; margin-bottom: 30px">
+          <form id="testtypeForm" onsubmit="saveTestType(event)">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Select Coaching*</label>
+                <select
+                  id="testtype-coaching-id"
+                  onchange="loadClassesForTestType()"
+                  required
+                >
+                  <option value="">-- Select Coaching --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Select Class*</label>
+                <select
+                  id="testtype-class-id"
+                  onchange="loadSubjectsForTestType()"
+                  required
+                >
+                  <option value="">-- Select Class --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Select Subject*</label>
+                <select id="testtype-subject-name" required>
+                  <option value="">-- Select Subject --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Test Type Name*</label>
+                <input
+                  type="text"
+                  id="testtype-name"
+                  placeholder="e.g., Mock Test, Assignment"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Select Icon*</label>
+                <select id="testtype-icon" class="icon-select" required>
+                  <option value="📝">📝 Written Test</option>
+                  <option value="📋">📋 Assignment</option>
+                  <option value="📊">📊 Mock Test</option>
+                  <option value="🎯">🎯 Practice Test</option>
+                  <option value="📄">📄 Question Paper</option>
+                  <option value="✍️">✍️ Worksheet</option>
+                  <option value="🧪">🧪 Practical Test</option>
+                  <option value="📚">📚 Study Material</option>
+                  <option value="🎓">🎓 Final Exam</option>
+                  <option value="⏱️">⏱️ Quick Quiz</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Select Color*</label>
+                <input
+                  type="color"
+                  id="testtype-color"
+                  value="#2196F3"
+                  required
+                />
+                <span
+                  class="color-preview"
+                  id="testtype-color-preview"
+                  style="background: #2196f3"
+                ></span>
+              </div>
+            </div>
+            <input type="hidden" id="testtype-edit-key" value="" />
+            <button type="submit" class="btn-primary">💾 Save Test Type</button>
+            <button
+              type="button"
+              class="btn-cancel"
+              onclick="cancelTestTypeForm()"
+            >
+              ❌ Cancel
+            </button>
+          </form>
+        </div>
+
+        <div id="testtype-list">
+          <div class="loading">
+            <div class="spinner"></div>
+            Loading test types...
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapter Management Tab -->
+      <div id="chapter-tab" class="tab-content">
+        <div class="section-header">
+          <h2>📑 Chapter Management</h2>
+          <button class="btn-primary" onclick="showAddChapterForm()">
+            + Add Chapter
+          </button>
+        </div>
+
+        <div id="add-chapter-form" style="display: none; margin-bottom: 30px">
+          <form id="chapterForm" onsubmit="saveChapter(event)">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Select Coaching*</label>
+                <select
+                  id="chapter-coaching-id"
+                  onchange="loadClassesForChapter()"
+                  required
+                >
+                  <option value="">-- Select Coaching --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Select Class*</label>
+                <select
+                  id="chapter-class-id"
+                  onchange="loadSubjectsForChapter()"
+                  required
+                >
+                  <option value="">-- Select Class --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Select Subject*</label>
+                <select
+                  id="chapter-subject-name"
+                  onchange="loadTestTypesForChapter()"
+                  required
+                >
+                  <option value="">-- Select Subject --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Select Test Type*</label>
+                <select id="chapter-testtype-name" required>
+                  <option value="">-- Select Test Type --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Chapter Name*</label>
+                <input
+                  type="text"
+                  id="chapter-name"
+                  placeholder="e.g., Introduction to Algebra"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Serial No*</label>
+                <input
+                  type="number"
+                  id="chapter-serial"
+                  placeholder="e.g., 1"
+                  min="1"
+                  required
+                />
+                <small>Chapter order/sequence number</small>
+              </div>
+            </div>
+            <input type="hidden" id="chapter-edit-key" value="" />
+            <button type="submit" class="btn-primary">💾 Save Chapter</button>
+            <button
+              type="button"
+              class="btn-cancel"
+              onclick="cancelChapterForm()"
+            >
+              ❌ Cancel
+            </button>
+          </form>
+        </div>
+
+        <div id="chapter-list">
+          <div class="loading">
+            <div class="spinner"></div>
+            Loading chapters...
+          </div>
+        </div>
+      </div>
+
+      <!-- PDF Management Tab -->
+      <div id="pdf-tab" class="tab-content">
+        <div class="section-header">
+          <h2>📄 PDF Management</h2>
+          <button class="btn-primary" onclick="showAddPDFForm()">
+            + Add PDF
+          </button>
+        </div>
+
+        <!-- Add PDF Form -->
+        <div
+          id="add-pdf-form"
+          class="form-card"
+          style="
+            display: none;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+          "
+        >
+          <h3
+            style="
+              color: #667eea;
+              margin-bottom: 25px;
+              font-size: 1.5rem;
+              display: flex;
+              align-items: center;
+              gap: 10px;
+            "
+          >
+            <span
+              style="
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                padding: 10px;
+                border-radius: 10px;
+                display: inline-flex;
+              "
+              >📝</span
+            >
+            Add/Edit PDF Document
+          </h3>
+          <form
+            id="pdfForm"
+            onsubmit="savePDF(event)"
+            style="
+              background: white;
+              padding: 30px;
+              border-radius: 12px;
+              box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            "
+          >
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+              "
+            >
+              <div class="form-group">
+                <label
+                  for="pdf-coaching-id"
+                  style="color: #667eea; font-weight: 600"
+                  >Select Coaching *</label
+                >
+                <select
+                  id="pdf-coaching-id"
+                  required
+                  onchange="loadClassesForPDF()"
+                  style="
+                    border: 2px solid #e0e0e0;
+                    padding: 12px;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+                  "
+                >
+                  <option value="">-- Select Coaching --</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label
+                  for="pdf-class-id"
+                  style="color: #667eea; font-weight: 600"
+                  >Select Class *</label
+                >
+                <select
+                  id="pdf-class-id"
+                  required
+                  onchange="loadSubjectsForPDF()"
+                  style="
+                    border: 2px solid #e0e0e0;
+                    padding: 12px;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+                  "
+                >
+                  <option value="">-- Select Class --</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label
+                  for="pdf-subject-name"
+                  style="color: #667eea; font-weight: 600"
+                  >Select Subject *</label
+                >
+                <select
+                  id="pdf-subject-name"
+                  required
+                  onchange="loadTestTypesForPDF()"
+                  style="
+                    border: 2px solid #e0e0e0;
+                    padding: 12px;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+                  "
+                >
+                  <option value="">-- Select Subject --</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label
+                  for="pdf-testtype-name"
+                  style="color: #667eea; font-weight: 600"
+                  >Select Test Type *</label
+                >
+                <select
+                  id="pdf-testtype-name"
+                  required
+                  onchange="loadChaptersForPDF()"
+                  style="
+                    border: 2px solid #e0e0e0;
+                    padding: 12px;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+                  "
+                >
+                  <option value="">-- Select Test Type --</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label
+                  for="pdf-chapter-key"
+                  style="color: #667eea; font-weight: 600"
+                  >Select Chapter *</label
+                >
+                <select
+                  id="pdf-chapter-key"
+                  required
+                  style="
+                    border: 2px solid #e0e0e0;
+                    padding: 12px;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+                  "
+                >
+                  <option value="">-- Select Chapter --</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label
+                  for="pdf-file-name"
+                  style="color: #667eea; font-weight: 600"
+                  >File Name *</label
+                >
+                <input
+                  type="text"
+                  id="pdf-file-name"
+                  placeholder="e.g., Algebra Basics"
+                  required
+                  style="
+                    border: 2px solid #e0e0e0;
+                    padding: 12px;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+                  "
+                />
+              </div>
+
+              <div class="form-group">
+                <label
+                  for="pdf-serial-no"
+                  style="color: #667eea; font-weight: 600"
+                  >Serial No *</label
+                >
+                <input
+                  type="number"
+                  id="pdf-serial-no"
+                  placeholder="e.g., 1"
+                  min="1"
+                  required
+                  style="
+                    border: 2px solid #e0e0e0;
+                    padding: 12px;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+                  "
+                />
+              </div>
+
+              <div class="form-group" style="grid-column: 1 / -1">
+                <label for="pdf-url" style="color: #667eea; font-weight: 600"
+                  >Paste URL *</label
+                >
+                <input
+                  type="url"
+                  id="pdf-url"
+                  placeholder="https://drive.google.com/file/d/..."
+                  required
+                  style="
+                    border: 2px solid #e0e0e0;
+                    padding: 12px;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+                  "
+                />
+                <small
+                  style="
+                    color: #666;
+                    margin-top: 8px;
+                    display: block;
+                    font-size: 0.9rem;
+                  "
+                >
+                  📎 Paste Google Drive or any PDF URL
+                </small>
+              </div>
+            </div>
+
+            <input type="hidden" id="pdf-edit-key" />
+
+            <div class="form-actions">
+              <button
+                type="submit"
+                class="btn-primary"
+                style="display: flex; align-items: center; gap: 8px"
+              >
+                <span>💾</span>
+                <span>Save PDF</span>
+              </button>
+              <button
+                type="button"
+                class="btn-secondary"
+                onclick="cancelPDFForm()"
+                style="display: flex; align-items: center; gap: 8px"
+              >
+                <span>✖️</span>
+                <span>Cancel</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- PDF List -->
+        <div id="pdf-list">
+          <div class="loading">
+            <div class="spinner"></div>
+            Loading...
+          </div>
+        </div>
+      </div>
+
+      <!-- Access Control Tab -->
+      <div id="access-tab" class="tab-content">
+        <div class="section-header">
+          <h2>🔐 Access Control Management</h2>
+          <button class="btn-primary" onclick="showAddAccessForm()">
+            + Add User Access
+          </button>
+        </div>
+
+        <!-- Add Access Form -->
+        <div
+          id="add-access-form"
+          class="form-card"
+          style="
+            display: none;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+          "
+        >
+          <h3
+            style="
+              color: #d63031;
+              margin-bottom: 25px;
+              font-size: 1.5rem;
+              display: flex;
+              align-items: center;
+              gap: 10px;
+            "
+          >
+            <span
+              style="
+                background: linear-gradient(135deg, #d63031 0%, #e17055 100%);
+                padding: 10px;
+                border-radius: 10px;
+                display: inline-flex;
+              "
+              >🔐</span
+            >
+            Grant User Access Permission
+          </h3>
+          <form
+            id="accessForm"
+            onsubmit="saveAccess(event)"
+            style="
+              background: white;
+              padding: 30px;
+              border-radius: 12px;
+              box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            "
+          >
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+              "
+            >
+              <div class="form-group">
+                <label
+                  for="access-user-email"
+                  style="color: #d63031; font-weight: 600"
+                  >User Email *</label
+                >
+                <input
+                  type="email"
+                  id="access-user-email"
+                  required
+                  placeholder="user@example.com"
+                  style="
+                    border: 2px solid #e0e0e0;
+                    padding: 12px;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+                  "
+                />
+                <small
+                  style="
+                    color: #666;
+                    margin-top: 8px;
+                    display: block;
+                    font-size: 0.9rem;
+                  "
+                >
+                  👤 Enter registered user email address
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label
+                  for="access-coaching-id"
+                  style="color: #d63031; font-weight: 600"
+                  >Select Coaching *</label
+                >
+                <select
+                  id="access-coaching-id"
+                  required
+                  onchange="loadClassesForAccess()"
+                  style="
+                    border: 2px solid #e0e0e0;
+                    padding: 12px;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+                  "
+                >
+                  <option value="">-- Select Coaching --</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label
+                  for="access-class-id"
+                  style="color: #d63031; font-weight: 600"
+                  >Select Class *</label
+                >
+                <select
+                  id="access-class-id"
+                  required
+                  onchange="loadSubjectsForAccess()"
+                  style="
+                    border: 2px solid #e0e0e0;
+                    padding: 12px;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+                  "
+                >
+                  <option value="">-- Select Class --</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label
+                  for="access-subject-name"
+                  style="color: #d63031; font-weight: 600"
+                  >Select Subject *</label
+                >
+                <select
+                  id="access-subject-name"
+                  required
+                  onchange="loadTestTypesForAccess()"
+                  style="
+                    border: 2px solid #e0e0e0;
+                    padding: 12px;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+                  "
+                >
+                  <option value="">-- Select Subject --</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label
+                  for="access-testtype-name"
+                  style="color: #d63031; font-weight: 600"
+                  >Select Test Type *</label
+                >
+                <select
+                  id="access-testtype-name"
+                  required
+                  style="
+                    border: 2px solid #e0e0e0;
+                    padding: 12px;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+                  "
+                >
+                  <option value="">-- Select Test Type --</option>
+                </select>
+              </div>
+            </div>
+
+            <input type="hidden" id="access-edit-key" />
+
+            <div class="form-actions">
+              <button
+                type="submit"
+                class="btn-primary"
+                style="display: flex; align-items: center; gap: 8px"
+              >
+                <span>✅</span>
+                <span>Grant Access</span>
+              </button>
+              <button
+                type="button"
+                class="btn-secondary"
+                onclick="cancelAccessForm()"
+                style="display: flex; align-items: center; gap: 8px"
+              >
+                <span>✖️</span>
+                <span>Cancel</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Access List -->
+        <div id="access-list">
+          <div class="loading">
+            <div class="spinner"></div>
+            Loading...
+          </div>
+        </div>
+      </div>
+
+      <!-- Import/Export Tab -->
+      <div id="import-export-tab" class="tab-content">
+        <div class="section-header">
+          <h2>💾 Import/Export Database</h2>
+        </div>
+
+        <div class="alert alert-info">
+          Export the entire database as JSON or import from a backup file.
+        </div>
+
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+          "
+        >
+          <div style="padding: 30px; background: #f9f9f9; border-radius: 10px">
+            <h3 style="margin-bottom: 20px">📥 Export Database</h3>
+            <p style="margin-bottom: 20px; color: #666">
+              Download the complete database as JSON
+            </p>
+            <button class="btn-primary" onclick="exportDatabase()">
+              Download Database (JSON)
+            </button>
+          </div>
+
+          <div style="padding: 30px; background: #f9f9f9; border-radius: 10px">
+            <h3 style="margin-bottom: 20px">📤 Import Database</h3>
+            <p style="margin-bottom: 20px; color: #666">
+              Upload a JSON file to restore database
+            </p>
+            <input
+              type="file"
+              id="importFile"
+              accept=".json"
+              style="margin-bottom: 15px"
+            />
+            <button class="btn-primary" onclick="importDatabase()">
+              Import Database
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete Confirmation Modal -->
+      <div id="deleteModal" class="modal">
+        <div
+          class="modal-content"
+          style="
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.3s ease;
+          "
+        >
+          <div
+            class="modal-header"
+            style="
+              background: linear-gradient(135deg, #d63031 0%, #e17055 100%);
+              color: white;
+              padding: 25px;
+              border-radius: 20px;
+              text-align: center;
+              font-size: 1.3rem;
+              font-weight: 700;
+            "
+          >
+            <div
+              style="
+                font-size: 3rem;
+                margin-bottom: 10px;
+                animation: shake 0.5s ease;
+              "
+            >
+              🗑️
+            </div>
+            Confirm Deletion
+          </div>
+          <div class="modal-body" style="padding: 30px">
+            <p
+              id="deleteMessage"
+              style="
+                font-size: 1.1rem;
+                color: #333;
+                margin-bottom: 25px;
+                line-height: 1.6;
+              "
+            >
+              Are you sure you want to delete this item?
+            </p>
+            <div
+              class="form-group"
+              style="margin-top: 20px; position: relative"
+            >
+              <label
+                style="
+                  font-weight: 600;
+                  color: #d63031;
+                  margin-bottom: 10px;
+                  display: block;
+                "
+                >Enter your password to confirm:</label
+              >
+              <div style="position: relative">
+                <input
+                  type="password"
+                  id="deletePassword"
+                  placeholder="Enter password"
+                  style="
+                    width: 100%;
+                    padding: 12px 45px 12px 12px;
+                    border: 2px solid #e0e0e0;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    transition: all 0.3s ease;
+                  "
+                  onfocus="this.style.borderColor='#d63031'; this.style.boxShadow='0 0 0 3px rgba(214,48,49,0.1)'"
+                  onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none'"
+                />
+                <button
+                  type="button"
+                  id="toggleDeletePassword"
+                  onclick="toggleDeletePasswordVisibility()"
+                  style="
+                    position: absolute;
+                    right: 12px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    font-size: 1.2rem;
+                    color: #666;
+                    transition: color 0.3s ease;
+                  "
+                  onmouseover="this.style.color='#d63031'"
+                  onmouseout="this.style.color='#666'"
+                >
+                  👁️
+                </button>
+              </div>
+              <div
+                id="deletePasswordError"
+                style="
+                  color: #d63031;
+                  font-size: 0.9rem;
+                  margin-top: 8px;
+                  display: none;
+                  font-weight: 600;
+                "
+              >
+                ❌ Incorrect password. Please try again.
+              </div>
+            </div>
+          </div>
+          <div
+            class="modal-footer"
+            style="
+              padding: 20px 30px;
+              display: flex;
+              gap: 15px;
+              justify-content: center;
+              border-top: 2px solid #f0f0f0;
+            "
+          >
+            <button
+              class="btn-danger"
+              onclick="confirmDelete()"
+              style="
+                padding: 12px 30px;
+                background: linear-gradient(135deg, #d63031 0%, #e17055 100%);
+                color: white;
+                border: none;
+                border-radius: 10px;
+                font-size: 1rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 15px rgba(214, 48, 49, 0.3);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+              "
+              onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(214,48,49,0.4)'"
+              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(214,48,49,0.3)'"
+            >
+              <span>🗑️</span>
+              <span>Delete</span>
+            </button>
+            <button
+              class="btn-secondary"
+              onclick="closeDeleteModal()"
+              style="
+                padding: 12px 30px;
+                background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+                color: white;
+                border: none;
+                border-radius: 10px;
+                font-size: 1rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 15px rgba(127, 140, 141, 0.3);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+              "
+              onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(127,140,141,0.4)'"
+              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(127,140,141,0.3)'"
+            >
+              <span>✖️</span>
+              <span>Cancel</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <style>
+        @keyframes slideDown {
+          from {
+            transform: translateY(-50px) scale(0.9);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+          }
+        }
+        @keyframes shake {
+          0%,
+          100% {
+            transform: rotate(0deg);
+          }
+          25% {
+            transform: rotate(-10deg);
+          }
+          50% {
+            transform: rotate(0deg);
+          }
+          75% {
+            transform: rotate(10deg);
+          }
+        }
+      </style>
+    </div>
+
+    <script type="module">
+      import { auth, database } from "../js/firebase-config.js";
+      import {
+        onAuthStateChanged,
+        signOut,
+        signInWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+      import {
+        ref,
+        set,
+        get,
+        remove,
+        update,
+        push,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+      let currentUser = null;
+      let deleteCallback = null;
+
+      // Check authentication
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          window.location.href = "/src/index.html";
+          return;
+        }
+
+        currentUser = user;
+        document.getElementById("userEmail").textContent = user.email;
+
+        // Load initial data
+        loadCoachingList();
+        loadClassList();
+        loadSubjectList();
+        loadTestTypeList();
+        loadChapterList();
+        loadPDFList();
+        loadAccessList();
+        loadCoachingDropdown();
+      });
+
+      // Tab switching
+      window.switchTab = function (tabName) {
+        document
+          .querySelectorAll(".tab-content")
+          .forEach((tab) => tab.classList.remove("active"));
+        document
+          .querySelectorAll(".tab-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+
+        document.getElementById(tabName + "-tab").classList.add("active");
+        event.target.classList.add("active");
+
+        // Reload data for specific tabs
+        if (tabName === "coaching") loadCoachingList();
+        if (tabName === "class") loadClassList();
+        if (tabName === "subject") loadSubjectList();
+        if (tabName === "testtype") loadTestTypeList();
+        if (tabName === "chapter") loadChapterList();
+        if (tabName === "pdf") loadPDFList();
+        if (tabName === "access") loadAccessList();
+      };
+
+      // Logout
+      window.handleLogout = async function () {
+        try {
+          await signOut(auth);
+          window.location.href = "/src/index.html";
+        } catch (error) {
+          showAlert("Logout failed: " + error.message, "error");
+        }
+      };
+
+      // Alert system
+      function showAlert(message, type = "success") {
+        const container = document.getElementById("alert-container");
+        const alert = document.createElement("div");
+        alert.className = `alert alert-${type}`;
+        alert.textContent = message;
+        container.appendChild(alert);
+
+        setTimeout(() => alert.remove(), 5000);
+      }
+
+      // ============ COACHING MANAGEMENT ============
+
+      window.showAddCoachingForm = function () {
+        document.getElementById("add-coaching-form").style.display = "block";
+        document.getElementById("coachingForm").reset();
+        document.getElementById("coaching-edit-key").value = "";
+      };
+
+      window.cancelCoachingForm = function () {
+        document.getElementById("add-coaching-form").style.display = "none";
+        document.getElementById("coachingForm").reset();
+      };
+
+      window.saveCoaching = async function (event) {
+        event.preventDefault();
+
+        const coachingData = {
+          id: document.getElementById("coaching-id").value.trim(),
+          name: document.getElementById("coaching-name").value.trim(),
+          icon: document.getElementById("coaching-icon").value,
+          owner: document.getElementById("coaching-owner").value.trim(),
+          contact: document.getElementById("coaching-contact").value.trim(),
+          place: document.getElementById("coaching-place").value.trim(),
+          createdAt: new Date().toISOString(),
+        };
+
+        const editKey = document.getElementById("coaching-edit-key").value;
+
+        try {
+          if (editKey) {
+            // Update existing
+            const coachingRef = ref(database, `coaching-centers/${editKey}`);
+            await update(coachingRef, coachingData);
+            showAlert("Coaching updated successfully!", "success");
+          } else {
+            // Add new
+            const coachingRef = ref(
+              database,
+              `coaching-centers/${coachingData.id}`
+            );
+            await set(coachingRef, coachingData);
+            showAlert("Coaching added successfully!", "success");
+          }
+
+          cancelCoachingForm();
+          loadCoachingList();
+          loadCoachingDropdown();
+        } catch (error) {
+          showAlert("Error: " + error.message, "error");
+        }
+      };
+
+      async function loadCoachingList() {
+        const container = document.getElementById("coaching-list");
+        container.innerHTML =
+          '<div class="loading"><div class="spinner"></div>Loading...</div>';
+
+        try {
+          const coachingRef = ref(database, "coaching-centers");
+          const snapshot = await get(coachingRef);
+
+          if (snapshot.exists()) {
+            const coachings = snapshot.val();
+            let html =
+              '<table class="data-table"><thead><tr><th>Icon</th><th>ID</th><th>Name</th><th>Owner</th><th>Contact</th><th>Place</th><th>Actions</th></tr></thead><tbody>';
+
+            Object.entries(coachings).forEach(([key, coaching]) => {
+              html += `
+                            <tr>
+                                <td style="font-size: 1.5rem;">${coaching.icon}</td>
+                                <td>${coaching.id}</td>
+                                <td><strong>${coaching.name}</strong></td>
+                                <td>${coaching.owner}</td>
+                                <td>${coaching.contact}</td>
+                                <td>${coaching.place}</td>
+                                <td class="action-buttons">
+                                    <button class="btn-small btn-edit" onclick="editCoaching('${key}')">✏️ Edit</button>
+                                    <button class="btn-small btn-delete" onclick="deleteCoaching('${key}', '${coaching.name}')">🗑️ Delete</button>
+                                </td>
+                            </tr>
+                        `;
+            });
+
+            html += "</tbody></table>";
+            container.innerHTML = html;
+          } else {
+            container.innerHTML =
+              '<div class="no-data">No coaching centers found. Click "Add Coaching" to create one.</div>';
+          }
+        } catch (error) {
+          container.innerHTML =
+            '<p class="alert alert-error">Error loading data: ' +
+            error.message +
+            "</p>";
+        }
+      }
+
+      window.editCoaching = async function (key) {
+        try {
+          const coachingRef = ref(database, `coaching-centers/${key}`);
+          const snapshot = await get(coachingRef);
+
+          if (snapshot.exists()) {
+            const coaching = snapshot.val();
+            document.getElementById("coaching-id").value = coaching.id;
+            document.getElementById("coaching-name").value = coaching.name;
+            document.getElementById("coaching-icon").value = coaching.icon;
+            document.getElementById("coaching-owner").value = coaching.owner;
+            document.getElementById("coaching-contact").value =
+              coaching.contact;
+            document.getElementById("coaching-place").value = coaching.place;
+            document.getElementById("coaching-edit-key").value = key;
+            document.getElementById("add-coaching-form").style.display =
+              "block";
+          }
+        } catch (error) {
+          showAlert("Error: " + error.message, "error");
+        }
+      };
+
+      window.deleteCoaching = function (key, name) {
+        document.getElementById(
+          "deleteMessage"
+        ).textContent = `Are you sure you want to delete "${name}"? This action cannot be undone.`;
+        document.getElementById("deletePassword").value = "";
+        document.getElementById("deleteModal").classList.add("active");
+
+        deleteCallback = async function () {
+          try {
+            const coachingRef = ref(database, `coaching-centers/${key}`);
+            await remove(coachingRef);
+            showAlert("Coaching deleted successfully!", "success");
+            loadCoachingList();
+            loadCoachingDropdown();
+          } catch (error) {
+            showAlert("Error: " + error.message, "error");
+          }
+        };
+      };
+
+      // ============ CLASS MANAGEMENT ============
+
+      window.showAddClassForm = function () {
+        document.getElementById("add-class-form").style.display = "block";
+        document.getElementById("classForm").reset();
+        document.getElementById("class-edit-key").value = "";
+        document.getElementById("class-color-preview").style.background =
+          "#4CAF50";
+      };
+
+      window.cancelClassForm = function () {
+        document.getElementById("add-class-form").style.display = "none";
+        document.getElementById("classForm").reset();
+      };
+
+      // Color preview update
+      document.addEventListener("DOMContentLoaded", function () {
+        const colorInput = document.getElementById("class-color");
+        const colorPreview = document.getElementById("class-color-preview");
+        if (colorInput) {
+          colorInput.addEventListener("input", function () {
+            colorPreview.style.background = this.value;
+          });
+        }
+      });
+
+      window.saveClass = async function (event) {
+        event.preventDefault();
+
+        const classData = {
+          coachingId: document.getElementById("class-coaching-id").value,
+          classId: document.getElementById("class-id").value.trim(),
+          name: document.getElementById("class-name").value.trim(),
+          icon: document.getElementById("class-icon").value,
+          color: document.getElementById("class-color").value,
+          createdAt: new Date().toISOString(),
+        };
+
+        const editKey = document.getElementById("class-edit-key").value;
+
+        try {
+          if (editKey) {
+            // Update existing
+            const classRef = ref(database, `classes/${editKey}`);
+            await update(classRef, classData);
+            showAlert("Class updated successfully!", "success");
+          } else {
+            // Add new with auto-generated key
+            const classesRef = ref(database, "classes");
+            const newClassRef = push(classesRef);
+            await set(newClassRef, classData);
+            showAlert("Class added successfully!", "success");
+          }
+
+          cancelClassForm();
+          loadClassList();
+        } catch (error) {
+          showAlert("Error: " + error.message, "error");
+        }
+      };
+
+      async function loadClassList() {
+        const container = document.getElementById("class-list");
+        container.innerHTML =
+          '<div class="loading"><div class="spinner"></div>Loading...</div>';
+
+        try {
+          const classesRef = ref(database, "classes");
+          const snapshot = await get(classesRef);
+
+          if (snapshot.exists()) {
+            const classes = snapshot.val();
+
+            // Group by coaching
+            const groupedClasses = {};
+            Object.entries(classes).forEach(([key, classData]) => {
+              if (!groupedClasses[classData.coachingId]) {
+                groupedClasses[classData.coachingId] = [];
+              }
+              groupedClasses[classData.coachingId].push({ key, ...classData });
+            });
+
+            let html = "";
+
+            for (const [coachingId, classList] of Object.entries(
+              groupedClasses
+            )) {
+              // Get coaching name
+              const coachingRef = ref(
+                database,
+                `coaching-centers/${coachingId}`
+              );
+              const coachingSnapshot = await get(coachingRef);
+              const coachingName = coachingSnapshot.exists()
+                ? coachingSnapshot.val().name
+                : coachingId;
+
+              html += `
+                            <h3 style="margin: 30px 0 15px 0; color: #667eea;">🏢 ${coachingName}</h3>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Icon</th>
+                                        <th>Class ID</th>
+                                        <th>Class Name</th>
+                                        <th>Color</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        `;
+
+              classList.forEach((classItem) => {
+                html += `
+                                <tr>
+                                    <td style="font-size: 1.5rem;">${classItem.icon}</td>
+                                    <td><code>${classItem.classId}</code></td>
+                                    <td><strong>${classItem.name}</strong></td>
+                                    <td><span class="color-preview" style="background: ${classItem.color};"></span> ${classItem.color}</td>
+                                    <td class="action-buttons">
+                                        <button class="btn-small btn-edit" onclick="editClass('${classItem.key}')">✏️ Edit</button>
+                                        <button class="btn-small btn-delete" onclick="deleteClass('${classItem.key}', '${classItem.name}')">🗑️ Delete</button>
+                                    </td>
+                                </tr>
+                            `;
+              });
+
+              html += "</tbody></table>";
+            }
+
+            container.innerHTML = html;
+          } else {
+            container.innerHTML =
+              '<div class="no-data">No classes found. Click "Add Class" to create one.</div>';
+          }
+        } catch (error) {
+          container.innerHTML =
+            '<p class="alert alert-error">Error loading data: ' +
+            error.message +
+            "</p>";
+        }
+      }
+
+      window.editClass = async function (key) {
+        try {
+          const classRef = ref(database, `classes/${key}`);
+          const snapshot = await get(classRef);
+
+          if (snapshot.exists()) {
+            const classData = snapshot.val();
+            document.getElementById("class-coaching-id").value =
+              classData.coachingId;
+            document.getElementById("class-id").value = classData.classId;
+            document.getElementById("class-name").value = classData.name;
+            document.getElementById("class-icon").value = classData.icon;
+            document.getElementById("class-color").value = classData.color;
+            document.getElementById("class-color-preview").style.background =
+              classData.color;
+            document.getElementById("class-edit-key").value = key;
+            document.getElementById("add-class-form").style.display = "block";
+          }
+        } catch (error) {
+          showAlert("Error: " + error.message, "error");
+        }
+      };
+
+      window.deleteClass = function (key, name) {
+        document.getElementById(
+          "deleteMessage"
+        ).textContent = `Are you sure you want to delete "${name}"? This action cannot be undone.`;
+        document.getElementById("deletePassword").value = "";
+        document.getElementById("deleteModal").classList.add("active");
+
+        deleteCallback = async function () {
+          try {
+            const classRef = ref(database, `classes/${key}`);
+            await remove(classRef);
+            showAlert("Class deleted successfully!", "success");
+            loadClassList();
+          } catch (error) {
+            showAlert("Error: " + error.message, "error");
+          }
+        };
+      };
+
+      // ============ HELPER FUNCTIONS ============
+
+      async function loadCoachingDropdown() {
+        try {
+          const coachingRef = ref(database, "coaching-centers");
+          const snapshot = await get(coachingRef);
+          const select = document.getElementById("class-coaching-id");
+          const subjectSelect = document.getElementById("subject-coaching-id");
+          const testtypeSelect = document.getElementById(
+            "testtype-coaching-id"
+          );
+          const chapterSelect = document.getElementById("chapter-coaching-id");
+          const pdfSelect = document.getElementById("pdf-coaching-id");
+          const accessSelect = document.getElementById("access-coaching-id");
+
+          select.innerHTML = '<option value="">-- Select Coaching --</option>';
+          if (subjectSelect) {
+            subjectSelect.innerHTML =
+              '<option value="">-- Select Coaching --</option>';
+          }
+          if (testtypeSelect) {
+            testtypeSelect.innerHTML =
+              '<option value="">-- Select Coaching --</option>';
+          }
+          if (chapterSelect) {
+            chapterSelect.innerHTML =
+              '<option value="">-- Select Coaching --</option>';
+          }
+          if (pdfSelect) {
+            pdfSelect.innerHTML =
+              '<option value="">-- Select Coaching --</option>';
+          }
+          if (accessSelect) {
+            accessSelect.innerHTML =
+              '<option value="">-- Select Coaching --</option>';
+          }
+
+          if (snapshot.exists()) {
+            const coachings = snapshot.val();
+            Object.entries(coachings).forEach(([key, coaching]) => {
+              select.innerHTML += `<option value="${coaching.id}">${coaching.icon} ${coaching.name}</option>`;
+              if (subjectSelect) {
+                subjectSelect.innerHTML += `<option value="${coaching.id}">${coaching.icon} ${coaching.name}</option>`;
+              }
+              if (testtypeSelect) {
+                testtypeSelect.innerHTML += `<option value="${coaching.id}">${coaching.icon} ${coaching.name}</option>`;
+              }
+              if (chapterSelect) {
+                chapterSelect.innerHTML += `<option value="${coaching.id}">${coaching.icon} ${coaching.name}</option>`;
+              }
+              if (pdfSelect) {
+                pdfSelect.innerHTML += `<option value="${coaching.id}">${coaching.icon} ${coaching.name}</option>`;
+              }
+              if (accessSelect) {
+                accessSelect.innerHTML += `<option value="${coaching.id}">${coaching.icon} ${coaching.name}</option>`;
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Error loading coaching dropdown:", error);
+        }
+      }
+
+      // ============ SUBJECT MANAGEMENT ============
+
+      window.showAddSubjectForm = function () {
+        document.getElementById("add-subject-form").style.display = "block";
+        document.getElementById("subjectForm").reset();
+        document.getElementById("subject-edit-key").value = "";
+        document.getElementById("subject-color-preview").style.background =
+          "#FF9800";
+      };
+
+      window.cancelSubjectForm = function () {
+        document.getElementById("add-subject-form").style.display = "none";
+        document.getElementById("subjectForm").reset();
+      };
+
+      // Load classes dropdown based on selected coaching
+      window.loadClassesForSubject = async function () {
+        const coachingId = document.getElementById("subject-coaching-id").value;
+        const classSelect = document.getElementById("subject-class-id");
+
+        classSelect.innerHTML = '<option value="">-- Select Class --</option>';
+
+        if (!coachingId) return;
+
+        try {
+          const classesRef = ref(database, "classes");
+          const snapshot = await get(classesRef);
+
+          if (snapshot.exists()) {
+            const classes = snapshot.val();
+            Object.entries(classes).forEach(([key, classData]) => {
+              if (classData.coachingId === coachingId) {
+                classSelect.innerHTML += `<option value="${classData.classId}">${classData.icon} ${classData.name}</option>`;
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Error loading classes:", error);
+        }
+      };
+
+      // Color preview update for subject
+      document.addEventListener("DOMContentLoaded", function () {
+        const subjectColorInput = document.getElementById("subject-color");
+        const subjectColorPreview = document.getElementById(
+          "subject-color-preview"
+        );
+        if (subjectColorInput) {
+          subjectColorInput.addEventListener("input", function () {
+            subjectColorPreview.style.background = this.value;
+          });
+        }
+      });
+
+      window.saveSubject = async function (event) {
+        event.preventDefault();
+
+        const subjectData = {
+          coachingId: document.getElementById("subject-coaching-id").value,
+          classId: document.getElementById("subject-class-id").value,
+          name: document.getElementById("subject-name").value.trim(),
+          icon: document.getElementById("subject-icon").value,
+          color: document.getElementById("subject-color").value,
+          createdAt: new Date().toISOString(),
+        };
+
+        const editKey = document.getElementById("subject-edit-key").value;
+
+        try {
+          if (editKey) {
+            // Update existing
+            const subjectRef = ref(database, `subjects/${editKey}`);
+            await update(subjectRef, subjectData);
+            showAlert("Subject updated successfully!", "success");
+          } else {
+            // Add new with auto-generated key
+            const subjectsRef = ref(database, "subjects");
+            const newSubjectRef = push(subjectsRef);
+            await set(newSubjectRef, subjectData);
+            showAlert("Subject added successfully!", "success");
+          }
+
+          cancelSubjectForm();
+          loadSubjectList();
+        } catch (error) {
+          showAlert("Error: " + error.message, "error");
+        }
+      };
+
+      async function loadSubjectList() {
+        const container = document.getElementById("subject-list");
+        container.innerHTML =
+          '<div class="loading"><div class="spinner"></div>Loading...</div>';
+
+        try {
+          const subjectsRef = ref(database, "subjects");
+          const snapshot = await get(subjectsRef);
+
+          if (snapshot.exists()) {
+            const subjects = snapshot.val();
+
+            // Group by coaching and class
+            const groupedSubjects = {};
+            Object.entries(subjects).forEach(([key, subjectData]) => {
+              const groupKey = `${subjectData.coachingId}-${subjectData.classId}`;
+              if (!groupedSubjects[groupKey]) {
+                groupedSubjects[groupKey] = {
+                  coachingId: subjectData.coachingId,
+                  classId: subjectData.classId,
+                  subjects: [],
+                };
+              }
+              groupedSubjects[groupKey].subjects.push({ key, ...subjectData });
+            });
+
+            let html = "";
+
+            for (const [groupKey, group] of Object.entries(groupedSubjects)) {
+              // Get coaching name
+              const coachingRef = ref(
+                database,
+                `coaching-centers/${group.coachingId}`
+              );
+              const coachingSnapshot = await get(coachingRef);
+              const coachingName = coachingSnapshot.exists()
+                ? coachingSnapshot.val().name
+                : group.coachingId;
+
+              // Get class name
+              const classesRef = ref(database, "classes");
+              const classesSnapshot = await get(classesRef);
+              let className = group.classId;
+              if (classesSnapshot.exists()) {
+                const classes = classesSnapshot.val();
+                const classEntry = Object.values(classes).find(
+                  (c) =>
+                    c.classId === group.classId &&
+                    c.coachingId === group.coachingId
+                );
+                if (classEntry) {
+                  className = classEntry.name;
+                }
+              }
+
+              html += `
+                            <h3 style="margin: 30px 0 15px 0; color: #667eea;">🏢 ${coachingName} - ${className}</h3>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Icon</th>
+                                        <th>Subject Name</th>
+                                        <th>Color</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        `;
+
+              group.subjects.forEach((subject) => {
+                html += `
+                                <tr>
+                                    <td style="font-size: 1.5rem;">${subject.icon}</td>
+                                    <td><strong>${subject.name}</strong></td>
+                                    <td><span class="color-preview" style="background: ${subject.color};"></span> ${subject.color}</td>
+                                    <td class="action-buttons">
+                                        <button class="btn-small btn-edit" onclick="editSubject('${subject.key}')">✏️ Edit</button>
+                                        <button class="btn-small btn-delete" onclick="deleteSubject('${subject.key}', '${subject.name}')">🗑️ Delete</button>
+                                    </td>
+                                </tr>
+                            `;
+              });
+
+              html += "</tbody></table>";
+            }
+
+            container.innerHTML = html;
+          } else {
+            container.innerHTML =
+              '<div class="no-data">No subjects found. Click "Add Subject" to create one.</div>';
+          }
+        } catch (error) {
+          container.innerHTML =
+            '<p class="alert alert-error">Error loading data: ' +
+            error.message +
+            "</p>";
+        }
+      }
+
+      window.editSubject = async function (key) {
+        try {
+          const subjectRef = ref(database, `subjects/${key}`);
+          const snapshot = await get(subjectRef);
+
+          if (snapshot.exists()) {
+            const subjectData = snapshot.val();
+            document.getElementById("subject-coaching-id").value =
+              subjectData.coachingId;
+            await loadClassesForSubject();
+            document.getElementById("subject-class-id").value =
+              subjectData.classId;
+            document.getElementById("subject-name").value = subjectData.name;
+            document.getElementById("subject-icon").value = subjectData.icon;
+            document.getElementById("subject-color").value = subjectData.color;
+            document.getElementById("subject-color-preview").style.background =
+              subjectData.color;
+            document.getElementById("subject-edit-key").value = key;
+            document.getElementById("add-subject-form").style.display = "block";
+          }
+        } catch (error) {
+          showAlert("Error: " + error.message, "error");
+        }
+      };
+
+      window.deleteSubject = function (key, name) {
+        document.getElementById(
+          "deleteMessage"
+        ).textContent = `Are you sure you want to delete "${name}"? This action cannot be undone.`;
+        document.getElementById("deletePassword").value = "";
+        document.getElementById("deleteModal").classList.add("active");
+
+        deleteCallback = async function () {
+          try {
+            const subjectRef = ref(database, `subjects/${key}`);
+            await remove(subjectRef);
+            showAlert("Subject deleted successfully!", "success");
+            loadSubjectList();
+          } catch (error) {
+            showAlert("Error: " + error.message, "error");
+          }
+        };
+      };
+
+      // ============ TEST TYPE MANAGEMENT ============
+
+      window.showAddTestTypeForm = function () {
+        document.getElementById("add-testtype-form").style.display = "block";
+        document.getElementById("testtypeForm").reset();
+        document.getElementById("testtype-edit-key").value = "";
+        document.getElementById("testtype-color-preview").style.background =
+          "#2196F3";
+      };
+
+      window.cancelTestTypeForm = function () {
+        document.getElementById("add-testtype-form").style.display = "none";
+        document.getElementById("testtypeForm").reset();
+      };
+
+      // Load classes dropdown based on selected coaching for test type
+      window.loadClassesForTestType = async function () {
+        const coachingId = document.getElementById(
+          "testtype-coaching-id"
+        ).value;
+        const classSelect = document.getElementById("testtype-class-id");
+        const subjectSelect = document.getElementById("testtype-subject-name");
+
+        classSelect.innerHTML = '<option value="">-- Select Class --</option>';
+        subjectSelect.innerHTML =
+          '<option value="">-- Select Subject --</option>';
+
+        if (!coachingId) return;
+
+        try {
+          const classesRef = ref(database, "classes");
+          const snapshot = await get(classesRef);
+
+          if (snapshot.exists()) {
+            const classes = snapshot.val();
+            Object.entries(classes).forEach(([key, classData]) => {
+              if (classData.coachingId === coachingId) {
+                classSelect.innerHTML += `<option value="${classData.classId}">${classData.icon} ${classData.name}</option>`;
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Error loading classes:", error);
+        }
+      };
+
+      // Load subjects dropdown based on selected coaching and class for test type
+      window.loadSubjectsForTestType = async function () {
+        const coachingId = document.getElementById(
+          "testtype-coaching-id"
+        ).value;
+        const classId = document.getElementById("testtype-class-id").value;
+        const subjectSelect = document.getElementById("testtype-subject-name");
+
+        subjectSelect.innerHTML =
+          '<option value="">-- Select Subject --</option>';
+
+        if (!coachingId || !classId) return;
+
+        try {
+          const subjectsRef = ref(database, "subjects");
+          const snapshot = await get(subjectsRef);
+
+          if (snapshot.exists()) {
+            const subjects = snapshot.val();
+            Object.entries(subjects).forEach(([key, subjectData]) => {
+              if (
+                subjectData.coachingId === coachingId &&
+                subjectData.classId === classId
+              ) {
+                subjectSelect.innerHTML += `<option value="${subjectData.name}">${subjectData.icon} ${subjectData.name}</option>`;
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Error loading subjects:", error);
+        }
+      };
+
+      // Color preview update for test type
+      document.addEventListener("DOMContentLoaded", function () {
+        const testtypeColorInput = document.getElementById("testtype-color");
+        const testtypeColorPreview = document.getElementById(
+          "testtype-color-preview"
+        );
+        if (testtypeColorInput) {
+          testtypeColorInput.addEventListener("input", function () {
+            testtypeColorPreview.style.background = this.value;
+          });
+        }
+      });
+
+      window.saveTestType = async function (event) {
+        event.preventDefault();
+
+        const testtypeData = {
+          coachingId: document.getElementById("testtype-coaching-id").value,
+          classId: document.getElementById("testtype-class-id").value,
+          subjectName: document.getElementById("testtype-subject-name").value,
+          name: document.getElementById("testtype-name").value.trim(),
+          icon: document.getElementById("testtype-icon").value,
+          color: document.getElementById("testtype-color").value,
+          createdAt: new Date().toISOString(),
+        };
+
+        const editKey = document.getElementById("testtype-edit-key").value;
+
+        try {
+          if (editKey) {
+            // Update existing
+            const testtypeRef = ref(database, `test-types/${editKey}`);
+            await update(testtypeRef, testtypeData);
+            showAlert("Test Type updated successfully!", "success");
+          } else {
+            // Add new with auto-generated key
+            const testtypesRef = ref(database, "test-types");
+            const newTestTypeRef = push(testtypesRef);
+            await set(newTestTypeRef, testtypeData);
+            showAlert("Test Type added successfully!", "success");
+          }
+
+          cancelTestTypeForm();
+          loadTestTypeList();
+        } catch (error) {
+          showAlert("Error: " + error.message, "error");
+        }
+      };
+
+      async function loadTestTypeList() {
+        const container = document.getElementById("testtype-list");
+        container.innerHTML =
+          '<div class="loading"><div class="spinner"></div>Loading...</div>';
+
+        try {
+          const testtypesRef = ref(database, "test-types");
+          const snapshot = await get(testtypesRef);
+
+          if (snapshot.exists()) {
+            const testtypes = snapshot.val();
+
+            // Group by coaching, class, and subject
+            const groupedTestTypes = {};
+            Object.entries(testtypes).forEach(([key, testtypeData]) => {
+              const groupKey = `${testtypeData.coachingId}-${testtypeData.classId}-${testtypeData.subjectName}`;
+              if (!groupedTestTypes[groupKey]) {
+                groupedTestTypes[groupKey] = {
+                  coachingId: testtypeData.coachingId,
+                  classId: testtypeData.classId,
+                  subjectName: testtypeData.subjectName,
+                  testtypes: [],
+                };
+              }
+              groupedTestTypes[groupKey].testtypes.push({
+                key,
+                ...testtypeData,
+              });
+            });
+
+            let html = "";
+
+            for (const [groupKey, group] of Object.entries(groupedTestTypes)) {
+              // Get coaching name
+              const coachingRef = ref(
+                database,
+                `coaching-centers/${group.coachingId}`
+              );
+              const coachingSnapshot = await get(coachingRef);
+              const coachingName = coachingSnapshot.exists()
+                ? coachingSnapshot.val().name
+                : group.coachingId;
+
+              // Get class name
+              const classesRef = ref(database, "classes");
+              const classesSnapshot = await get(classesRef);
+              let className = group.classId;
+              if (classesSnapshot.exists()) {
+                const classes = classesSnapshot.val();
+                const classEntry = Object.values(classes).find(
+                  (c) =>
+                    c.classId === group.classId &&
+                    c.coachingId === group.coachingId
+                );
+                if (classEntry) {
+                  className = classEntry.name;
+                }
+              }
+
+              html += `
+                            <h3 style="margin: 30px 0 15px 0; color: #667eea;">🏢 ${coachingName} - ${className} - ${group.subjectName}</h3>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Icon</th>
+                                        <th>Test Type Name</th>
+                                        <th>Color</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        `;
+
+              group.testtypes.forEach((testtype) => {
+                html += `
+                                <tr>
+                                    <td style="font-size: 1.5rem;">${testtype.icon}</td>
+                                    <td><strong>${testtype.name}</strong></td>
+                                    <td><span class="color-preview" style="background: ${testtype.color};"></span> ${testtype.color}</td>
+                                    <td class="action-buttons">
+                                        <button class="btn-small btn-edit" onclick="editTestType('${testtype.key}')">✏️ Edit</button>
+                                        <button class="btn-small btn-delete" onclick="deleteTestType('${testtype.key}', '${testtype.name}')">🗑️ Delete</button>
+                                    </td>
+                                </tr>
+                            `;
+              });
+
+              html += "</tbody></table>";
+            }
+
+            container.innerHTML = html;
+          } else {
+            container.innerHTML =
+              '<div class="no-data">No test types found. Click "Add Test Type" to create one.</div>';
+          }
+        } catch (error) {
+          container.innerHTML =
+            '<p class="alert alert-error">Error loading data: ' +
+            error.message +
+            "</p>";
+        }
+      }
+
+      window.editTestType = async function (key) {
+        try {
+          const testtypeRef = ref(database, `test-types/${key}`);
+          const snapshot = await get(testtypeRef);
+
+          if (snapshot.exists()) {
+            const testtypeData = snapshot.val();
+            document.getElementById("testtype-coaching-id").value =
+              testtypeData.coachingId;
+            await loadClassesForTestType();
+            document.getElementById("testtype-class-id").value =
+              testtypeData.classId;
+            await loadSubjectsForTestType();
+            document.getElementById("testtype-subject-name").value =
+              testtypeData.subjectName;
+            document.getElementById("testtype-name").value = testtypeData.name;
+            document.getElementById("testtype-icon").value = testtypeData.icon;
+            document.getElementById("testtype-color").value =
+              testtypeData.color;
+            document.getElementById("testtype-color-preview").style.background =
+              testtypeData.color;
+            document.getElementById("testtype-edit-key").value = key;
+            document.getElementById("add-testtype-form").style.display =
+              "block";
+          }
+        } catch (error) {
+          showAlert("Error: " + error.message, "error");
+        }
+      };
+
+      window.deleteTestType = function (key, name) {
+        document.getElementById(
+          "deleteMessage"
+        ).textContent = `Are you sure you want to delete "${name}"? This action cannot be undone.`;
+        document.getElementById("deletePassword").value = "";
+        document.getElementById("deleteModal").classList.add("active");
+
+        deleteCallback = async function () {
+          try {
+            const testtypeRef = ref(database, `test-types/${key}`);
+            await remove(testtypeRef);
+            showAlert("Test Type deleted successfully!", "success");
+            loadTestTypeList();
+          } catch (error) {
+            showAlert("Error: " + error.message, "error");
+          }
+        };
+      };
+
+      // ============ CHAPTER MANAGEMENT ============
+
+      window.showAddChapterForm = function () {
+        document.getElementById("add-chapter-form").style.display = "block";
+        document.getElementById("chapterForm").reset();
+        document.getElementById("chapter-edit-key").value = "";
+      };
+
+      window.cancelChapterForm = function () {
+        document.getElementById("add-chapter-form").style.display = "none";
+        document.getElementById("chapterForm").reset();
+      };
+
+      // Load classes dropdown based on selected coaching for chapter
+      window.loadClassesForChapter = async function () {
+        const coachingId = document.getElementById("chapter-coaching-id").value;
+        const classSelect = document.getElementById("chapter-class-id");
+        const subjectSelect = document.getElementById("chapter-subject-name");
+        const testtypeSelect = document.getElementById("chapter-testtype-name");
+
+        classSelect.innerHTML = '<option value="">-- Select Class --</option>';
+        subjectSelect.innerHTML =
+          '<option value="">-- Select Subject --</option>';
+        testtypeSelect.innerHTML =
+          '<option value="">-- Select Test Type --</option>';
+
+        if (!coachingId) return;
+
+        try {
+          const classesRef = ref(database, "classes");
+          const snapshot = await get(classesRef);
+
+          if (snapshot.exists()) {
+            const classes = snapshot.val();
+            Object.entries(classes).forEach(([key, classData]) => {
+              if (classData.coachingId === coachingId) {
+                classSelect.innerHTML += `<option value="${classData.classId}">${classData.icon} ${classData.name}</option>`;
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Error loading classes:", error);
+        }
+      };
+
+      // Load subjects dropdown based on selected coaching and class for chapter
+      window.loadSubjectsForChapter = async function () {
+        const coachingId = document.getElementById("chapter-coaching-id").value;
+        const classId = document.getElementById("chapter-class-id").value;
+        const subjectSelect = document.getElementById("chapter-subject-name");
+        const testtypeSelect = document.getElementById("chapter-testtype-name");
+
+        subjectSelect.innerHTML =
+          '<option value="">-- Select Subject --</option>';
+        testtypeSelect.innerHTML =
+          '<option value="">-- Select Test Type --</option>';
+
+        if (!coachingId || !classId) return;
+
+        try {
+          const subjectsRef = ref(database, "subjects");
+          const snapshot = await get(subjectsRef);
+
+          if (snapshot.exists()) {
+            const subjects = snapshot.val();
+            Object.entries(subjects).forEach(([key, subjectData]) => {
+              if (
+                subjectData.coachingId === coachingId &&
+                subjectData.classId === classId
+              ) {
+                subjectSelect.innerHTML += `<option value="${subjectData.name}">${subjectData.icon} ${subjectData.name}</option>`;
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Error loading subjects:", error);
+        }
+      };
+
+      // Load test types dropdown based on selected coaching, class, and subject for chapter
+      window.loadTestTypesForChapter = async function () {
+        const coachingId = document.getElementById("chapter-coaching-id").value;
+        const classId = document.getElementById("chapter-class-id").value;
+        const subjectName = document.getElementById(
+          "chapter-subject-name"
+        ).value;
+        const testtypeSelect = document.getElementById("chapter-testtype-name");
+
+        testtypeSelect.innerHTML =
+          '<option value="">-- Select Test Type --</option>';
+
+        if (!coachingId || !classId || !subjectName) return;
+
+        try {
+          const testtypesRef = ref(database, "test-types");
+          const snapshot = await get(testtypesRef);
+
+          if (snapshot.exists()) {
+            const testtypes = snapshot.val();
+            Object.entries(testtypes).forEach(([key, testtypeData]) => {
+              if (
+                testtypeData.coachingId === coachingId &&
+                testtypeData.classId === classId &&
+                testtypeData.subjectName === subjectName
+              ) {
+                testtypeSelect.innerHTML += `<option value="${testtypeData.name}">${testtypeData.icon} ${testtypeData.name}</option>`;
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Error loading test types:", error);
+        }
+      };
+
+      window.saveChapter = async function (event) {
+        event.preventDefault();
+
+        const chapterData = {
+          coachingId: document.getElementById("chapter-coaching-id").value,
+          classId: document.getElementById("chapter-class-id").value,
+          subjectName: document.getElementById("chapter-subject-name").value,
+          testtypeName: document.getElementById("chapter-testtype-name").value,
+          name: document.getElementById("chapter-name").value.trim(),
+          serialNo: parseInt(document.getElementById("chapter-serial").value),
+          createdAt: new Date().toISOString(),
+        };
+
+        const editKey = document.getElementById("chapter-edit-key").value;
+
+        try {
+          if (editKey) {
+            // Update existing
+            const chapterRef = ref(database, `chapters/${editKey}`);
+            await update(chapterRef, chapterData);
+            showAlert("Chapter updated successfully!", "success");
+          } else {
+            // Add new with auto-generated key
+            const chaptersRef = ref(database, "chapters");
+            const newChapterRef = push(chaptersRef);
+            await set(newChapterRef, chapterData);
+            showAlert("Chapter added successfully!", "success");
+          }
+
+          cancelChapterForm();
+          loadChapterList();
+        } catch (error) {
+          showAlert("Error: " + error.message, "error");
+        }
+      };
+
+      async function loadChapterList() {
+        const container = document.getElementById("chapter-list");
+        container.innerHTML =
+          '<div class="loading"><div class="spinner"></div>Loading...</div>';
+
+        try {
+          const chaptersRef = ref(database, "chapters");
+          const snapshot = await get(chaptersRef);
+
+          if (snapshot.exists()) {
+            const chapters = snapshot.val();
+
+            // Group by coaching, class, subject, and testtype
+            const groupedChapters = {};
+            Object.entries(chapters).forEach(([key, chapterData]) => {
+              const groupKey = `${chapterData.coachingId}-${chapterData.classId}-${chapterData.subjectName}-${chapterData.testtypeName}`;
+              if (!groupedChapters[groupKey]) {
+                groupedChapters[groupKey] = {
+                  coachingId: chapterData.coachingId,
+                  classId: chapterData.classId,
+                  subjectName: chapterData.subjectName,
+                  testtypeName: chapterData.testtypeName,
+                  chapters: [],
+                };
+              }
+              groupedChapters[groupKey].chapters.push({
+                key,
+                ...chapterData,
+              });
+            });
+
+            let html = "";
+
+            for (const [groupKey, group] of Object.entries(groupedChapters)) {
+              // Get coaching name
+              const coachingRef = ref(
+                database,
+                `coaching-centers/${group.coachingId}`
+              );
+              const coachingSnapshot = await get(coachingRef);
+              const coachingName = coachingSnapshot.exists()
+                ? coachingSnapshot.val().name
+                : group.coachingId;
+
+              // Get class name
+              const classesRef = ref(database, "classes");
+              const classesSnapshot = await get(classesRef);
+              let className = group.classId;
+              if (classesSnapshot.exists()) {
+                const classes = classesSnapshot.val();
+                const classEntry = Object.values(classes).find(
+                  (c) =>
+                    c.classId === group.classId &&
+                    c.coachingId === group.coachingId
+                );
+                if (classEntry) {
+                  className = classEntry.name;
+                }
+              }
+
+              // Sort chapters by serial number
+              group.chapters.sort((a, b) => a.serialNo - b.serialNo);
+
+              html += `
+                            <h3 style="margin: 30px 0 15px 0; color: #667eea;">🏢 ${coachingName} - ${className} - ${group.subjectName} - ${group.testtypeName}</h3>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Serial No</th>
+                                        <th>Chapter Name</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        `;
+
+              group.chapters.forEach((chapter) => {
+                html += `
+                                <tr>
+                                    <td><strong>#${chapter.serialNo}</strong></td>
+                                    <td>${chapter.name}</td>
+                                    <td class="action-buttons">
+                                        <button class="btn-small btn-edit" onclick="editChapter('${chapter.key}')">✏️ Edit</button>
+                                        <button class="btn-small btn-delete" onclick="deleteChapter('${chapter.key}', '${chapter.name}')">🗑️ Delete</button>
+                                    </td>
+                                </tr>
+                            `;
+              });
+
+              html += "</tbody></table>";
+            }
+
+            container.innerHTML = html;
+          } else {
+            container.innerHTML =
+              '<div class="no-data">No chapters found. Click "Add Chapter" to create one.</div>';
+          }
+        } catch (error) {
+          container.innerHTML =
+            '<p class="alert alert-error">Error loading data: ' +
+            error.message +
+            "</p>";
+        }
+      }
+
+      window.editChapter = async function (key) {
+        try {
+          const chapterRef = ref(database, `chapters/${key}`);
+          const snapshot = await get(chapterRef);
+
+          if (snapshot.exists()) {
+            const chapterData = snapshot.val();
+            document.getElementById("chapter-coaching-id").value =
+              chapterData.coachingId;
+            await loadClassesForChapter();
+            document.getElementById("chapter-class-id").value =
+              chapterData.classId;
+            await loadSubjectsForChapter();
+            document.getElementById("chapter-subject-name").value =
+              chapterData.subjectName;
+            await loadTestTypesForChapter();
+            document.getElementById("chapter-testtype-name").value =
+              chapterData.testtypeName;
+            document.getElementById("chapter-name").value = chapterData.name;
+            document.getElementById("chapter-serial").value =
+              chapterData.serialNo;
+            document.getElementById("chapter-edit-key").value = key;
+            document.getElementById("add-chapter-form").style.display = "block";
+          }
+        } catch (error) {
+          showAlert("Error: " + error.message, "error");
+        }
+      };
+
+      window.deleteChapter = function (key, name) {
+        document.getElementById(
+          "deleteMessage"
+        ).textContent = `Are you sure you want to delete "${name}"? This action cannot be undone.`;
+        document.getElementById("deletePassword").value = "";
+        document.getElementById("deleteModal").classList.add("active");
+
+        deleteCallback = async function () {
+          try {
+            const chapterRef = ref(database, `chapters/${key}`);
+            await remove(chapterRef);
+            showAlert("Chapter deleted successfully!", "success");
+            loadChapterList();
+          } catch (error) {
+            showAlert("Error: " + error.message, "error");
+          }
+        };
+      };
+
+      // ============ PDF MANAGEMENT ============
+
+      window.showAddPDFForm = function () {
+        document.getElementById("add-pdf-form").style.display = "block";
+        document.getElementById("pdfForm").reset();
+        document.getElementById("pdf-edit-key").value = "";
+      };
+
+      window.cancelPDFForm = function () {
+        document.getElementById("add-pdf-form").style.display = "none";
+        document.getElementById("pdfForm").reset();
+      };
+
+      // Load classes dropdown based on selected coaching for PDF
+      window.loadClassesForPDF = async function () {
+        const coachingId = document.getElementById("pdf-coaching-id").value;
+        const classSelect = document.getElementById("pdf-class-id");
+        const subjectSelect = document.getElementById("pdf-subject-name");
+        const testtypeSelect = document.getElementById("pdf-testtype-name");
+        const chapterSelect = document.getElementById("pdf-chapter-key");
+
+        classSelect.innerHTML = '<option value="">-- Select Class --</option>';
+        subjectSelect.innerHTML =
+          '<option value="">-- Select Subject --</option>';
+        testtypeSelect.innerHTML =
+          '<option value="">-- Select Test Type --</option>';
+        chapterSelect.innerHTML =
+          '<option value="">-- Select Chapter --</option>';
+
+        if (!coachingId) return;
+
+        try {
+          const classesRef = ref(database, "classes");
+          const snapshot = await get(classesRef);
+
+          if (snapshot.exists()) {
+            const classes = snapshot.val();
+            Object.entries(classes).forEach(([key, classData]) => {
+              if (classData.coachingId === coachingId) {
+                classSelect.innerHTML += `<option value="${classData.classId}">${classData.icon} ${classData.name}</option>`;
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Error loading classes:", error);
+        }
+      };
+
+      // Load subjects dropdown based on selected coaching and class for PDF
+      window.loadSubjectsForPDF = async function () {
+        const coachingId = document.getElementById("pdf-coaching-id").value;
+        const classId = document.getElementById("pdf-class-id").value;
+        const subjectSelect = document.getElementById("pdf-subject-name");
+        const testtypeSelect = document.getElementById("pdf-testtype-name");
+        const chapterSelect = document.getElementById("pdf-chapter-key");
+
+        subjectSelect.innerHTML =
+          '<option value="">-- Select Subject --</option>';
+        testtypeSelect.innerHTML =
+          '<option value="">-- Select Test Type --</option>';
+        chapterSelect.innerHTML =
+          '<option value="">-- Select Chapter --</option>';
+
+        if (!coachingId || !classId) return;
+
+        try {
+          const subjectsRef = ref(database, "subjects");
+          const snapshot = await get(subjectsRef);
+
+          if (snapshot.exists()) {
+            const subjects = snapshot.val();
+            Object.entries(subjects).forEach(([key, subjectData]) => {
+              if (
+                subjectData.coachingId === coachingId &&
+                subjectData.classId === classId
+              ) {
+                subjectSelect.innerHTML += `<option value="${subjectData.name}">${subjectData.icon} ${subjectData.name}</option>`;
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Error loading subjects:", error);
+        }
+      };
+
+      // Load test types dropdown based on selected coaching, class, and subject for PDF
+      window.loadTestTypesForPDF = async function () {
+        const coachingId = document.getElementById("pdf-coaching-id").value;
+        const classId = document.getElementById("pdf-class-id").value;
+        const subjectName = document.getElementById("pdf-subject-name").value;
+        const testtypeSelect = document.getElementById("pdf-testtype-name");
+        const chapterSelect = document.getElementById("pdf-chapter-key");
+
+        testtypeSelect.innerHTML =
+          '<option value="">-- Select Test Type --</option>';
+        chapterSelect.innerHTML =
+          '<option value="">-- Select Chapter --</option>';
+
+        if (!coachingId || !classId || !subjectName) return;
+
+        try {
+          const testtypesRef = ref(database, "test-types");
+          const snapshot = await get(testtypesRef);
+
+          if (snapshot.exists()) {
+            const testtypes = snapshot.val();
+            Object.entries(testtypes).forEach(([key, testtypeData]) => {
+              if (
+                testtypeData.coachingId === coachingId &&
+                testtypeData.classId === classId &&
+                testtypeData.subjectName === subjectName
+              ) {
+                testtypeSelect.innerHTML += `<option value="${testtypeData.name}">${testtypeData.icon} ${testtypeData.name}</option>`;
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Error loading test types:", error);
+        }
+      };
+
+      // Load chapters dropdown based on selected coaching, class, subject, and test type for PDF
+      window.loadChaptersForPDF = async function () {
+        const coachingId = document.getElementById("pdf-coaching-id").value;
+        const classId = document.getElementById("pdf-class-id").value;
+        const subjectName = document.getElementById("pdf-subject-name").value;
+        const testtypeName = document.getElementById("pdf-testtype-name").value;
+        const chapterSelect = document.getElementById("pdf-chapter-key");
+
+        chapterSelect.innerHTML =
+          '<option value="">-- Select Chapter --</option>';
+
+        if (!coachingId || !classId || !subjectName || !testtypeName) return;
+
+        try {
+          const chaptersRef = ref(database, "chapters");
+          const snapshot = await get(chaptersRef);
+
+          if (snapshot.exists()) {
+            const chapters = snapshot.val();
+            Object.entries(chapters)
+              .filter(
+                ([key, chapterData]) =>
+                  chapterData.coachingId === coachingId &&
+                  chapterData.classId === classId &&
+                  chapterData.subjectName === subjectName &&
+                  chapterData.testtypeName === testtypeName
+              )
+              .sort((a, b) => a[1].serialNo - b[1].serialNo)
+              .forEach(([key, chapterData]) => {
+                chapterSelect.innerHTML += `<option value="${key}">#${chapterData.serialNo} - ${chapterData.name}</option>`;
+              });
+          }
+        } catch (error) {
+          console.error("Error loading chapters:", error);
+        }
+      };
+
+      window.savePDF = async function (event) {
+        event.preventDefault();
+
+        const pdfData = {
+          coachingId: document.getElementById("pdf-coaching-id").value,
+          classId: document.getElementById("pdf-class-id").value,
+          subjectName: document.getElementById("pdf-subject-name").value,
+          testtypeName: document.getElementById("pdf-testtype-name").value,
+          chapterKey: document.getElementById("pdf-chapter-key").value,
+          fileName: document.getElementById("pdf-file-name").value.trim(),
+          serialNo: parseInt(document.getElementById("pdf-serial-no").value),
+          url: document.getElementById("pdf-url").value.trim(),
+          createdAt: new Date().toISOString(),
+        };
+
+        const editKey = document.getElementById("pdf-edit-key").value;
+
+        try {
+          if (editKey) {
+            // Update existing
+            const pdfRef = ref(database, `pdfs/${editKey}`);
+            await update(pdfRef, pdfData);
+            showAlert("PDF updated successfully!", "success");
+          } else {
+            // Add new with auto-generated key
+            const pdfsRef = ref(database, "pdfs");
+            const newPDFRef = push(pdfsRef);
+            await set(newPDFRef, pdfData);
+            showAlert("PDF added successfully!", "success");
+          }
+
+          cancelPDFForm();
+          loadPDFList();
+        } catch (error) {
+          showAlert("Error: " + error.message, "error");
+        }
+      };
+
+      async function loadPDFList() {
+        const container = document.getElementById("pdf-list");
+        container.innerHTML =
+          '<div class="loading"><div class="spinner"></div>Loading...</div>';
+
+        try {
+          const pdfsRef = ref(database, "pdfs");
+          const snapshot = await get(pdfsRef);
+
+          if (snapshot.exists()) {
+            const pdfs = snapshot.val();
+
+            // Group by coaching, class, subject, testtype, and chapter
+            const groupedPDFs = {};
+            Object.entries(pdfs).forEach(([key, pdfData]) => {
+              const groupKey = `${pdfData.coachingId}-${pdfData.classId}-${pdfData.subjectName}-${pdfData.testtypeName}-${pdfData.chapterKey}`;
+              if (!groupedPDFs[groupKey]) {
+                groupedPDFs[groupKey] = {
+                  coachingId: pdfData.coachingId,
+                  classId: pdfData.classId,
+                  subjectName: pdfData.subjectName,
+                  testtypeName: pdfData.testtypeName,
+                  chapterKey: pdfData.chapterKey,
+                  pdfs: [],
+                };
+              }
+              groupedPDFs[groupKey].pdfs.push({
+                key,
+                ...pdfData,
+              });
+            });
+
+            let html = "";
+
+            for (const [groupKey, group] of Object.entries(groupedPDFs)) {
+              // Get coaching name
+              const coachingRef = ref(
+                database,
+                `coaching-centers/${group.coachingId}`
+              );
+              const coachingSnapshot = await get(coachingRef);
+              const coachingName = coachingSnapshot.exists()
+                ? coachingSnapshot.val().name
+                : group.coachingId;
+
+              // Get class name
+              const classesRef = ref(database, "classes");
+              const classesSnapshot = await get(classesRef);
+              let className = group.classId;
+              if (classesSnapshot.exists()) {
+                const classes = classesSnapshot.val();
+                const classEntry = Object.values(classes).find(
+                  (c) =>
+                    c.classId === group.classId &&
+                    c.coachingId === group.coachingId
+                );
+                if (classEntry) {
+                  className = classEntry.name;
+                }
+              }
+
+              // Get chapter name
+              const chapterRef = ref(database, `chapters/${group.chapterKey}`);
+              const chapterSnapshot = await get(chapterRef);
+              const chapterName = chapterSnapshot.exists()
+                ? chapterSnapshot.val().name
+                : "Unknown Chapter";
+
+              // Sort PDFs by serial number
+              group.pdfs.sort((a, b) => a.serialNo - b.serialNo);
+
+              html += `
+                            <h3 style="margin: 30px 0 15px 0; color: #667eea;">🏢 ${coachingName} - ${className} - ${group.subjectName} - ${group.testtypeName} - ${chapterName}</h3>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Serial No</th>
+                                        <th>File Name</th>
+                                        <th>URL</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        `;
+
+              group.pdfs.forEach((pdf) => {
+                const shortUrl =
+                  pdf.url.length > 50
+                    ? pdf.url.substring(0, 50) + "..."
+                    : pdf.url;
+                html += `
+                                <tr>
+                                    <td><strong>#${pdf.serialNo}</strong></td>
+                                    <td>${pdf.fileName}</td>
+                                    <td><a href="${pdf.url}" target="_blank" style="color: #667eea; text-decoration: none;">${shortUrl}</a></td>
+                                    <td class="action-buttons">
+                                        <button class="btn-small btn-edit" onclick="editPDF('${pdf.key}')">✏️ Edit</button>
+                                        <button class="btn-small btn-delete" onclick="deletePDF('${pdf.key}', '${pdf.fileName}')">🗑️ Delete</button>
+                                    </td>
+                                </tr>
+                            `;
+              });
+
+              html += "</tbody></table>";
+            }
+
+            container.innerHTML = html;
+          } else {
+            container.innerHTML =
+              '<div class="no-data">No PDFs found. Click "Add PDF" to create one.</div>';
+          }
+        } catch (error) {
+          container.innerHTML =
+            '<p class="alert alert-error">Error loading data: ' +
+            error.message +
+            "</p>";
+        }
+      }
+
+      window.editPDF = async function (key) {
+        try {
+          const pdfRef = ref(database, `pdfs/${key}`);
+          const snapshot = await get(pdfRef);
+
+          if (snapshot.exists()) {
+            const pdfData = snapshot.val();
+            document.getElementById("pdf-coaching-id").value =
+              pdfData.coachingId;
+            await loadClassesForPDF();
+            document.getElementById("pdf-class-id").value = pdfData.classId;
+            await loadSubjectsForPDF();
+            document.getElementById("pdf-subject-name").value =
+              pdfData.subjectName;
+            await loadTestTypesForPDF();
+            document.getElementById("pdf-testtype-name").value =
+              pdfData.testtypeName;
+            await loadChaptersForPDF();
+            document.getElementById("pdf-chapter-key").value =
+              pdfData.chapterKey;
+            document.getElementById("pdf-file-name").value = pdfData.fileName;
+            document.getElementById("pdf-serial-no").value = pdfData.serialNo;
+            document.getElementById("pdf-url").value = pdfData.url;
+            document.getElementById("pdf-edit-key").value = key;
+            document.getElementById("add-pdf-form").style.display = "block";
+          }
+        } catch (error) {
+          showAlert("Error: " + error.message, "error");
+        }
+      };
+
+      window.deletePDF = function (key, fileName) {
+        document.getElementById(
+          "deleteMessage"
+        ).textContent = `Are you sure you want to delete "${fileName}"? This action cannot be undone.`;
+        document.getElementById("deletePassword").value = "";
+        document.getElementById("deleteModal").classList.add("active");
+
+        deleteCallback = async function () {
+          try {
+            const pdfRef = ref(database, `pdfs/${key}`);
+            await remove(pdfRef);
+            showAlert("PDF deleted successfully!", "success");
+            loadPDFList();
+          } catch (error) {
+            showAlert("Error: " + error.message, "error");
+          }
+        };
+      };
+
+      // ============ ACCESS CONTROL MANAGEMENT ============
+
+      window.showAddAccessForm = function () {
+        document.getElementById("add-access-form").style.display = "block";
+        document.getElementById("accessForm").reset();
+        document.getElementById("access-edit-key").value = "";
+      };
+
+      window.cancelAccessForm = function () {
+        document.getElementById("add-access-form").style.display = "none";
+        document.getElementById("accessForm").reset();
+      };
+
+      // Load classes dropdown based on selected coaching for access
+      window.loadClassesForAccess = async function () {
+        const coachingId = document.getElementById("access-coaching-id").value;
+        const classSelect = document.getElementById("access-class-id");
+        const subjectSelect = document.getElementById("access-subject-name");
+        const testtypeSelect = document.getElementById("access-testtype-name");
+
+        classSelect.innerHTML = '<option value="">-- Select Class --</option>';
+        subjectSelect.innerHTML =
+          '<option value="">-- Select Subject --</option>';
+        testtypeSelect.innerHTML =
+          '<option value="">-- Select Test Type --</option>';
+
+        if (!coachingId) return;
+
+        try {
+          const classesRef = ref(database, "classes");
+          const snapshot = await get(classesRef);
+
+          if (snapshot.exists()) {
+            const classes = snapshot.val();
+            Object.entries(classes).forEach(([key, classData]) => {
+              if (classData.coachingId === coachingId) {
+                classSelect.innerHTML += `<option value="${classData.classId}">${classData.icon} ${classData.name}</option>`;
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Error loading classes:", error);
+        }
+      };
+
+      // Load subjects dropdown based on selected coaching and class for access
+      window.loadSubjectsForAccess = async function () {
+        const coachingId = document.getElementById("access-coaching-id").value;
+        const classId = document.getElementById("access-class-id").value;
+        const subjectSelect = document.getElementById("access-subject-name");
+        const testtypeSelect = document.getElementById("access-testtype-name");
+
+        subjectSelect.innerHTML =
+          '<option value="">-- Select Subject --</option>';
+        testtypeSelect.innerHTML =
+          '<option value="">-- Select Test Type --</option>';
+
+        if (!coachingId || !classId) return;
+
+        try {
+          const subjectsRef = ref(database, "subjects");
+          const snapshot = await get(subjectsRef);
+
+          if (snapshot.exists()) {
+            const subjects = snapshot.val();
+            Object.entries(subjects).forEach(([key, subjectData]) => {
+              if (
+                subjectData.coachingId === coachingId &&
+                subjectData.classId === classId
+              ) {
+                subjectSelect.innerHTML += `<option value="${subjectData.name}">${subjectData.icon} ${subjectData.name}</option>`;
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Error loading subjects:", error);
+        }
+      };
+
+      // Load test types dropdown based on selected coaching, class, and subject for access
+      window.loadTestTypesForAccess = async function () {
+        const coachingId = document.getElementById("access-coaching-id").value;
+        const classId = document.getElementById("access-class-id").value;
+        const subjectName = document.getElementById(
+          "access-subject-name"
+        ).value;
+        const testtypeSelect = document.getElementById("access-testtype-name");
+
+        testtypeSelect.innerHTML =
+          '<option value="">-- Select Test Type --</option>';
+
+        if (!coachingId || !classId || !subjectName) return;
+
+        try {
+          const testtypesRef = ref(database, "test-types");
+          const snapshot = await get(testtypesRef);
+
+          if (snapshot.exists()) {
+            const testtypes = snapshot.val();
+            Object.entries(testtypes).forEach(([key, testtypeData]) => {
+              if (
+                testtypeData.coachingId === coachingId &&
+                testtypeData.classId === classId &&
+                testtypeData.subjectName === subjectName
+              ) {
+                testtypeSelect.innerHTML += `<option value="${testtypeData.name}">${testtypeData.icon} ${testtypeData.name}</option>`;
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Error loading test types:", error);
+        }
+      };
+
+      window.saveAccess = async function (event) {
+        event.preventDefault();
+
+        const accessData = {
+          userEmail: document.getElementById("access-user-email").value,
+          coachingId: document.getElementById("access-coaching-id").value,
+          classId: document.getElementById("access-class-id").value,
+          subjectName: document.getElementById("access-subject-name").value,
+          testtypeName: document.getElementById("access-testtype-name").value,
+          grantedAt: new Date().toISOString(),
+        };
+
+        const editKey = document.getElementById("access-edit-key").value;
+
+        try {
+          if (editKey) {
+            // Update existing
+            const accessRef = ref(database, `access-control/${editKey}`);
+            await update(accessRef, accessData);
+            showAlert("Access permission updated successfully!", "success");
+          } else {
+            // Add new with auto-generated key
+            const accessRef = ref(database, "access-control");
+            const newAccessRef = push(accessRef);
+            await set(newAccessRef, accessData);
+            showAlert("Access permission granted successfully!", "success");
+          }
+
+          cancelAccessForm();
+          loadAccessList();
+        } catch (error) {
+          showAlert("Error: " + error.message, "error");
+        }
+      };
+
+      async function loadAccessList() {
+        const container = document.getElementById("access-list");
+        container.innerHTML =
+          '<div class="loading"><div class="spinner"></div>Loading...</div>';
+
+        try {
+          const accessRef = ref(database, "access-control");
+          const snapshot = await get(accessRef);
+
+          if (snapshot.exists()) {
+            const accessList = snapshot.val();
+
+            // Group by user email
+            const groupedAccess = {};
+            Object.entries(accessList).forEach(([key, accessData]) => {
+              if (!groupedAccess[accessData.userEmail]) {
+                groupedAccess[accessData.userEmail] = [];
+              }
+              groupedAccess[accessData.userEmail].push({
+                key,
+                ...accessData,
+              });
+            });
+
+            let html = "";
+
+            for (const [userEmail, permissions] of Object.entries(
+              groupedAccess
+            )) {
+              html += `
+                            <h3 style="margin: 30px 0 15px 0; color: #d63031;">👤 ${userEmail}</h3>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Coaching</th>
+                                        <th>Class</th>
+                                        <th>Subject</th>
+                                        <th>Test Type</th>
+                                        <th>Granted At</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        `;
+
+              for (const access of permissions) {
+                // Get coaching name
+                const coachingRef = ref(
+                  database,
+                  `coaching-centers/${access.coachingId}`
+                );
+                const coachingSnapshot = await get(coachingRef);
+                const coachingName = coachingSnapshot.exists()
+                  ? coachingSnapshot.val().name
+                  : access.coachingId;
+
+                // Get class name
+                const classesRef = ref(database, "classes");
+                const classesSnapshot = await get(classesRef);
+                let className = access.classId;
+                if (classesSnapshot.exists()) {
+                  const classes = classesSnapshot.val();
+                  const classEntry = Object.values(classes).find(
+                    (c) =>
+                      c.classId === access.classId &&
+                      c.coachingId === access.coachingId
+                  );
+                  if (classEntry) {
+                    className = classEntry.name;
+                  }
+                }
+
+                const grantedDate = new Date(
+                  access.grantedAt
+                ).toLocaleDateString();
+
+                html += `
+                                <tr>
+                                    <td>${coachingName}</td>
+                                    <td>${className}</td>
+                                    <td>${access.subjectName}</td>
+                                    <td>${access.testtypeName}</td>
+                                    <td>${grantedDate}</td>
+                                    <td class="action-buttons">
+                                        <button class="btn-small btn-edit" onclick="editAccess('${access.key}')">✏️ Edit</button>
+                                        <button class="btn-small btn-delete" onclick="deleteAccess('${access.key}', '${userEmail}')">🗑️ Delete</button>
+                                    </td>
+                                </tr>
+                            `;
+              }
+
+              html += "</tbody></table>";
+            }
+
+            container.innerHTML = html;
+          } else {
+            container.innerHTML =
+              '<div class="no-data">No access permissions set. Click "Add User Access" to grant permissions.</div>';
+          }
+        } catch (error) {
+          container.innerHTML =
+            '<p class="alert alert-error">Error loading data: ' +
+            error.message +
+            "</p>";
+        }
+      }
+
+      window.editAccess = async function (key) {
+        try {
+          const accessRef = ref(database, `access-control/${key}`);
+          const snapshot = await get(accessRef);
+
+          if (snapshot.exists()) {
+            const accessData = snapshot.val();
+
+            document.getElementById("access-user-email").value =
+              accessData.userEmail;
+            document.getElementById("access-coaching-id").value =
+              accessData.coachingId;
+            await loadClassesForAccess();
+            document.getElementById("access-class-id").value =
+              accessData.classId;
+            await loadSubjectsForAccess();
+            document.getElementById("access-subject-name").value =
+              accessData.subjectName;
+            await loadTestTypesForAccess();
+            document.getElementById("access-testtype-name").value =
+              accessData.testtypeName;
+            document.getElementById("access-edit-key").value = key;
+            document.getElementById("add-access-form").style.display = "block";
+          }
+        } catch (error) {
+          showAlert("Error: " + error.message, "error");
+        }
+      };
+
+      window.deleteAccess = function (key, userEmail) {
+        document.getElementById(
+          "deleteMessage"
+        ).textContent = `Are you sure you want to revoke access permission for "${userEmail}"? This action cannot be undone.`;
+        document.getElementById("deletePassword").value = "";
+        document.getElementById("deleteModal").classList.add("active");
+
+        deleteCallback = async function () {
+          try {
+            const accessRef = ref(database, `access-control/${key}`);
+            await remove(accessRef);
+            showAlert("Access permission revoked successfully!", "success");
+            loadAccessList();
+          } catch (error) {
+            showAlert("Error: " + error.message, "error");
+          }
+        };
+      };
+
+      // ============ DELETE CONFIRMATION MODAL ============
+
+      window.closeDeleteModal = function () {
+        document.getElementById("deleteModal").classList.remove("active");
+        document.getElementById("deletePassword").value = "";
+        document.getElementById("deletePasswordError").style.display = "none";
+        document.getElementById("deletePassword").type = "password";
+        deleteCallback = null;
+      };
+
+      window.toggleDeletePasswordVisibility = function () {
+        const passwordInput = document.getElementById("deletePassword");
+        const toggleButton = document.getElementById("toggleDeletePassword");
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          toggleButton.textContent = "🙈";
+        } else {
+          passwordInput.type = "password";
+          toggleButton.textContent = "👁️";
+        }
+      };
+
+      window.confirmDelete = async function () {
+        const password = document.getElementById("deletePassword").value;
+        const errorDiv = document.getElementById("deletePasswordError");
+
+        if (!password) {
+          errorDiv.textContent = "❌ Please enter your password";
+          errorDiv.style.display = "block";
+          return;
+        }
+
+        try {
+          // Verify password
+          await signInWithEmailAndPassword(auth, currentUser.email, password);
+
+          // Password correct, proceed with deletion
+          if (deleteCallback) {
+            await deleteCallback();
+          }
+
+          closeDeleteModal();
+        } catch (error) {
+          if (
+            error.code === "auth/wrong-password" ||
+            error.code === "auth/invalid-credential"
+          ) {
+            errorDiv.textContent = "❌ Incorrect password. Please try again.";
+            errorDiv.style.display = "block";
+          } else {
+            errorDiv.textContent = "❌ Error: " + error.message;
+            errorDiv.style.display = "block";
+          }
+        }
+      };
+
+      // ============ IMPORT/EXPORT ============
+
+      window.exportDatabase = async function () {
+        try {
+          const dbRef = ref(database, "/");
+          const snapshot = await get(dbRef);
+
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            const blob = new Blob([JSON.stringify(data, null, 2)], {
+              type: "application/json",
+            });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `database-backup-${Date.now()}.json`;
+            a.click();
+
+            showAlert("Database exported successfully!", "success");
+          } else {
+            showAlert("No data to export", "error");
+          }
+        } catch (error) {
+          showAlert("Error: " + error.message, "error");
+        }
+      };
+
+      window.importDatabase = async function () {
+        const fileInput = document.getElementById("importFile");
+        const file = fileInput.files[0];
+
+        if (!file) {
+          showAlert("Please select a file first", "error");
+          return;
+        }
+
+        try {
+          const reader = new FileReader();
+          reader.onload = async function (e) {
+            const data = JSON.parse(e.target.result);
+            const dbRef = ref(database, "/");
+            await set(dbRef, data);
+
+            showAlert("Database imported successfully!", "success");
+            loadCoachingList();
+            loadClassList();
+            loadCoachingDropdown();
+          };
+          reader.readAsText(file);
+        } catch (error) {
+          showAlert("Error: " + error.message, "error");
+        }
+      };
+    </script>
+  </body>
+</html>

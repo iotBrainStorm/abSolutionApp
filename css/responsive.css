@@ -1,0 +1,304 @@
+/* ========================================
+   Responsive Design - Mobile First
+   ======================================== */
+
+/* Tablet and below */
+@media (max-width: 768px) {
+  .login-box {
+    padding: 32px 24px;
+    max-width: 400px;
+  }
+
+  .login-header h1 {
+    font-size: 28px;
+  }
+
+  .logo-container {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 20px;
+  }
+
+  .logo-icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .input-wrapper input {
+    padding: 12px 16px 12px 44px;
+    font-size: 14px;
+  }
+
+  .login-btn {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  /* Main page responsive */
+  .header {
+    padding: 16px 24px;
+  }
+
+  .header-content {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .welcome-text h2 {
+    font-size: 24px;
+  }
+
+  .content-section {
+    padding: 24px 20px;
+  }
+
+  .section-header h3 {
+    font-size: 24px;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .breadcrumb {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+
+  .chapter-card {
+    padding: 16px 20px;
+  }
+
+  .pdf-actions {
+    flex-direction: column;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 16px;
+  }
+
+  .login-box {
+    padding: 28px 20px;
+    border-radius: 20px;
+  }
+
+  .login-header h1 {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .logo-container {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+  }
+
+  .logo-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .login-form {
+    gap: 20px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+  }
+
+  .input-wrapper input {
+    padding: 12px 16px 12px 42px;
+    font-size: 14px;
+  }
+
+  .input-icon {
+    left: 14px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .toggle-password {
+    right: 12px;
+  }
+
+  .eye-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .demo-info {
+    font-size: 12px;
+  }
+
+  .shape-1 {
+    width: 300px;
+    height: 300px;
+  }
+
+  .shape-2 {
+    width: 200px;
+    height: 200px;
+  }
+
+  .shape-3 {
+    display: none;
+  }
+
+  /* Main page mobile */
+  .main-container {
+    padding: 20px 16px;
+  }
+
+  .header {
+    padding: 16px 20px;
+    margin-bottom: 24px;
+  }
+
+  .welcome-text h2 {
+    font-size: 20px;
+  }
+
+  .welcome-text p {
+    font-size: 13px;
+  }
+
+  .logout-btn {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+
+  .content-section {
+    padding: 20px 16px;
+  }
+
+  .section-header h3 {
+    font-size: 20px;
+  }
+
+  .section-description {
+    font-size: 14px;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .class-card {
+    padding: 24px 20px;
+  }
+
+  .class-card .card-icon {
+    font-size: 40px;
+  }
+
+  .class-card .card-title {
+    font-size: 20px;
+  }
+
+  .test-type-card {
+    padding: 32px 20px;
+  }
+
+  .test-type-card .card-icon {
+    font-size: 48px;
+  }
+
+  .test-type-card .card-title {
+    font-size: 20px;
+  }
+
+  .chapter-card {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .chapter-number {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .chapter-info .card-title {
+    font-size: 15px;
+  }
+
+  .pdf-card {
+    padding: 20px;
+  }
+
+  .pdf-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 12px 20px;
+  }
+
+  .breadcrumb {
+    padding: 10px 12px;
+    font-size: 12px;
+    gap: 6px;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1440px) {
+  .login-box {
+    max-width: 500px;
+    padding: 56px;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+}
+
+/* Landscape mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+  .login-container {
+    padding: 20px;
+  }
+
+  .login-box {
+    padding: 24px;
+    margin: 20px auto;
+  }
+
+  .logo-container {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 12px;
+  }
+
+  .login-header h1 {
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+  }
+
+  .login-form {
+    gap: 16px;
+  }
+
+  .login-footer {
+    margin-top: 16px;
+  }
+
+  .shape {
+    display: none;
+  }
+}

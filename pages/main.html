@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Portal - Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+  </head>
+  <body
+    style="
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    "
+  >
+    <div class="main-container">
+      <header class="header">
+        <div class="header-content">
+          <div class="welcome-text">
+            <h2>Welcome back, Student!</h2>
+            <p>Access your study materials and notes</p>
+          </div>
+          <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+      </header>
+
+      <!-- Breadcrumb Navigation -->
+      <div class="breadcrumb" id="breadcrumb">
+        <!-- Breadcrumb will be generated dynamically -->
+      </div>
+
+      <main class="content-section" id="contentSection">
+        <div class="section-header" id="sectionHeader">
+          <h3>📚 Select Your Class</h3>
+          <p class="section-description">
+            Choose a class to access study materials
+          </p>
+        </div>
+
+        <div class="cards-grid" id="cardsGrid">
+          <!-- Content will be loaded dynamically by JavaScript -->
+        </div>
+      </main>
+
+      <div style="text-align: center; margin-top: 40px; color: white">
+        <p style="font-size: 14px; opacity: 0.9">
+          © 2025 Student Portal. All rights reserved.
+        </p>
+      </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module" src="../js/main-new.js"></script>
+    <script type="module">
+      // Load main page content when DOM is ready
+      import { loadMainPage } from "../js/main-new.js";
+      document.addEventListener("DOMContentLoaded", function () {
+        loadMainPage();
+      });
+    </script>
+  </body>
+</html>

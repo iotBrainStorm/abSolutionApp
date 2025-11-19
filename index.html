@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Portal - Login</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* Animated Heading Styles */
+      .main-heading {
+        text-align: center;
+        padding: 25px 20px;
+        background: linear-gradient(
+          135deg,
+          #667eea 0%,
+          #764ba2 50%,
+          #f093fb 100%
+        );
+        margin: 0;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .main-heading::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          45deg,
+          transparent 30%,
+          rgba(255, 255, 255, 0.1) 50%,
+          transparent 70%
+        );
+        animation: shimmer 3s infinite;
+      }
+
+      .main-heading h1 {
+        font-size: 2.2rem;
+        font-weight: 900;
+        margin: 0;
+        background: linear-gradient(
+          90deg,
+          #ffffff 0%,
+          #ffd700 25%,
+          #ffffff 50%,
+          #ffd700 75%,
+          #ffffff 100%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradientShift 4s ease infinite,
+          floatText 3s ease-in-out infinite;
+        letter-spacing: 3px;
+        position: relative;
+        z-index: 2;
+        text-transform: uppercase;
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+      }
+
+      .main-heading p {
+        color: rgba(255, 255, 255, 0.95);
+        font-size: 0.95rem;
+        margin-top: 8px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        animation: fadeInUp 1.5s ease;
+        position: relative;
+        z-index: 2;
+      }
+
+      .sparkle {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .sparkle-dot {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: radial-gradient(circle, #ffffff 0%, transparent 70%);
+        border-radius: 50%;
+        animation: sparkleFloat 4s infinite;
+        box-shadow: 0 0 10px #ffffff;
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+        100% {
+          transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+      }
+
+      @keyframes gradientShift {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      @keyframes floatText {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes sparkleFloat {
+        0% {
+          opacity: 0;
+          transform: translateY(0) scale(0) rotate(0deg);
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(-100px) scale(1.2) rotate(180deg);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-200px) scale(0) rotate(360deg);
+        }
+      }
+
+      @media (max-width: 768px) {
+        body {
+          overflow-y: auto;
+        }
+        .main-heading h1 {
+          font-size: 1.6rem;
+          letter-spacing: 1.5px;
+        }
+        .main-heading {
+          padding: 20px 15px;
+        }
+        .main-heading p {
+          font-size: 0.85rem;
+        }
+        .login-container {
+          padding-top: 15px;
+          height: auto;
+          min-height: calc(100vh - 100px);
+        }
+        .login-box {
+          padding: 30px 25px;
+          max-width: 95%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .main-heading h1 {
+          font-size: 1.3rem;
+        }
+        .main-heading p {
+          font-size: 0.75rem;
+        }
+        .login-box {
+          padding: 25px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Animated Main Heading -->
+    <div class="main-heading">
+      <div class="sparkle">
+        <span class="sparkle-dot" style="left: 10%; animation-delay: 0s"></span>
+        <span
+          class="sparkle-dot"
+          style="left: 20%; animation-delay: 0.5s"
+        ></span>
+        <span class="sparkle-dot" style="left: 30%; animation-delay: 1s"></span>
+        <span
+          class="sparkle-dot"
+          style="left: 40%; animation-delay: 1.5s"
+        ></span>
+        <span class="sparkle-dot" style="left: 50%; animation-delay: 2s"></span>
+        <span
+          class="sparkle-dot"
+          style="left: 60%; animation-delay: 0.3s"
+        ></span>
+        <span
+          class="sparkle-dot"
+          style="left: 70%; animation-delay: 0.8s"
+        ></span>
+        <span
+          class="sparkle-dot"
+          style="left: 80%; animation-delay: 1.3s"
+        ></span>
+        <span
+          class="sparkle-dot"
+          style="left: 90%; animation-delay: 1.8s"
+        ></span>
+      </div>
+      <h1>AB Solution by Arpan Biswas</h1>
+      <p>Your Complete Coaching Management System</p>
+    </div>
+
+    <div class="login-container">
+      <div class="login-box">
+        <div class="login-header">
+          <div class="logo-container">
+            <svg
+              class="logo-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 14L21 9L12 4L3 9L12 14Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M3 9V15L12 20L21 15V9"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <h1>Access Portal</h1>
+          <p class="subtitle">Access Your Study Materials</p>
+        </div>
+
+        <form id="loginForm" class="login-form">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-wrapper">
+              <svg
+                class="input-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M22 6L12 13L2 6"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+                autocomplete="email"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+              <svg
+                class="input-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 11H5C3.89543 11 3 11.8954 3 13V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V13C21 11.8954 20.1046 11 19 11Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M7 11V7C7 5.67392 7.52678 4.40215 8.46447 3.46447C9.40215 2.52678 10.6739 2 12 2C13.3261 2 14.5979 2.52678 15.5355 3.46447C16.4732 4.40215 17 5.67392 17 7V11"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+                autocomplete="current-password"
+              />
+              <button type="button" class="toggle-password" id="togglePassword">
+                <svg
+                  class="eye-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="error-message" id="errorMessage"></div>
+
+          <button type="submit" class="login-btn">
+            <span>Login</span>
+            <svg
+              class="arrow-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 12H19"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12 5L19 12L12 19"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+
+          <div class="divider">
+            <span>OR</span>
+          </div>
+
+          <button
+            type="button"
+            class="admin-login-btn"
+            onclick="switchToAdmin()"
+          >
+            <span>👑 Admin Login</span>
+          </button>
+        </form>
+
+        <div class="login-footer"></div>
+      </div>
+
+      <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { auth } from "./js/firebase-config.js";
+      import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+      // Toggle password visibility
+      const togglePassword = document.getElementById("togglePassword");
+      const passwordInput = document.getElementById("password");
+
+      togglePassword.addEventListener("click", function () {
+        const type =
+          passwordInput.getAttribute("type") === "password"
+            ? "text"
+            : "password";
+        passwordInput.setAttribute("type", type);
+      });
+
+      // Handle login form submission
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById("email").value.trim();
+          const password = document.getElementById("password").value;
+          const errorMessage = document.getElementById("errorMessage");
+          const loginBtn = this.querySelector(".login-btn");
+
+          // Reset error message
+          errorMessage.textContent = "";
+          errorMessage.style.display = "none";
+
+          // Show loading state
+          loginBtn.disabled = true;
+          loginBtn.querySelector("span").textContent = "Logging in...";
+
+          try {
+            // Sign in with Firebase Authentication
+            const userCredential = await signInWithEmailAndPassword(
+              auth,
+              email,
+              password
+            );
+            const user = userCredential.user;
+
+            console.log("✅ User logged in:", user.email);
+
+            // Check if user is admin
+            const isAdmin =
+              email.toLowerCase().includes("admin") ||
+              user.email === "admin@mycoaching.com";
+
+            if (isAdmin) {
+              // Redirect to admin panel
+              window.location.href = "pages/admin.html";
+            } else {
+              // Redirect to coaching selection page
+              window.location.href = "pages/coaching-select.html";
+            }
+          } catch (error) {
+            console.error("Login error:", error);
+
+            // Show error message
+            let errorText = "Login failed. Please try again.";
+
+            switch (error.code) {
+              case "auth/invalid-email":
+                errorText = "Invalid email format.";
+                break;
+              case "auth/user-not-found":
+                errorText = "No account found with this email.";
+                break;
+              case "auth/wrong-password":
+                errorText = "Incorrect password.";
+                break;
+              case "auth/too-many-requests":
+                errorText = "Too many failed attempts. Please try again later.";
+                break;
+              case "auth/network-request-failed":
+                errorText = "Network error. Please check your connection.";
+                break;
+            }
+
+            errorMessage.textContent = errorText;
+            errorMessage.style.display = "block";
+
+            // Reset button
+            loginBtn.disabled = false;
+            loginBtn.querySelector("span").textContent = "Login";
+          }
+        });
+
+      // Switch to admin (kept for compatibility - now just changes button text)
+      window.switchToAdmin = function () {
+        document.getElementById("email").placeholder = "Enter admin email";
+        document.getElementById("email").focus();
+      };
+    </script>
+  </body>
+</html>
