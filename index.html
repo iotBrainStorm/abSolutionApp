@@ -422,7 +422,7 @@
         .addEventListener("submit", async function (e) {
           e.preventDefault();
 
-          const email = document.getElementById("email").value.trim();
+          const email = document.getElementById("userId").value.trim();
           const password = document.getElementById("password").value;
           const errorMessage = document.getElementById("errorMessage");
           const loginBtn = this.querySelector(".login-btn");
@@ -430,6 +430,7 @@
           // Reset error message
           errorMessage.textContent = "";
           errorMessage.style.display = "none";
+          errorMessage.classList.remove("show");
 
           // Show loading state
           loginBtn.disabled = true;
@@ -474,16 +475,22 @@
               case "auth/wrong-password":
                 errorText = "Incorrect password.";
                 break;
+              case "auth/invalid-credential":
+                errorText = "Invalid email or password.";
+                break;
               case "auth/too-many-requests":
                 errorText = "Too many failed attempts. Please try again later.";
                 break;
               case "auth/network-request-failed":
                 errorText = "Network error. Please check your connection.";
                 break;
+              default:
+                errorText = `Login failed: ${error.message}`;
             }
 
             errorMessage.textContent = errorText;
             errorMessage.style.display = "block";
+            errorMessage.classList.add("show");
 
             // Reset button
             loginBtn.disabled = false;
@@ -493,8 +500,8 @@
 
       // Switch to admin (kept for compatibility - now just changes button text)
       window.switchToAdmin = function () {
-        document.getElementById("email").placeholder = "Enter admin email";
-        document.getElementById("email").focus();
+        document.getElementById("userId").placeholder = "Enter admin email";
+        document.getElementById("userId").focus();
       };
     </script>
   </body>
