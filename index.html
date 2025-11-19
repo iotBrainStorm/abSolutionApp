@@ -242,19 +242,19 @@
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M12 14L21 9L12 4L3 9L12 14Z"
+                d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
                 stroke="currentColor"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-              />
+              ></path>
               <path
-                d="M3 9V15L12 20L21 15V9"
+                d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"
                 stroke="currentColor"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-              />
+              ></path>
             </svg>
           </div>
           <h1>Access Portal</h1>
@@ -263,7 +263,7 @@
 
         <form id="loginForm" class="login-form">
           <div class="form-group">
-            <label for="email">Email</label>
+            <label for="userId">User ID</label>
             <div class="input-wrapper">
               <svg
                 class="input-icon"
@@ -272,27 +272,27 @@
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"
+                  d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
                   stroke="currentColor"
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                />
+                ></path>
                 <path
-                  d="M22 6L12 13L2 6"
+                  d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"
                   stroke="currentColor"
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                />
+                ></path>
               </svg>
               <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-                required
-                autocomplete="email"
+                type="text"
+                id="userId"
+                name="userId"
+                placeholder="Enter your user ID"
+                required=""
+                autocomplete="username"
               />
             </div>
           </div>
@@ -312,21 +312,21 @@
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                />
+                ></path>
                 <path
                   d="M7 11V7C7 5.67392 7.52678 4.40215 8.46447 3.46447C9.40215 2.52678 10.6739 2 12 2C13.3261 2 14.5979 2.52678 15.5355 3.46447C16.4732 4.40215 17 5.67392 17 7V11"
                   stroke="currentColor"
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                />
+                ></path>
               </svg>
               <input
                 type="password"
                 id="password"
                 name="password"
                 placeholder="Enter your password"
-                required
+                required=""
                 autocomplete="current-password"
               />
               <button type="button" class="toggle-password" id="togglePassword">
@@ -342,14 +342,14 @@
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                  />
+                  ></path>
                   <path
                     d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
                     stroke="currentColor"
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                  />
+                  ></path>
                 </svg>
               </button>
             </div>
@@ -371,21 +371,16 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-              />
+              ></path>
               <path
                 d="M12 5L19 12L12 19"
                 stroke="currentColor"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-              />
+              ></path>
             </svg>
           </button>
-
-          <div class="divider">
-            <span>OR</span>
-          </div>
-
           <button
             type="button"
             class="admin-login-btn"

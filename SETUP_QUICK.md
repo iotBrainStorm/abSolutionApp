@@ -18,23 +18,8 @@ Go to **Rules** tab and paste:
 ```json
 {
   "rules": {
-    ".read": "auth != null",
-    ".write": false,
-
-    "coaching-centers": {
-      ".read": "auth != null",
-      ".write": "auth != null && auth.token.email.includes('admin')"
-    },
-
-    "pdfs": {
-      ".read": "auth != null",
-      ".write": "auth != null && auth.token.email.includes('admin')"
-    },
-
-    "chapters": {
-      ".read": "auth != null",
-      ".write": "auth != null && auth.token.email.includes('admin')"
-    }
+    ".read": true,
+    ".write": true
   }
 }
 ```
@@ -45,7 +30,7 @@ Click **"Publish"**
 
 1. In Realtime Database page, copy the **Database URL**
 
-   - Should look like: `https://mycoaching-mm-default-rtdb.firebaseio.com`
+   - Should look like: `https://project-name-default-rtdb.firebaseio.com`
 
 2. Open `src/js/firebase-config.js`
 
@@ -53,11 +38,11 @@ Click **"Publish"**
 
 ```javascript
 const firebaseConfig = {
-  apiKey: "AIzaSyBlYZBktMwAPnplMiC6jIy5kc2zw5bMTO0",
-  authDomain: "mycoaching-mm.firebaseapp.com",
-  databaseURL: "https://mycoaching-mm-default-rtdb.firebaseio.com", // ✅ This line
+  apiKey: "AIzaSyBlYZBkng7APnplMiC6jIy5kc2zw5bMTO0",
+  authDomain: "domainn-name.firebaseapp.com",
+  databaseURL: "https://appname-default-rtdb.firebaseio.com", // ✅ This line
   projectId: "mycoaching-mm",
-  storageBucket: "mycoaching-mm.firebasestorage.app",
+  storageBucket: "bucket-name.firebasestorage.app",
   messagingSenderId: "304171946364",
   appId: "1:304171946364:web:b1c329c6861d5764bf94f9",
 };
@@ -94,58 +79,249 @@ Go to **Realtime Database** → **Data** tab, click ➕ and paste this structure
 
 ```json
 {
-  "coaching-centers": {
-    "coaching-1": {
-      "id": "coaching-1",
-      "name": "Excellence Coaching",
-      "icon": "🎓",
-      "description": "Premier coaching for Classes 9-10"
+  "access-control": {
+    "-OeMJChnfIvBDev7PnjC": {
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "grantedAt": "2025-11-18T14:14:10.162Z",
+      "subjectName": "CHEMISTRY",
+      "testtypeName": "MOCK TEST",
+      "userEmail": "mrinal_maity@gmail.com"
     },
-    "coaching-2": {
-      "id": "coaching-2",
-      "name": "NEET Academy",
-      "icon": "🏥",
-      "description": "Specialized NEET preparation"
-    },
-    "coaching-3": {
-      "id": "coaching-3",
-      "name": "JEE Institute",
-      "icon": "⚡",
-      "description": "Top JEE coaching center"
+    "-OeMLLyUrsfTlAU-M8Kt": {
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "grantedAt": "2025-11-18T14:23:32.371Z",
+      "subjectName": "PHYSICS",
+      "testtypeName": "WRITTEN EXAM",
+      "userEmail": "mrinal_maity@gmail.com"
     }
   },
   "chapters": {
-    "class-9": {
-      "mathematics": {
-        "0": "Introduction",
-        "1": "Number Systems",
-        "2": "Polynomials",
-        "3": "Linear Equations",
-        "4": "Coordinate Geometry"
-      },
-      "physics": {
-        "0": "Introduction",
-        "1": "Motion",
-        "2": "Force and Laws of Motion",
-        "3": "Gravitation"
-      }
+    "-OeICvhZobo3ndqISJTs": {
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "createdAt": "2025-11-17T19:08:14.611Z",
+      "name": "Atomic Structure",
+      "serialNo": 1,
+      "subjectName": "CHEMISTRY",
+      "testtypeName": "MOCK TEST"
+    },
+    "-OeIEnQKuBIbURIGw2r6": {
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "createdAt": "2025-11-17T19:16:24.925Z",
+      "name": "Complex Compound",
+      "serialNo": 2,
+      "subjectName": "CHEMISTRY",
+      "testtypeName": "MOCK TEST"
+    },
+    "-OeIF2vLLF48fXzKvQfO": {
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "createdAt": "2025-11-17T19:17:32.510Z",
+      "name": "Organic Chemistry",
+      "serialNo": 3,
+      "subjectName": "CHEMISTRY",
+      "testtypeName": "MOCK TEST"
+    },
+    "-OeIFER3eSUUHMm5ss7X": {
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "createdAt": "2025-11-17T19:18:19.660Z",
+      "name": "Inorganic Chemistry",
+      "serialNo": 4,
+      "subjectName": "CHEMISTRY",
+      "testtypeName": "MOCK TEST"
+    },
+    "-OeMFtKPeKFNw4j_TOtM": {
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "createdAt": "2025-11-18T13:59:40.280Z",
+      "name": "INTERFERENCE",
+      "serialNo": 1,
+      "subjectName": "PHYSICS",
+      "testtypeName": "WRITTEN EXAM"
+    }
+  },
+  "classes": {
+    "-OeHqRu-UK3-n6ROB6RY": {
+      "classId": "cls-6",
+      "coachingId": "coaching-1",
+      "color": "#e94979",
+      "createdAt": "2025-11-17T17:40:12.552Z",
+      "icon": "📗",
+      "name": "Class VI"
+    },
+    "-OeI0y6ISKwjL06ycrIV": {
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "color": "#4caf50",
+      "createdAt": "2025-11-17T18:15:58.732Z",
+      "icon": "🎓",
+      "name": "SEM III"
+    },
+    "-OeI1PYaWTBi4owOUHLd": {
+      "classId": "sem-4",
+      "coachingId": "coaching-3",
+      "color": "#1d90d7",
+      "createdAt": "2025-11-17T18:17:55.231Z",
+      "icon": "🎓",
+      "name": "SEM IV"
+    }
+  },
+  "coaching-centers": {
+    "coaching-1": {
+      "contact": "9647545424",
+      "createdAt": "2025-11-17T17:12:16.136Z",
+      "icon": "🎓",
+      "id": "coaching-1",
+      "name": "Excellence Coaching",
+      "owner": "Mrinal Maity",
+      "place": "Patharpratima"
+    },
+    "coaching-2": {
+      "contact": "9876456789",
+      "createdAt": "2025-11-17T17:13:25.330Z",
+      "icon": "🏫",
+      "id": "coaching-2",
+      "name": "NEET Academy",
+      "owner": "Sudip Mahajan",
+      "place": "Garia"
+    },
+    "coaching-3": {
+      "contact": "9078654567",
+      "createdAt": "2025-11-17T17:16:57.603Z",
+      "icon": "🎯",
+      "id": "coaching-3",
+      "name": "BH Chem Lab",
+      "owner": "Bikramjeet Sir",
+      "place": "Sonarpur"
+    },
+    "coaching-4": {
+      "contact": "9732876006",
+      "createdAt": "2025-11-17T18:01:38.153Z",
+      "icon": "💡",
+      "id": "coaching-4",
+      "name": "Tech Lab",
+      "owner": "Lohit Maity",
+      "place": "Ganjer Bajar"
     }
   },
   "pdfs": {
-    "coaching-1": {
-      "class-9": {
-        "mathematics": {
-          "mock-test": {
-            "1": [
-              {
-                "name": "Polynomials Practice Test",
-                "icon": "📄",
-                "driveLink": "https://drive.google.com/file/d/YOUR_FILE_ID/view"
-              }
-            ]
-          }
-        }
-      }
+    "-OeIJ7xNdLX9MN6RToUK": {
+      "chapterKey": "-OeICvhZobo3ndqISJTs",
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "createdAt": "2025-11-17T19:35:21.686Z",
+      "fileName": "ATOM STR",
+      "serialNo": 1,
+      "subjectName": "CHEMISTRY",
+      "testtypeName": "MOCK TEST",
+      "url": "https://drive.google.com/file/d/1JTO0emgj8s8JQljvyCGfaUTZtImBZCxR/view?usp=sharing"
+    },
+    "-OeIKro2cNajWRRsMaSQ": {
+      "chapterKey": "-OeICvhZobo3ndqISJTs",
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "createdAt": "2025-11-17T19:42:55.735Z",
+      "fileName": "ATOM MCQ",
+      "serialNo": 2,
+      "subjectName": "CHEMISTRY",
+      "testtypeName": "MOCK TEST",
+      "url": "https://drive.google.com/file/d/1JTO0emgj8s8JQljvyCGfaUTZtImBZCxR/view?usp=sharing"
+    },
+    "-OeIRrlDsBjAu_vtqJIm": {
+      "chapterKey": "-OeIEnQKuBIbURIGw2r6",
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "createdAt": "2025-11-17T20:14:27.729Z",
+      "fileName": "ATOM SECOND PART",
+      "serialNo": 3,
+      "subjectName": "CHEMISTRY",
+      "testtypeName": "MOCK TEST",
+      "url": "https://docs.google.com/document/d/192dL0PgRHBBou7DXx3eWBkWbUcLbJLmYqDctCYwslW4/edit?usp=sharing"
+    },
+    "-OeMIyUPA3Rb6OINCdj3": {
+      "chapterKey": "-OeMFtKPeKFNw4j_TOtM",
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "createdAt": "2025-11-18T14:13:07.801Z",
+      "fileName": "NOTES",
+      "serialNo": 1,
+      "subjectName": "PHYSICS",
+      "testtypeName": "WRITTEN EXAM",
+      "url": "https://drive.google.com/file/d/1JTO0emgj8s8JQljvyCGfaUTZtImBZCxR/view?usp=sharing"
+    }
+  },
+  "subjects": {
+    "-OeI4fckIHLjRQ0nLqk0": {
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "color": "#f93e63",
+      "createdAt": "2025-11-17T18:32:11.623Z",
+      "icon": "⚗️",
+      "name": "CHEMISTRY"
+    },
+    "-OeI5A_8idMlxEkMPEAN": {
+      "classId": "cls-6",
+      "coachingId": "coaching-1",
+      "color": "#0d9ac9",
+      "createdAt": "2025-11-17T18:34:22.464Z",
+      "icon": "🔬",
+      "name": "PHYSICS"
+    },
+    "-OeI5VcaQSgvpChG31Z8": {
+      "classId": "sem-4",
+      "coachingId": "coaching-3",
+      "color": "#ff9800",
+      "createdAt": "2025-11-17T18:35:48.701Z",
+      "icon": "📐",
+      "name": "MATHEMATICS"
+    },
+    "-OeI5cowIesQij_xYI18": {
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "color": "#ae00ff",
+      "createdAt": "2025-11-17T18:36:22.259Z",
+      "icon": "🔬",
+      "name": "PHYSICS"
+    },
+    "-OeI5kFw9TquCq5n_Z5C": {
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "color": "#ff0095",
+      "createdAt": "2025-11-17T18:36:52.723Z",
+      "icon": "🧬",
+      "name": "BIOLOGY"
+    },
+    "-OeI5vIAgsikLnJjFFwy": {
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "color": "#07cf72",
+      "createdAt": "2025-11-17T18:37:37.922Z",
+      "icon": "🌍",
+      "name": "GEOGRAPHY"
+    }
+  },
+  "test-types": {
+    "-OeI9Dt6kjXdXLsHW40u": {
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "color": "#9f1ff4",
+      "createdAt": "2025-11-17T18:52:04.578Z",
+      "icon": "📊",
+      "name": "MOCK TEST",
+      "subjectName": "CHEMISTRY"
+    },
+    "-OeI9_Qi8sKc0NkWcXNh": {
+      "classId": "sem-3",
+      "coachingId": "coaching-3",
+      "color": "#0586f0",
+      "createdAt": "2025-11-17T18:57:43.824Z",
+      "icon": "📝",
+      "name": "WRITTEN EXAM",
+      "subjectName": "PHYSICS"
     }
   }
 }
