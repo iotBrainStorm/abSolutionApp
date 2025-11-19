@@ -585,14 +585,7 @@
                 <label>Logo*</label>
                 <select id="coaching-icon" class="icon-select" required>
                   <option value="">-- Select Logo --</option>
-                  <option value="../images/logo/test2.png">test2.png</option>
-                  <option value="../images/logo/test3.png">test3.png</option>
-                  <option value="../images/logo/test4.png">test4.png</option>
-                  <option value="../images/logo/test5.png">test5.png</option>
-                  <option value="../images/logo/test6.png">test6.png</option>
-                  <option value="../images/logo/test7.png">test7.png</option>
-                  <option value="../images/logo/test8.png">test8.png</option>
-                  <option value="../images/logo/test9.png">test9.png</option>
+                  <!-- Logo options will be loaded dynamically -->
                 </select>
               </div>
               <div class="form-group">
@@ -1770,7 +1763,52 @@
         loadPDFList();
         loadAccessList();
         loadCoachingDropdown();
+        loadLogoOptions();
       });
+
+      // Load logo options dynamically
+      async function loadLogoOptions() {
+        const logoSelect = document.getElementById("coaching-icon");
+        const logoFolder = "../images/logo/";
+
+        try {
+          // Fetch the logos list from JSON file
+          const response = await fetch("../images/logo/logos.json");
+          const data = await response.json();
+
+          // Clear existing options except the first one
+          logoSelect.innerHTML = '<option value="">-- Select Logo --</option>';
+
+          // Add options for each logo
+          data.logos.forEach((logoFile) => {
+            const option = document.createElement("option");
+            option.value = logoFolder + logoFile;
+            option.textContent = logoFile;
+            logoSelect.appendChild(option);
+          });
+        } catch (error) {
+          console.error("Error loading logos:", error);
+          // Fallback to hardcoded list if JSON fails
+          const fallbackLogos = [
+            "test2.png",
+            "test3.png",
+            "test4.png",
+            "test5.png",
+            "test6.png",
+            "test7.png",
+            "test8.png",
+            "test9.png",
+          ];
+
+          logoSelect.innerHTML = '<option value="">-- Select Logo --</option>';
+          fallbackLogos.forEach((logoFile) => {
+            const option = document.createElement("option");
+            option.value = logoFolder + logoFile;
+            option.textContent = logoFile;
+            logoSelect.appendChild(option);
+          });
+        }
+      }
 
       // Tab switching
       window.switchTab = function (tabName) {
