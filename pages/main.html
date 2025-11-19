@@ -20,7 +20,9 @@
             <h2>Welcome back, Student!</h2>
             <p>Access your study materials and notes</p>
           </div>
-          <button class="logout-btn" onclick="logout()">Logout</button>
+          <button class="logout-btn" onclick="window.handleLogout()">
+            Logout
+          </button>
         </div>
       </header>
 
@@ -59,13 +61,15 @@
       });
     </script>
     <script>
-      // Logout function
-      function logout() {
-        // Clear session storage
-        sessionStorage.clear();
-        // Redirect to homepage
-        window.location.href = "/index.html";
-      }
+      window.handleLogout = async function () {
+        try {
+          await auth.signOut();
+          sessionStorage.clear();
+          window.location.href = "/index.html";
+        } catch (error) {
+          console.error("Logout error:", error);
+        }
+      };
     </script>
   </body>
 </html>
