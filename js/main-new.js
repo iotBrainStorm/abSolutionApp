@@ -10,6 +10,7 @@ let currentUser = null;
 let selectedCoaching = null;
 let pdfDatabase = null;
 let chaptersDatabase = null;
+let isNavigatingBack = false; // Flag to prevent pushing state when using back button
 
 // Navigation state
 const navigationState = {
@@ -65,6 +66,37 @@ onAuthStateChanged(auth, async (user) => {
         
         // Initialize main page
         initMainPage();
+        
+        // Handle browser back button - only add listener once
+        if (!window.backButtonHandlerAdded) {
+            window.backButtonHandlerAdded = true;
+            
+            // Replace the current history state (coaching-select -> main.html navigation)
+            // with a classes view state to prevent going back to coaching-select
+            window.history.replaceState({ view: 'classes', isRoot: true }, '');
+            
+            window.addEventListener('popstate', function(event) {
+                isNavigatingBack = true; // Set flag before navigation
+                
+                if (event.state && event.state.view) {
+                    // If we hit the root classes state, prevent further back navigation
+                    if (event.state.isRoot) {
+                        // Push it back so we can't go further back
+                        window.history.pushState({ view: 'classes', isRoot: true }, '');
+                        loadClassesView();
+                    } else {
+                        // Handle internal navigation based on state
+                        handleInternalNavigation(event.state);
+                    }
+                } else {
+                    // If no state, stay at classes view and push new state
+                    window.history.pushState({ view: 'classes', isRoot: true }, '');
+                    loadClassesView();
+                }
+                // Reset flag after a short delay
+                setTimeout(() => { isNavigatingBack = false; }, 100);
+            });
+        }
     }
 });
 
@@ -122,6 +154,42 @@ async function checkUserAccess(coachingId, classId, subjectName, testtypeName) {
 }
 
 // ========================================
+// Handle Internal Navigation (Back Button)
+// ========================================
+function handleInternalNavigation(state) {
+    if (!state || !state.view) {
+        loadClassesView();
+        return;
+    }
+    
+    switch(state.view) {
+        case 'classes':
+            loadClassesView();
+            break;
+        case 'subjects':
+            if (state.classId) loadSubjectsView(state.classId);
+            break;
+        case 'types':
+            if (state.classId && state.subjectId) {
+                loadTestTypesView(state.classId, state.subjectId);
+            }
+            break;
+        case 'chapters':
+            if (state.classId && state.subjectId && state.typeId) {
+                loadChaptersView(state.classId, state.subjectId, state.typeId);
+            }
+            break;
+        case 'pdfs':
+            if (state.classId && state.subjectId && state.typeId && state.chapterId) {
+                loadPDFsView(state.classId, state.subjectId, state.typeId, state.chapterId, state.chapterName || 'Chapter');
+            }
+            break;
+        default:
+            loadClassesView();
+    }
+}
+
+// ========================================
 // Main Page Initialization
 // ========================================
 function initMainPage() {
@@ -145,6 +213,11 @@ async function loadClassesView() {
     navigationState.currentChapter = null;
     navigationState.breadcrumb = ['Choose Coaching'];
     updateBreadcrumb();
+    
+    // Only push state if not navigating back
+    if (!isNavigatingBack) {
+        window.history.pushState({ view: 'classes' }, '');
+    }
 
     const sectionHeader = document.getElementById('sectionHeader');
     const cardsGrid = document.getElementById('cardsGrid');
@@ -227,6 +300,14 @@ async function loadSubjectsView(classId) {
     navigationState.currentClass = classId;
     navigationState.breadcrumb = ['Choose Coaching', classesData[classId]?.name || 'Class'];
     updateBreadcrumb();
+    
+    // Only push state if not navigating back
+    if (!isNavigatingBack) {
+        window.history.pushState({ 
+            view: 'subjects', 
+            classId: classId 
+        }, '');
+    }
 
     const sectionHeader = document.getElementById('sectionHeader');
     const cardsGrid = document.getElementById('cardsGrid');
@@ -318,11 +399,18 @@ async function loadTestTypesView(classId, subjectId) {
     navigationState.currentSubject = subjectId;
     navigationState.breadcrumb = ['Choose Coaching', classesData[classId]?.name || 'Class', subjectId];
     updateBreadcrumb();
+    
+    // Only push state if not navigating back
+    if (!isNavigatingBack) {
+        window.history.pushState({ 
+            view: 'types', 
+            classId: classId,
+            subjectId: subjectId 
+        }, '');
+    }
 
     const sectionHeader = document.getElementById('sectionHeader');
-    const cardsGrid = document.getElementById('cardsGrid');
-
-    sectionHeader.innerHTML = `
+    const cardsGrid = document.getElementById('cardsGrid');    sectionHeader.innerHTML = `
         <h3>📖 ${subjectId}</h3>
         <p class="section-description">Select test type</p>
     `;
@@ -424,6 +512,16 @@ async function loadChaptersView(classId, subjectId, typeId) {
 
     navigationState.breadcrumb = ['Choose Coaching', classesData[classId]?.name || classId, subjectId, typeName];
     updateBreadcrumb();
+    
+    // Only push state if not navigating back
+    if (!isNavigatingBack) {
+        window.history.pushState({ 
+            view: 'chapters', 
+            classId: classId,
+            subjectId: subjectId,
+            typeId: typeId
+        }, '');
+    }
 
     const sectionHeader = document.getElementById('sectionHeader');
     const cardsGrid = document.getElementById('cardsGrid');
@@ -530,7 +628,18 @@ async function loadPDFsView(classId, subjectId, typeId, chapterKey, chapterName)
 
     navigationState.breadcrumb = ['Choose Coaching', classesData[classId]?.name || classId, subjectId, typeName, chapterName];
     updateBreadcrumb();
-
+    
+    // Only push state if not navigating back
+    if (!isNavigatingBack) {
+        window.history.pushState({ 
+            view: 'pdfs', 
+            classId: classId,
+            subjectId: subjectId,
+            typeId: typeId,
+            chapterId: chapterKey,
+            chapterName: chapterName
+        }, '');
+    }
     const sectionHeader = document.getElementById('sectionHeader');
     const cardsGrid = document.getElementById('cardsGrid');
 
@@ -879,10 +988,22 @@ function logout() {
 // Export to Window for HTML onclick
 // ========================================
 window.loadClassesView = loadClassesView;
-window.selectClass = loadSubjectsView;
-window.selectSubject = loadTestTypesView;
-window.selectTestType = loadChaptersView;
-window.selectChapter = loadPDFsView;
+window.selectClass = function(...args) {
+    isNavigatingBack = false;
+    return loadSubjectsView(...args);
+};
+window.selectSubject = function(...args) {
+    isNavigatingBack = false;
+    return loadTestTypesView(...args);
+};
+window.selectTestType = function(...args) {
+    isNavigatingBack = false;
+    return loadChaptersView(...args);
+};
+window.selectChapter = function(...args) {
+    isNavigatingBack = false;
+    return loadPDFsView(...args);
+};
 window.handlePDFAction = handlePDFAction;
 window.viewPDF = viewPDF;
 window.downloadPDF = downloadPDF;
