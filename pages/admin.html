@@ -1797,7 +1797,8 @@
       window.handleLogout = async function () {
         try {
           await signOut(auth);
-          window.location.href = "/index.html";
+          window.location.href = "/index.html"; // for cloud hosting
+          // window.location.href = "/src/index.html"; // for local testing
         } catch (error) {
           showAlert("Logout failed: " + error.message, "error");
         }
