@@ -58,5 +58,14 @@
         loadMainPage();
       });
     </script>
+    <script>
+      // Logout function
+      function logout() {
+        // Clear session storage
+        sessionStorage.clear();
+        // Redirect to homepage
+        window.location.href = "/index.html";
+      }
+    </script>
   </body>
 </html>
