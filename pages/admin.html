@@ -93,7 +93,7 @@
       .tab-btn.active {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
-        border: 1px solid white;
+        border: 2px solid white;
         box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
       }
 
@@ -582,16 +582,17 @@
                 />
               </div>
               <div class="form-group">
-                <label>Icon*</label>
+                <label>Logo*</label>
                 <select id="coaching-icon" class="icon-select" required>
-                  <option value="🎓">🎓 Cap</option>
-                  <option value="📚">📚 Books</option>
-                  <option value="🏫">🏫 School</option>
-                  <option value="🎯">🎯 Target</option>
-                  <option value="⚡">⚡ Lightning</option>
-                  <option value="🌟">🌟 Star</option>
-                  <option value="🏆">🏆 Trophy</option>
-                  <option value="💡">💡 Bulb</option>
+                  <option value="">-- Select Logo --</option>
+                  <option value="../images/logo/test2.png">test2.png</option>
+                  <option value="../images/logo/test3.png">test3.png</option>
+                  <option value="../images/logo/test4.png">test4.png</option>
+                  <option value="../images/logo/test5.png">test5.png</option>
+                  <option value="../images/logo/test6.png">test6.png</option>
+                  <option value="../images/logo/test7.png">test7.png</option>
+                  <option value="../images/logo/test8.png">test8.png</option>
+                  <option value="../images/logo/test9.png">test9.png</option>
                 </select>
               </div>
               <div class="form-group">
@@ -1879,12 +1880,19 @@
           if (snapshot.exists()) {
             const coachings = snapshot.val();
             let html =
-              '<table class="data-table"><thead><tr><th>Icon</th><th>ID</th><th>Name</th><th>Owner</th><th>Contact</th><th>Place</th><th>Actions</th></tr></thead><tbody>';
+              '<table class="data-table"><thead><tr><th>Logo</th><th>ID</th><th>Name</th><th>Owner</th><th>Contact</th><th>Place</th><th>Actions</th></tr></thead><tbody>';
 
             Object.entries(coachings).forEach(([key, coaching]) => {
+              const logoHtml =
+                coaching.icon.includes(".png") ||
+                coaching.icon.includes(".jpg") ||
+                coaching.icon.includes(".jpeg")
+                  ? `<img src="${coaching.icon}" alt="Logo" style="width: 40px; height: 40px; object-fit: contain; border-radius: 8px;">`
+                  : coaching.icon;
+
               html += `
                             <tr>
-                                <td style="font-size: 1.5rem;">${coaching.icon}</td>
+                                <td style="font-size: 1.5rem;">${logoHtml}</td>
                                 <td>${coaching.id}</td>
                                 <td><strong>${coaching.name}</strong></td>
                                 <td>${coaching.owner}</td>

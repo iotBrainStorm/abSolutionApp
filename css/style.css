@@ -42,11 +42,12 @@ body {
   justify-content: center;
   align-items: flex-start;
   padding-top: 20px;
-  height: calc(100vh - 130px);
+  padding-bottom: 40px;
+  min-height: calc(100vh - 130px);
   padding-left: 15px;
   padding-right: 15px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .login-box {

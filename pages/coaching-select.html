@@ -76,6 +76,9 @@
         transition: all 0.3s ease;
         color: white;
         border: 3px solid transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
       .coaching-card:hover {
@@ -87,6 +90,14 @@
       .coaching-card.selected {
         border-color: #ffd700;
         box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+      }
+
+      .coaching-card img {
+        margin-bottom: 15px;
+        background: white;
+        padding: 10px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       }
 
       .coaching-icon {
@@ -323,8 +334,17 @@
           card.className = "coaching-card";
           card.onclick = () => selectCoaching(coaching.id, card);
 
+          // Check if icon is an image path or emoji
+          const iconHtml =
+            coaching.icon &&
+            (coaching.icon.includes(".png") ||
+              coaching.icon.includes(".jpg") ||
+              coaching.icon.includes(".jpeg"))
+              ? `<img src="${coaching.icon}" alt="${coaching.name}" style="width: 80px; height: 80px; object-fit: contain; border-radius: 12px;">`
+              : `<div class="coaching-icon">${coaching.icon}</div>`;
+
           card.innerHTML = `
-                    <div class="coaching-icon">${coaching.icon}</div>
+                    ${iconHtml}
                     <div class="coaching-name">${coaching.name}</div>
                     <div class="coaching-details">
                         <div class="coaching-detail-item">
