@@ -393,12 +393,35 @@
         });
       }
 
-      function selectCoaching(coachingId, cardElement) {
-        // Store selection
-        sessionStorage.setItem("selectedCoaching", coachingId);
+      async function selectCoaching(coachingId, cardElement) {
+        try {
+          // Get coaching name from Firebase
+          const coachingRef = ref(database, "coaching-centers");
+          const snapshot = await get(coachingRef);
+          let coachingName = "Coaching Center";
 
-        // Navigate directly to classes page
-        window.location.href = "main.html";
+          if (snapshot.exists()) {
+            const coachings = snapshot.val();
+            const coaching = Object.values(coachings).find(
+              (c) => c.id === coachingId
+            );
+            if (coaching) {
+              coachingName = coaching.name;
+            }
+          }
+
+          // Store selection
+          sessionStorage.setItem("selectedCoaching", coachingId);
+          sessionStorage.setItem("selectedCoachingName", coachingName);
+
+          // Navigate directly to classes page
+          window.location.href = "main.html";
+        } catch (error) {
+          console.error("Error fetching coaching name:", error);
+          // Store ID only if error occurs
+          sessionStorage.setItem("selectedCoaching", coachingId);
+          window.location.href = "main.html";
+        }
       }
 
       window.handleLogout = async function () {

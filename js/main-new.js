@@ -8,6 +8,7 @@ import { ref, get } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-dat
 
 let currentUser = null;
 let selectedCoaching = null;
+let selectedCoachingName = null;
 let pdfDatabase = null;
 let chaptersDatabase = null;
 let isNavigatingBack = false; // Flag to prevent pushing state when using back button
@@ -56,6 +57,7 @@ onAuthStateChanged(auth, async (user) => {
     // Check if on main page and has coaching selected
     if (window.location.pathname.includes('main.html')) {
         selectedCoaching = sessionStorage.getItem('selectedCoaching');
+        selectedCoachingName = sessionStorage.getItem('selectedCoachingName') || 'Coaching Center';
         if (!selectedCoaching) {
             window.location.href = 'coaching-select.html';
             return;
@@ -211,7 +213,7 @@ async function loadClassesView() {
     navigationState.currentSubject = null;
     navigationState.currentType = null;
     navigationState.currentChapter = null;
-    navigationState.breadcrumb = ['Choose Coaching'];
+    navigationState.breadcrumb = [selectedCoachingName || 'Choose Coaching'];
     updateBreadcrumb();
     
     // Only push state if not navigating back
@@ -298,7 +300,7 @@ async function loadClassesView() {
 // ========================================
 async function loadSubjectsView(classId) {
     navigationState.currentClass = classId;
-    navigationState.breadcrumb = ['Choose Coaching', classesData[classId]?.name || 'Class'];
+    navigationState.breadcrumb = [selectedCoachingName || 'Choose Coaching', classesData[classId]?.name || 'Class'];
     updateBreadcrumb();
     
     // Only push state if not navigating back
@@ -397,7 +399,7 @@ async function loadSubjectsView(classId) {
 // ========================================
 async function loadTestTypesView(classId, subjectId) {
     navigationState.currentSubject = subjectId;
-    navigationState.breadcrumb = ['Choose Coaching', classesData[classId]?.name || 'Class', subjectId];
+    navigationState.breadcrumb = [selectedCoachingName || 'Choose Coaching', classesData[classId]?.name || 'Class', subjectId];
     updateBreadcrumb();
     
     // Only push state if not navigating back
@@ -510,7 +512,7 @@ async function loadChaptersView(classId, subjectId, typeId) {
         if (defaultType) typeName = defaultType.name;
     }
 
-    navigationState.breadcrumb = ['Choose Coaching', classesData[classId]?.name || classId, subjectId, typeName];
+    navigationState.breadcrumb = [selectedCoachingName || 'Choose Coaching', classesData[classId]?.name || classId, subjectId, typeName];
     updateBreadcrumb();
     
     // Only push state if not navigating back
@@ -626,7 +628,7 @@ async function loadPDFsView(classId, subjectId, typeId, chapterKey, chapterName)
         if (defaultType) typeName = defaultType.name;
     }
 
-    navigationState.breadcrumb = ['Choose Coaching', classesData[classId]?.name || classId, subjectId, typeName, chapterName];
+    navigationState.breadcrumb = [selectedCoachingName || 'Choose Coaching', classesData[classId]?.name || classId, subjectId, typeName, chapterName];
     updateBreadcrumb();
     
     // Only push state if not navigating back
