@@ -257,7 +257,7 @@
 
       .data-table th,
       .data-table td {
-        padding: 15px;
+        padding: 10px;
         text-align: center;
         background: white;
       }
@@ -470,13 +470,13 @@
       }
 
       .color-preview {
-        width: 50px;
-        height: 50px;
+        width: 30px;
+        height: 30px;
         border-radius: 10px;
-        border: 3px solid #ddd;
+        border: 2px solid #ddd;
         display: inline-block;
         vertical-align: middle;
-        margin-left: 15px;
+        /* margin-left: 15px; */
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         transition: all 0.3s ease;
       }
@@ -2172,8 +2172,8 @@
                                 <td>${coaching.contact}</td>
                                 <td>${coaching.place}</td>
                                 <td class="action-buttons">
-                                    <button class="btn-small btn-edit" onclick="editCoaching('${key}')">✏️ Edit</button>
-                                    <button class="btn-small btn-delete" onclick="deleteCoaching('${key}', '${coaching.name}')">🗑️ Delete</button>
+                                    <button class="btn-small btn-edit" onclick="editCoaching('${key}')">Edit</button>
+                                    <button class="btn-small btn-delete" onclick="deleteCoaching('${key}', '${coaching.name}')">Del</button>
                                 </td>
                             </tr>
                         `;
@@ -2376,8 +2376,8 @@
                                     <td><strong>${classItem.name}</strong></td>
                                     <td><span class="color-preview" style="background: ${classItem.color};"></span> ${classItem.color}</td>
                                     <td class="action-buttons">
-                                        <button class="btn-small btn-edit" onclick="editClass('${classItem.key}')">✏️ Edit</button>
-                                        <button class="btn-small btn-delete" onclick="deleteClass('${classItem.key}', '${classItem.name}')">🗑️ Delete</button>
+                                        <button class="btn-small btn-edit" onclick="editClass('${classItem.key}')">Edit</button>
+                                        <button class="btn-small btn-delete" onclick="deleteClass('${classItem.key}', '${classItem.name}')">Del</button>
                                     </td>
                                 </tr>
                             `;
@@ -2692,8 +2692,8 @@
                                     <td><strong>${subject.name}</strong></td>
                                     <td><span class="color-preview" style="background: ${subject.color};"></span> ${subject.color}</td>
                                     <td class="action-buttons">
-                                        <button class="btn-small btn-edit" onclick="editSubject('${subject.key}')">✏️ Edit</button>
-                                        <button class="btn-small btn-delete" onclick="deleteSubject('${subject.key}', '${subject.name}')">🗑️ Delete</button>
+                                        <button class="btn-small btn-edit" onclick="editSubject('${subject.key}')">Edit</button>
+                                        <button class="btn-small btn-delete" onclick="deleteSubject('${subject.key}', '${subject.name}')">Del</button>
                                     </td>
                                 </tr>
                             `;
@@ -2987,8 +2987,8 @@
                                     <td><strong>${testtype.name}</strong></td>
                                     <td><span class="color-preview" style="background: ${testtype.color};"></span> ${testtype.color}</td>
                                     <td class="action-buttons">
-                                        <button class="btn-small btn-edit" onclick="editTestType('${testtype.key}')">✏️ Edit</button>
-                                        <button class="btn-small btn-delete" onclick="deleteTestType('${testtype.key}', '${testtype.name}')">🗑️ Delete</button>
+                                        <button class="btn-small btn-edit" onclick="editTestType('${testtype.key}')">Edit</button>
+                                        <button class="btn-small btn-delete" onclick="deleteTestType('${testtype.key}', '${testtype.name}')">Del</button>
                                     </td>
                                 </tr>
                             `;
@@ -3311,8 +3311,8 @@
                                     <td><strong>#${chapter.serialNo}</strong></td>
                                     <td>${chapter.name}</td>
                                     <td class="action-buttons">
-                                        <button class="btn-small btn-edit" onclick="editChapter('${chapter.key}')">✏️ Edit</button>
-                                        <button class="btn-small btn-delete" onclick="deleteChapter('${chapter.key}', '${chapter.name}')">🗑️ Delete</button>
+                                        <button class="btn-small btn-edit" onclick="editChapter('${chapter.key}')">Edit</button>
+                                        <button class="btn-small btn-delete" onclick="deleteChapter('${chapter.key}', '${chapter.name}')">Del</button>
                                     </td>
                                 </tr>
                             `;
@@ -3863,8 +3863,8 @@
                     <td><strong>${pdf.fileName}</strong></td>
                     <td><a href="${pdf.url}" target="_blank" style="color: #667eea; text-decoration: none;">🔗 View Link</a></td>
                     <td class="action-buttons">
-                      <button class="btn-small btn-edit" onclick="editPDF('${pdf.key}')">✏️ Edit</button>
-                      <button class="btn-small btn-delete" onclick="deletePDF('${pdf.key}', '${pdf.fileName}')">🗑️ Delete</button>
+                      <button class="btn-small btn-edit" onclick="editPDF('${pdf.key}')">Edit</button>
+                      <button class="btn-small btn-delete" onclick="deletePDF('${pdf.key}', '${pdf.fileName}')">Del</button>
                     </td>
                   </tr>
                 `;
@@ -4211,8 +4211,8 @@
                                     <td>${access.testtypeName}</td>
                                     <td>${grantedDate}</td>
                                     <td class="action-buttons">
-                                        <button class="btn-small btn-edit" onclick="editAccess('${access.key}')">✏️ Edit</button>
-                                        <button class="btn-small btn-delete" onclick="deleteAccess('${access.key}', '${userEmail}')">🗑️ Delete</button>
+                                        <button class="btn-small btn-edit" onclick="editAccess('${access.key}')">Edit</button>
+                                        <button class="btn-small btn-delete" onclick="deleteAccess('${access.key}', '${userEmail}')">Del</button>
                                     </td>
                                 </tr>
                             `;
