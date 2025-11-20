@@ -863,11 +863,11 @@ function showPermissionDeniedModal() {
             ">
                 <div style="
                     background: white;
-                    padding: 40px;
+                    padding: 30px;
                     border-radius: 20px;
                     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
                     text-align: center;
-                    max-width: 450px;
+                    max-width: 400px;
                     animation: slideDown 0.3s ease;
                 ">
                     <div style="
@@ -886,7 +886,7 @@ function showPermissionDeniedModal() {
                         font-size: 1.1rem;
                         margin-bottom: 30px;
                         line-height: 1.6;
-                    ">You are not permitted to view or download this PDF.<br>Please contact your administrator for access.</p>
+                    ">Please contact your administrator for access</p>
                     <button onclick="closePermissionModal()" style="
                         padding: 12px 40px;
                         background: linear-gradient(135deg, #d63031 0%, #e17055 100%);
