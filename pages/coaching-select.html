@@ -8,11 +8,13 @@
     <link rel="stylesheet" href="../css/responsive.css" />
     <style>
       .coaching-selection-container {
-        min-height: 100vh;
+        min-height: 90vh;
         display: flex;
-        align-items: center;
+        /* align-items: center; */
+        margin-top: 20px;
+        margin-bottom: 20px;
         justify-content: center;
-        padding: 20px;
+        padding: 10px;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       }
 
@@ -46,7 +48,7 @@
         padding: 10px;
         border-radius: 12px;
         color: white;
-        margin-bottom: 30px;
+        /* margin-bottom: 30px; */
         text-align: center;
       }
 
@@ -198,7 +200,8 @@
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
-        margin-top: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
       }
 
       .logout-btn:hover {
@@ -253,6 +256,9 @@
           <h2>Welcome, <span id="userName">Student</span>! 👋</h2>
           <p>Please select your coaching center to access study materials</p>
         </div>
+        <button class="logout-btn" onclick="window.handleLogout()">
+          ← Logout
+        </button>
 
         <div class="error-message" id="errorMessage"></div>
 
@@ -264,10 +270,6 @@
         <div class="coaching-grid" id="coachingGrid">
           <!-- Coaching cards will be dynamically loaded here -->
         </div>
-
-        <button class="logout-btn" onclick="window.handleLogout()">
-          ← Logout
-        </button>
       </div>
     </div>
 
