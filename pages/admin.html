@@ -629,9 +629,21 @@
         </div>
 
         <div id="coaching-list">
-          <div class="loading">
-            <div class="spinner"></div>
-            Loading coaching centers...
+          <div style="text-align: center; padding: 60px 20px">
+            <div style="font-size: 4rem; margin-bottom: 20px">🏢</div>
+            <h3 style="color: #666; margin-bottom: 20px">
+              Coaching Centers Database
+            </h3>
+            <p style="color: #999; margin-bottom: 30px">
+              Click the button below to load coaching centers from the server
+            </p>
+            <button
+              class="btn-primary"
+              onclick="loadCoachingList()"
+              style="padding: 15px 40px; font-size: 1.1rem"
+            >
+              📥 Load Database
+            </button>
           </div>
         </div>
       </div>
@@ -709,9 +721,21 @@
         </div>
 
         <div id="class-list">
-          <div class="loading">
-            <div class="spinner"></div>
-            Loading classes...
+          <div style="text-align: center; padding: 60px 20px">
+            <div style="font-size: 4rem; margin-bottom: 20px">📚</div>
+            <h3 style="color: #666; margin-bottom: 20px">
+              Class Management Database
+            </h3>
+            <p style="color: #999; margin-bottom: 30px">
+              Click the button below to load classes from the server
+            </p>
+            <button
+              class="btn-primary"
+              onclick="loadClassList()"
+              style="padding: 15px 40px; font-size: 1.1rem"
+            >
+              📥 Load Database
+            </button>
           </div>
         </div>
       </div>
@@ -798,9 +822,21 @@
         </div>
 
         <div id="subject-list">
-          <div class="loading">
-            <div class="spinner"></div>
-            Loading subjects...
+          <div style="text-align: center; padding: 60px 20px">
+            <div style="font-size: 4rem; margin-bottom: 20px">📖</div>
+            <h3 style="color: #666; margin-bottom: 20px">
+              Subject Management Database
+            </h3>
+            <p style="color: #999; margin-bottom: 30px">
+              Click the button below to load subjects from the server
+            </p>
+            <button
+              class="btn-primary"
+              onclick="loadSubjectList()"
+              style="padding: 15px 40px; font-size: 1.1rem"
+            >
+              📥 Load Database
+            </button>
           </div>
         </div>
       </div>
@@ -895,9 +931,21 @@
         </div>
 
         <div id="testtype-list">
-          <div class="loading">
-            <div class="spinner"></div>
-            Loading test types...
+          <div style="text-align: center; padding: 60px 20px">
+            <div style="font-size: 4rem; margin-bottom: 20px">📝</div>
+            <h3 style="color: #666; margin-bottom: 20px">
+              Test Type Management Database
+            </h3>
+            <p style="color: #999; margin-bottom: 30px">
+              Click the button below to load test types from the server
+            </p>
+            <button
+              class="btn-primary"
+              onclick="loadTestTypeList()"
+              style="padding: 15px 40px; font-size: 1.1rem"
+            >
+              📥 Load Database
+            </button>
           </div>
         </div>
       </div>
@@ -984,9 +1032,21 @@
         </div>
 
         <div id="chapter-list">
-          <div class="loading">
-            <div class="spinner"></div>
-            Loading chapters...
+          <div style="text-align: center; padding: 60px 20px">
+            <div style="font-size: 4rem; margin-bottom: 20px">📑</div>
+            <h3 style="color: #666; margin-bottom: 20px">
+              Chapter Management Database
+            </h3>
+            <p style="color: #999; margin-bottom: 30px">
+              Click the button below to load chapters from the server
+            </p>
+            <button
+              class="btn-primary"
+              onclick="loadChapterList()"
+              style="padding: 15px 40px; font-size: 1.1rem"
+            >
+              📥 Load Database
+            </button>
           </div>
         </div>
       </div>
@@ -1259,9 +1319,165 @@
 
         <!-- PDF List -->
         <div id="pdf-list">
-          <div class="loading">
-            <div class="spinner"></div>
-            Loading...
+          <!-- Filter Section -->
+          <div
+            style="
+              background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+              padding: 30px;
+              border-radius: 15px;
+              margin-bottom: 20px;
+            "
+          >
+            <h3
+              style="
+                color: #667eea;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+              "
+            >
+              <span
+                style="
+                  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                  padding: 10px;
+                  border-radius: 10px;
+                  display: inline-flex;
+                "
+                >🔍</span
+              >
+              Filter PDFs by Selection
+            </h3>
+            <div
+              style="
+                background: white;
+                padding: 25px;
+                border-radius: 12px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+              "
+            >
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                  gap: 20px;
+                "
+              >
+                <div class="form-group">
+                  <label style="color: #667eea; font-weight: 600"
+                    >Select Coaching *</label
+                  >
+                  <select
+                    id="filter-coaching-id"
+                    onchange="loadFilterClasses()"
+                    style="
+                      width: 100%;
+                      padding: 10px;
+                      border: 2px solid #e0e0e0;
+                      border-radius: 8px;
+                    "
+                  >
+                    <option value="">-- Select Coaching --</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label style="color: #667eea; font-weight: 600"
+                    >Select Class *</label
+                  >
+                  <select
+                    id="filter-class-id"
+                    onchange="loadFilterSubjects()"
+                    style="
+                      width: 100%;
+                      padding: 10px;
+                      border: 2px solid #e0e0e0;
+                      border-radius: 8px;
+                    "
+                    disabled
+                  >
+                    <option value="">-- Select Class --</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label style="color: #667eea; font-weight: 600"
+                    >Select Subject *</label
+                  >
+                  <select
+                    id="filter-subject-name"
+                    onchange="loadFilterTestTypes()"
+                    style="
+                      width: 100%;
+                      padding: 10px;
+                      border: 2px solid #e0e0e0;
+                      border-radius: 8px;
+                    "
+                    disabled
+                  >
+                    <option value="">-- Select Subject --</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label style="color: #667eea; font-weight: 600"
+                    >Select Test Type *</label
+                  >
+                  <select
+                    id="filter-testtype-name"
+                    onchange="loadFilterChapters()"
+                    style="
+                      width: 100%;
+                      padding: 10px;
+                      border: 2px solid #e0e0e0;
+                      border-radius: 8px;
+                    "
+                    disabled
+                  >
+                    <option value="">-- Select Test Type --</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label style="color: #667eea; font-weight: 600"
+                    >Select Chapter *</label
+                  >
+                  <select
+                    id="filter-chapter-key"
+                    onchange="enableLoadButton()"
+                    style="
+                      width: 100%;
+                      padding: 10px;
+                      border: 2px solid #e0e0e0;
+                      border-radius: 8px;
+                    "
+                    disabled
+                  >
+                    <option value="">-- Select Chapter --</option>
+                  </select>
+                </div>
+              </div>
+              <div style="margin-top: 25px; text-align: center">
+                <button
+                  id="load-pdf-button"
+                  class="btn-primary"
+                  onclick="loadFilteredPDFList()"
+                  style="padding: 15px 40px; font-size: 1.1rem"
+                  disabled
+                >
+                  📥 Load PDFs
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- PDF Results Container -->
+          <div id="pdf-results">
+            <div style="text-align: center; padding: 60px 20px">
+              <div style="font-size: 4rem; margin-bottom: 20px">📄</div>
+              <h3 style="color: #666; margin-bottom: 20px">
+                PDF Management Database
+              </h3>
+              <p style="color: #999; margin-bottom: 30px">
+                Please select filters above to load PDFs
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -1754,13 +1970,7 @@
         currentUser = user;
         document.getElementById("userEmail").textContent = user.email;
 
-        // Load initial data
-        loadCoachingList();
-        loadClassList();
-        loadSubjectList();
-        loadTestTypeList();
-        loadChapterList();
-        loadPDFList();
+        // Load initial data (coaching, class, subject, testtype, chapter, and pdf lists loaded on demand)
         loadAccessList();
         loadCoachingDropdown();
         loadLogoOptions();
@@ -1822,13 +2032,8 @@
         document.getElementById(tabName + "-tab").classList.add("active");
         event.target.classList.add("active");
 
-        // Reload data for specific tabs
-        if (tabName === "coaching") loadCoachingList();
-        if (tabName === "class") loadClassList();
-        if (tabName === "subject") loadSubjectList();
-        if (tabName === "testtype") loadTestTypeList();
-        if (tabName === "chapter") loadChapterList();
-        if (tabName === "pdf") loadPDFList();
+        // Reload data for specific tabs (coaching, class, subject, testtype, chapter, and pdf load on-demand via button)
+        if (tabName === "pdf") loadPDFFilterDropdowns();
         if (tabName === "access") loadAccessList();
       };
 
@@ -1899,14 +2104,34 @@
           }
 
           cancelCoachingForm();
-          loadCoachingList();
           loadCoachingDropdown();
+
+          // Show the Load Database button again
+          const container = document.getElementById("coaching-list");
+          container.innerHTML = `
+            <div style="text-align: center; padding: 60px 20px">
+              <div style="font-size: 4rem; margin-bottom: 20px">🏢</div>
+              <h3 style="color: #666; margin-bottom: 20px">
+                Coaching Centers Database
+              </h3>
+              <p style="color: #999; margin-bottom: 30px">
+                Coaching saved successfully! Click the button below to view the updated database
+              </p>
+              <button
+                class="btn-primary"
+                onclick="loadCoachingList()"
+                style="padding: 15px 40px; font-size: 1.1rem"
+              >
+                📥 Load Database
+              </button>
+            </div>
+          `;
         } catch (error) {
           showAlert("Error: " + error.message, "error");
         }
       };
 
-      async function loadCoachingList() {
+      window.loadCoachingList = async function () {
         const container = document.getElementById("coaching-list");
         container.innerHTML =
           '<div class="loading"><div class="spinner"></div>Loading...</div>';
@@ -1956,7 +2181,7 @@
             error.message +
             "</p>";
         }
-      }
+      };
 
       window.editCoaching = async function (key) {
         try {
@@ -2056,13 +2281,33 @@
           }
 
           cancelClassForm();
-          loadClassList();
+
+          // Show the Load Database button again
+          const container = document.getElementById("class-list");
+          container.innerHTML = `
+            <div style="text-align: center; padding: 60px 20px">
+              <div style="font-size: 4rem; margin-bottom: 20px">📚</div>
+              <h3 style="color: #666; margin-bottom: 20px">
+                Class Management Database
+              </h3>
+              <p style="color: #999; margin-bottom: 30px">
+                Class saved successfully! Click the button below to view the updated database
+              </p>
+              <button
+                class="btn-primary"
+                onclick="loadClassList()"
+                style="padding: 15px 40px; font-size: 1.1rem"
+              >
+                📥 Load Database
+              </button>
+            </div>
+          `;
         } catch (error) {
           showAlert("Error: " + error.message, "error");
         }
       };
 
-      async function loadClassList() {
+      window.loadClassList = async function () {
         const container = document.getElementById("class-list");
         container.innerHTML =
           '<div class="loading"><div class="spinner"></div>Loading...</div>';
@@ -2142,7 +2387,7 @@
             error.message +
             "</p>";
         }
-      }
+      };
 
       window.editClass = async function (key) {
         try {
@@ -2179,7 +2424,7 @@
             const classRef = ref(database, `classes/${key}`);
             await remove(classRef);
             showAlert("Class deleted successfully!", "success");
-            loadClassList();
+            window.loadClassList();
           } catch (error) {
             showAlert("Error: " + error.message, "error");
           }
@@ -2335,13 +2580,33 @@
           }
 
           cancelSubjectForm();
-          loadSubjectList();
+
+          // Show the Load Database button again
+          const container = document.getElementById("subject-list");
+          container.innerHTML = `
+            <div style="text-align: center; padding: 60px 20px">
+              <div style="font-size: 4rem; margin-bottom: 20px">📖</div>
+              <h3 style="color: #666; margin-bottom: 20px">
+                Subject Management Database
+              </h3>
+              <p style="color: #999; margin-bottom: 30px">
+                Subject saved successfully! Click the button below to view the updated database
+              </p>
+              <button
+                class="btn-primary"
+                onclick="loadSubjectList()"
+                style="padding: 15px 40px; font-size: 1.1rem"
+              >
+                📥 Load Database
+              </button>
+            </div>
+          `;
         } catch (error) {
           showAlert("Error: " + error.message, "error");
         }
       };
 
-      async function loadSubjectList() {
+      window.loadSubjectList = async function () {
         const container = document.getElementById("subject-list");
         container.innerHTML =
           '<div class="loading"><div class="spinner"></div>Loading...</div>';
@@ -2438,7 +2703,7 @@
             error.message +
             "</p>";
         }
-      }
+      };
 
       window.editSubject = async function (key) {
         try {
@@ -2477,7 +2742,7 @@
             const subjectRef = ref(database, `subjects/${key}`);
             await remove(subjectRef);
             showAlert("Subject deleted successfully!", "success");
-            loadSubjectList();
+            window.loadSubjectList();
           } catch (error) {
             showAlert("Error: " + error.message, "error");
           }
@@ -2606,13 +2871,33 @@
           }
 
           cancelTestTypeForm();
-          loadTestTypeList();
+
+          // Show the Load Database button again
+          const container = document.getElementById("testtype-list");
+          container.innerHTML = `
+            <div style="text-align: center; padding: 60px 20px">
+              <div style="font-size: 4rem; margin-bottom: 20px">📝</div>
+              <h3 style="color: #666; margin-bottom: 20px">
+                Test Type Management Database
+              </h3>
+              <p style="color: #999; margin-bottom: 30px">
+                Test Type saved successfully! Click the button below to view the updated database
+              </p>
+              <button
+                class="btn-primary"
+                onclick="loadTestTypeList()"
+                style="padding: 15px 40px; font-size: 1.1rem"
+              >
+                📥 Load Database
+              </button>
+            </div>
+          `;
         } catch (error) {
           showAlert("Error: " + error.message, "error");
         }
       };
 
-      async function loadTestTypeList() {
+      window.loadTestTypeList = async function () {
         const container = document.getElementById("testtype-list");
         container.innerHTML =
           '<div class="loading"><div class="spinner"></div>Loading...</div>';
@@ -2713,7 +2998,7 @@
             error.message +
             "</p>";
         }
-      }
+      };
 
       window.editTestType = async function (key) {
         try {
@@ -2757,7 +3042,7 @@
             const testtypeRef = ref(database, `test-types/${key}`);
             await remove(testtypeRef);
             showAlert("Test Type deleted successfully!", "success");
-            loadTestTypeList();
+            window.loadTestTypeList();
           } catch (error) {
             showAlert("Error: " + error.message, "error");
           }
@@ -2908,13 +3193,33 @@
           }
 
           cancelChapterForm();
-          loadChapterList();
+
+          // Show the Load Database button again
+          const container = document.getElementById("chapter-list");
+          container.innerHTML = `
+            <div style="text-align: center; padding: 60px 20px">
+              <div style="font-size: 4rem; margin-bottom: 20px">📑</div>
+              <h3 style="color: #666; margin-bottom: 20px">
+                Chapter Management Database
+              </h3>
+              <p style="color: #999; margin-bottom: 30px">
+                Chapter saved successfully! Click the button below to view the updated database
+              </p>
+              <button
+                class="btn-primary"
+                onclick="loadChapterList()"
+                style="padding: 15px 40px; font-size: 1.1rem"
+              >
+                📥 Load Database
+              </button>
+            </div>
+          `;
         } catch (error) {
           showAlert("Error: " + error.message, "error");
         }
       };
 
-      async function loadChapterList() {
+      window.loadChapterList = async function () {
         const container = document.getElementById("chapter-list");
         container.innerHTML =
           '<div class="loading"><div class="spinner"></div>Loading...</div>';
@@ -3017,7 +3322,7 @@
             error.message +
             "</p>";
         }
-      }
+      };
 
       window.editChapter = async function (key) {
         try {
@@ -3060,7 +3365,7 @@
             const chapterRef = ref(database, `chapters/${key}`);
             await remove(chapterRef);
             showAlert("Chapter deleted successfully!", "success");
-            loadChapterList();
+            window.loadChapterList();
           } catch (error) {
             showAlert("Error: " + error.message, "error");
           }
@@ -3257,16 +3562,261 @@
           }
 
           cancelPDFForm();
-          loadPDFList();
+
+          // Show success message and reset filter
+          const resultsContainer = document.getElementById("pdf-results");
+          resultsContainer.innerHTML = `
+            <div style="text-align: center; padding: 60px 20px">
+              <div style="font-size: 4rem; margin-bottom: 20px">🎉</div>
+              <h3 style="color: #4CAF50; margin-bottom: 20px">
+                PDF Saved Successfully!
+              </h3>
+              <p style="color: #999; margin-bottom: 30px">
+                Use the filters above to view the updated PDF database
+              </p>
+            </div>
+          `;
         } catch (error) {
           showAlert("Error: " + error.message, "error");
         }
       };
 
-      async function loadPDFList() {
-        const container = document.getElementById("pdf-list");
+      // Load filter dropdowns for PDF management
+      async function loadPDFFilterDropdowns() {
+        try {
+          const coachingRef = ref(database, "coaching-centers");
+          const snapshot = await get(coachingRef);
+          const select = document.getElementById("filter-coaching-id");
+
+          select.innerHTML = '<option value="">-- Select Coaching --</option>';
+
+          if (snapshot.exists()) {
+            const coachings = snapshot.val();
+            Object.entries(coachings).forEach(([key, coaching]) => {
+              const option = document.createElement("option");
+              option.value = coaching.id;
+              option.textContent = coaching.name;
+              select.appendChild(option);
+            });
+          }
+        } catch (error) {
+          console.error("Error loading filter dropdowns:", error);
+        }
+      }
+
+      window.loadFilterClasses = async function () {
+        const coachingId = document.getElementById("filter-coaching-id").value;
+        const classSelect = document.getElementById("filter-class-id");
+        const subjectSelect = document.getElementById("filter-subject-name");
+        const testtypeSelect = document.getElementById("filter-testtype-name");
+        const chapterSelect = document.getElementById("filter-chapter-key");
+        const loadButton = document.getElementById("load-pdf-button");
+
+        // Reset dependent dropdowns
+        classSelect.innerHTML = '<option value="">-- Select Class --</option>';
+        subjectSelect.innerHTML =
+          '<option value="">-- Select Subject --</option>';
+        testtypeSelect.innerHTML =
+          '<option value="">-- Select Test Type --</option>';
+        chapterSelect.innerHTML =
+          '<option value="">-- Select Chapter --</option>';
+
+        classSelect.disabled = true;
+        subjectSelect.disabled = true;
+        testtypeSelect.disabled = true;
+        chapterSelect.disabled = true;
+        loadButton.disabled = true;
+
+        if (!coachingId) return;
+
+        try {
+          const classesRef = ref(database, "classes");
+          const snapshot = await get(classesRef);
+
+          if (snapshot.exists()) {
+            const classes = snapshot.val();
+            Object.entries(classes).forEach(([key, classData]) => {
+              if (classData.coachingId === coachingId) {
+                const option = document.createElement("option");
+                option.value = classData.classId;
+                option.textContent = classData.name;
+                classSelect.appendChild(option);
+              }
+            });
+            classSelect.disabled = false;
+          }
+        } catch (error) {
+          console.error("Error loading classes:", error);
+        }
+      };
+
+      window.loadFilterSubjects = async function () {
+        const coachingId = document.getElementById("filter-coaching-id").value;
+        const classId = document.getElementById("filter-class-id").value;
+        const subjectSelect = document.getElementById("filter-subject-name");
+        const testtypeSelect = document.getElementById("filter-testtype-name");
+        const chapterSelect = document.getElementById("filter-chapter-key");
+        const loadButton = document.getElementById("load-pdf-button");
+
+        subjectSelect.innerHTML =
+          '<option value="">-- Select Subject --</option>';
+        testtypeSelect.innerHTML =
+          '<option value="">-- Select Test Type --</option>';
+        chapterSelect.innerHTML =
+          '<option value="">-- Select Chapter --</option>';
+
+        subjectSelect.disabled = true;
+        testtypeSelect.disabled = true;
+        chapterSelect.disabled = true;
+        loadButton.disabled = true;
+
+        if (!classId) return;
+
+        try {
+          const subjectsRef = ref(database, "subjects");
+          const snapshot = await get(subjectsRef);
+
+          if (snapshot.exists()) {
+            const subjects = snapshot.val();
+            Object.entries(subjects).forEach(([key, subject]) => {
+              if (
+                subject.coachingId === coachingId &&
+                subject.classId === classId
+              ) {
+                const option = document.createElement("option");
+                option.value = subject.name;
+                option.textContent = subject.name;
+                subjectSelect.appendChild(option);
+              }
+            });
+            subjectSelect.disabled = false;
+          }
+        } catch (error) {
+          console.error("Error loading subjects:", error);
+        }
+      };
+
+      window.loadFilterTestTypes = async function () {
+        const coachingId = document.getElementById("filter-coaching-id").value;
+        const classId = document.getElementById("filter-class-id").value;
+        const subjectName = document.getElementById(
+          "filter-subject-name"
+        ).value;
+        const testtypeSelect = document.getElementById("filter-testtype-name");
+        const chapterSelect = document.getElementById("filter-chapter-key");
+        const loadButton = document.getElementById("load-pdf-button");
+
+        testtypeSelect.innerHTML =
+          '<option value="">-- Select Test Type --</option>';
+        chapterSelect.innerHTML =
+          '<option value="">-- Select Chapter --</option>';
+
+        testtypeSelect.disabled = true;
+        chapterSelect.disabled = true;
+        loadButton.disabled = true;
+
+        if (!subjectName) return;
+
+        try {
+          const testtypesRef = ref(database, "test-types");
+          const snapshot = await get(testtypesRef);
+
+          if (snapshot.exists()) {
+            const testtypes = snapshot.val();
+            Object.entries(testtypes).forEach(([key, testtype]) => {
+              if (
+                testtype.coachingId === coachingId &&
+                testtype.classId === classId &&
+                testtype.subjectName === subjectName
+              ) {
+                const option = document.createElement("option");
+                option.value = testtype.name;
+                option.textContent = testtype.name;
+                testtypeSelect.appendChild(option);
+              }
+            });
+            testtypeSelect.disabled = false;
+          }
+        } catch (error) {
+          console.error("Error loading test types:", error);
+        }
+      };
+
+      window.loadFilterChapters = async function () {
+        const coachingId = document.getElementById("filter-coaching-id").value;
+        const classId = document.getElementById("filter-class-id").value;
+        const subjectName = document.getElementById(
+          "filter-subject-name"
+        ).value;
+        const testtypeName = document.getElementById(
+          "filter-testtype-name"
+        ).value;
+        const chapterSelect = document.getElementById("filter-chapter-key");
+        const loadButton = document.getElementById("load-pdf-button");
+
+        chapterSelect.innerHTML =
+          '<option value="">-- Select Chapter --</option>';
+        chapterSelect.disabled = true;
+        loadButton.disabled = true;
+
+        if (!testtypeName) return;
+
+        try {
+          const chaptersRef = ref(database, "chapters");
+          const snapshot = await get(chaptersRef);
+
+          if (snapshot.exists()) {
+            const chapters = snapshot.val();
+            const filteredChapters = [];
+
+            Object.entries(chapters).forEach(([key, chapter]) => {
+              if (
+                chapter.coachingId === coachingId &&
+                chapter.classId === classId &&
+                chapter.subjectName === subjectName &&
+                chapter.testtypeName === testtypeName
+              ) {
+                filteredChapters.push({ key, ...chapter });
+              }
+            });
+
+            // Sort by serial number
+            filteredChapters.sort((a, b) => a.serialNo - b.serialNo);
+
+            filteredChapters.forEach((chapter) => {
+              const option = document.createElement("option");
+              option.value = chapter.key;
+              option.textContent = chapter.name;
+              chapterSelect.appendChild(option);
+            });
+
+            chapterSelect.disabled = false;
+          }
+        } catch (error) {
+          console.error("Error loading chapters:", error);
+        }
+      };
+
+      window.enableLoadButton = function () {
+        const chapterKey = document.getElementById("filter-chapter-key").value;
+        const loadButton = document.getElementById("load-pdf-button");
+        loadButton.disabled = !chapterKey;
+      };
+
+      window.loadFilteredPDFList = async function () {
+        const coachingId = document.getElementById("filter-coaching-id").value;
+        const classId = document.getElementById("filter-class-id").value;
+        const subjectName = document.getElementById(
+          "filter-subject-name"
+        ).value;
+        const testtypeName = document.getElementById(
+          "filter-testtype-name"
+        ).value;
+        const chapterKey = document.getElementById("filter-chapter-key").value;
+
+        const container = document.getElementById("pdf-results");
         container.innerHTML =
-          '<div class="loading"><div class="spinner"></div>Loading...</div>';
+          '<div class="loading"><div class="spinner"></div>Loading PDFs...</div>';
 
         try {
           const pdfsRef = ref(database, "pdfs");
@@ -3275,101 +3825,47 @@
           if (snapshot.exists()) {
             const pdfs = snapshot.val();
 
-            // Group by coaching, class, subject, testtype, and chapter
-            const groupedPDFs = {};
+            // Filter PDFs based on selection
+            const filteredPDFs = [];
             Object.entries(pdfs).forEach(([key, pdfData]) => {
-              const groupKey = `${pdfData.coachingId}-${pdfData.classId}-${pdfData.subjectName}-${pdfData.testtypeName}-${pdfData.chapterKey}`;
-              if (!groupedPDFs[groupKey]) {
-                groupedPDFs[groupKey] = {
-                  coachingId: pdfData.coachingId,
-                  classId: pdfData.classId,
-                  subjectName: pdfData.subjectName,
-                  testtypeName: pdfData.testtypeName,
-                  chapterKey: pdfData.chapterKey,
-                  pdfs: [],
-                };
+              if (
+                pdfData.coachingId === coachingId &&
+                pdfData.classId === classId &&
+                pdfData.subjectName === subjectName &&
+                pdfData.testtypeName === testtypeName &&
+                pdfData.chapterKey === chapterKey
+              ) {
+                filteredPDFs.push({ key, ...pdfData });
               }
-              groupedPDFs[groupKey].pdfs.push({
-                key,
-                ...pdfData,
-              });
             });
 
-            let html = "";
+            if (filteredPDFs.length > 0) {
+              // Sort by serial number
+              filteredPDFs.sort((a, b) => a.serialNo - b.serialNo);
 
-            for (const [groupKey, group] of Object.entries(groupedPDFs)) {
-              // Get coaching name
-              const coachingRef = ref(
-                database,
-                `coaching-centers/${group.coachingId}`
-              );
-              const coachingSnapshot = await get(coachingRef);
-              const coachingName = coachingSnapshot.exists()
-                ? coachingSnapshot.val().name
-                : group.coachingId;
+              let html =
+                '<table class="data-table"><thead><tr><th>Serial No</th><th>File Name</th><th>URL</th><th>Actions</th></tr></thead><tbody>';
 
-              // Get class name
-              const classesRef = ref(database, "classes");
-              const classesSnapshot = await get(classesRef);
-              let className = group.classId;
-              if (classesSnapshot.exists()) {
-                const classes = classesSnapshot.val();
-                const classEntry = Object.values(classes).find(
-                  (c) =>
-                    c.classId === group.classId &&
-                    c.coachingId === group.coachingId
-                );
-                if (classEntry) {
-                  className = classEntry.name;
-                }
-              }
-
-              // Get chapter name
-              const chapterRef = ref(database, `chapters/${group.chapterKey}`);
-              const chapterSnapshot = await get(chapterRef);
-              const chapterName = chapterSnapshot.exists()
-                ? chapterSnapshot.val().name
-                : "Unknown Chapter";
-
-              // Sort PDFs by serial number
-              group.pdfs.sort((a, b) => a.serialNo - b.serialNo);
-
-              html += `
-                            <h3 style="margin: 30px 0 15px 0; color: #667eea;">🏢 ${coachingName} - ${className} - ${group.subjectName} - ${group.testtypeName} - ${chapterName}</h3>
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Serial No</th>
-                                        <th>File Name</th>
-                                        <th>URL</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                        `;
-
-              group.pdfs.forEach((pdf) => {
-                const shortUrl =
-                  pdf.url.length > 50
-                    ? pdf.url.substring(0, 50) + "..."
-                    : pdf.url;
+              filteredPDFs.forEach((pdf) => {
                 html += `
-                                <tr>
-                                    <td><strong>#${pdf.serialNo}</strong></td>
-                                    <td>${pdf.fileName}</td>
-                                    <td><a href="${pdf.url}" target="_blank" style="color: #667eea; text-decoration: none;">${shortUrl}</a></td>
-                                    <td class="action-buttons">
-                                        <button class="btn-small btn-edit" onclick="editPDF('${pdf.key}')">✏️ Edit</button>
-                                        <button class="btn-small btn-delete" onclick="deletePDF('${pdf.key}', '${pdf.fileName}')">🗑️ Delete</button>
-                                    </td>
-                                </tr>
-                            `;
+                  <tr>
+                    <td>${pdf.serialNo}</td>
+                    <td><strong>${pdf.fileName}</strong></td>
+                    <td><a href="${pdf.url}" target="_blank" style="color: #667eea; text-decoration: none;">🔗 View Link</a></td>
+                    <td class="action-buttons">
+                      <button class="btn-small btn-edit" onclick="editPDF('${pdf.key}')">✏️ Edit</button>
+                      <button class="btn-small btn-delete" onclick="deletePDF('${pdf.key}', '${pdf.fileName}')">🗑️ Delete</button>
+                    </td>
+                  </tr>
+                `;
               });
 
               html += "</tbody></table>";
+              container.innerHTML = html;
+            } else {
+              container.innerHTML =
+                '<div class="no-data">No PDFs found for the selected filters. Click "Add PDF" to create one.</div>';
             }
-
-            container.innerHTML = html;
           } else {
             container.innerHTML =
               '<div class="no-data">No PDFs found. Click "Add PDF" to create one.</div>';
@@ -3380,7 +3876,7 @@
             error.message +
             "</p>";
         }
-      }
+      };
 
       window.editPDF = async function (key) {
         try {
@@ -3425,7 +3921,27 @@
             const pdfRef = ref(database, `pdfs/${key}`);
             await remove(pdfRef);
             showAlert("PDF deleted successfully!", "success");
-            loadPDFList();
+
+            // Reload the filtered list if filters are set
+            const chapterKey =
+              document.getElementById("filter-chapter-key").value;
+            if (chapterKey) {
+              loadFilteredPDFList();
+            } else {
+              // Show success message
+              const resultsContainer = document.getElementById("pdf-results");
+              resultsContainer.innerHTML = `
+                <div style="text-align: center; padding: 60px 20px">
+                  <div style="font-size: 4rem; margin-bottom: 20px">✅</div>
+                  <h3 style="color: #4CAF50; margin-bottom: 20px">
+                    PDF Deleted Successfully!
+                  </h3>
+                  <p style="color: #999; margin-bottom: 30px">
+                    Use the filters above to view PDFs
+                  </p>
+                </div>
+              `;
+            }
           } catch (error) {
             showAlert("Error: " + error.message, "error");
           }
