@@ -1,0 +1,90 @@
+{
+  "rules": {
+    // Coaching Centers - Read: authenticated users, Write: admin only
+    "coaching-centers": {
+      ".read": "auth != null",
+      ".write": "root.child('admins').child(auth.uid).exists()",
+      "$coachingId": {
+        ".validate": "newData.hasChildren(['id', 'name', 'icon', 'owner', 'contact', 'place', 'createdAt'])"
+      }
+    },
+    
+    // Classes - Read: authenticated users, Write: admin only
+    "classes": {
+      ".read": "auth != null",
+      ".write": "root.child('admins').child(auth.uid).exists()",
+      "$classKey": {
+        ".validate": "newData.hasChildren(['coachingId', 'classId', 'name', 'icon', 'color', 'createdAt'])"
+      }
+    },
+    
+    // Subjects - Read: authenticated users, Write: admin only
+    "subjects": {
+      ".read": "auth != null",
+      ".write": "root.child('admins').child(auth.uid).exists()",
+      "$subjectKey": {
+        ".validate": "newData.hasChildren(['coachingId', 'classId', 'name', 'icon', 'color', 'createdAt'])"
+      }
+    },
+    
+    // Test Types - Read: authenticated users, Write: admin only
+    "test-types": {
+      ".read": "auth != null",
+      ".write": "root.child('admins').child(auth.uid).exists()",
+      "$testtypeKey": {
+        ".validate": "newData.hasChildren(['coachingId', 'classId', 'subjectName', 'name', 'icon', 'color', 'createdAt'])"
+      }
+    },
+    
+    // Chapters - Read: authenticated users, Write: admin only
+    "chapters": {
+      ".read": "auth != null",
+      ".write": "root.child('admins').child(auth.uid).exists()",
+      "$chapterKey": {
+        ".validate": "newData.hasChildren(['coachingId', 'classId', 'subjectName', 'testtypeName', 'name', 'serialNo', 'createdAt'])"
+      }
+    },
+    
+    // PDFs - Read: users with specific access, Write: admin only
+    "pdfs": {
+      ".read": "auth != null",
+      ".write": "root.child('admins').child(auth.uid).exists()",
+      "$pdfKey": {
+        ".validate": "newData.hasChildren(['coachingId', 'classId', 'subjectName', 'testtypeName', 'chapterKey', 'fileName', 'serialNo', 'url', 'createdAt'])"
+      }
+    },
+    
+    // Access Control - Read: authenticated users, Write: admin only
+    "access-control": {
+      ".read": "auth != null",
+      ".write": "root.child('admins').child(auth.uid).exists()",
+      "$accessKey": {
+        ".validate": "newData.hasChildren(['userEmail', 'coachingId', 'classId', 'subjectName', 'testtypeName', 'grantedAt'])"
+      }
+    },
+    
+    // Admin List - Only admins can read/write
+    "admins": {
+      ".read": "root.child('admins').child(auth.uid).exists()",
+      ".write": "root.child('admins').child(auth.uid).exists()",
+      "$uid": {
+        ".validate": "newData.hasChildren(['email', 'role'])"
+      }
+    },
+    
+    // User Profiles - Users can read their own profile
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid == $uid",
+        ".write": "auth != null && auth.uid == $uid",
+        ".validate": "newData.hasChildren(['email', 'displayName', 'createdAt'])"
+      }
+    },
+    
+    // Default deny all other paths
+    "$other": {
+      ".read": false,
+      ".write": false
+    }
+  }
+}
