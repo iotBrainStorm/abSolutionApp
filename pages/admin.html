@@ -703,25 +703,247 @@
                   <option value="📚">📚 Stack Books</option>
                 </select>
               </div>
-              <div class="form-group">
-                <label>Card Color*</label>
-                <input type="color" id="class-color" value="#4CAF50" required />
-                <!-- <span
-                  class="color-preview"
-                  id="class-color-preview"
-                  style="background: #4caf50"
-                ></span> -->
+            </div>
+
+            <!-- Color Configuration Section -->
+            <div
+              style="
+                background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+                padding: 25px;
+                border-radius: 12px;
+                margin-top: 20px;
+                border: 2px solid #e0e0e0;
+              "
+            >
+              <h4
+                style="
+                  color: #667eea;
+                  margin-bottom: 20px;
+                  font-size: 1.1rem;
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                "
+              >
+                <span style="font-size: 1.3rem">🎨</span>
+                Card Appearance
+              </h4>
+
+              <div class="form-group" style="margin-bottom: 20px">
+                <label
+                  style="
+                    font-weight: 600;
+                    color: #555;
+                    margin-bottom: 8px;
+                    display: block;
+                  "
+                  >Color Style*</label
+                >
+                <select
+                  id="class-color-type"
+                  onchange="toggleClassColorInputs()"
+                  style="
+                    width: 100%;
+                    padding: 12px;
+                    border: 2px solid #d1d5db;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    background: white;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                  "
+                >
+                  <option value="solid">🎨 Solid Color</option>
+                  <option value="gradient">🌈 Gradient</option>
+                </select>
+              </div>
+
+              <div
+                id="class-solid-color-group"
+                style="
+                  background: white;
+                  padding: 20px;
+                  border-radius: 10px;
+                  border: 2px solid #e0e0e0;
+                "
+              >
+                <label
+                  style="
+                    font-weight: 600;
+                    color: #555;
+                    margin-bottom: 12px;
+                    display: block;
+                  "
+                >
+                  <span style="font-size: 1.1rem; margin-right: 5px">🎨</span>
+                  Card Color*
+                </label>
+                <input
+                  type="color"
+                  id="class-color"
+                  value="#4CAF50"
+                  required
+                  style="
+                    width: 100%;
+                    height: 60px;
+                    border: 2px solid #d1d5db;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    padding: 5px;
+                  "
+                />
+              </div>
+
+              <div
+                id="class-gradient-group"
+                style="
+                  display: none;
+                  background: white;
+                  padding: 20px;
+                  border-radius: 10px;
+                  border: 2px solid #e0e0e0;
+                "
+              >
+                <label
+                  style="
+                    font-weight: 600;
+                    color: #555;
+                    margin-bottom: 15px;
+                    display: block;
+                  "
+                >
+                  <span style="font-size: 1.1rem; margin-right: 5px">🌈</span>
+                  Gradient Colors*
+                </label>
+                <div style="display: flex; gap: 20px; align-items: stretch">
+                  <div style="flex: 1">
+                    <div
+                      style="
+                        background: #f9fafb;
+                        padding: 15px;
+                        border-radius: 8px;
+                        border: 1px solid #e5e7eb;
+                        margin-bottom: 15px;
+                      "
+                    >
+                      <label
+                        style="
+                          font-size: 0.9rem;
+                          color: #667eea;
+                          display: block;
+                          margin-bottom: 8px;
+                          font-weight: 600;
+                        "
+                        >🔵 Start Color</label
+                      >
+                      <input
+                        type="color"
+                        id="class-gradient-start"
+                        value="#667eea"
+                        style="
+                          width: 100%;
+                          height: 50px;
+                          border: 2px solid #d1d5db;
+                          border-radius: 8px;
+                          cursor: pointer;
+                          padding: 3px;
+                        "
+                      />
+                    </div>
+                    <div
+                      style="
+                        background: #f9fafb;
+                        padding: 15px;
+                        border-radius: 8px;
+                        border: 1px solid #e5e7eb;
+                      "
+                    >
+                      <label
+                        style="
+                          font-size: 0.9rem;
+                          color: #764ba2;
+                          display: block;
+                          margin-bottom: 8px;
+                          font-weight: 600;
+                        "
+                        >🟣 End Color</label
+                      >
+                      <input
+                        type="color"
+                        id="class-gradient-end"
+                        value="#764ba2"
+                        style="
+                          width: 100%;
+                          height: 50px;
+                          border: 2px solid #d1d5db;
+                          border-radius: 8px;
+                          cursor: pointer;
+                          padding: 3px;
+                        "
+                      />
+                    </div>
+                  </div>
+                  <div style="flex: 1">
+                    <div
+                      style="
+                        background: #f9fafb;
+                        padding: 15px;
+                        border-radius: 8px;
+                        border: 1px solid #e5e7eb;
+                        height: 100%;
+                      "
+                    >
+                      <label
+                        style="
+                          font-size: 0.9rem;
+                          color: #555;
+                          display: block;
+                          margin-bottom: 8px;
+                          font-weight: 600;
+                        "
+                        >👁️ Live Preview</label
+                      >
+                      <div
+                        id="class-gradient-preview"
+                        style="
+                          height: calc(100% - 30px);
+                          min-height: 120px;
+                          border-radius: 10px;
+                          background: linear-gradient(
+                            135deg,
+                            #667eea 0%,
+                            #764ba2 100%
+                          );
+                          border: 3px solid #d1d5db;
+                          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          color: white;
+                          font-size: 0.9rem;
+                          font-weight: 600;
+                          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                        "
+                      >
+                        <span style="opacity: 0.8">Gradient Preview</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <input type="hidden" id="class-edit-key" value="" />
-            <button type="submit" class="btn-primary">💾 Save Class</button>
-            <button
-              type="button"
-              class="btn-cancel"
-              onclick="cancelClassForm()"
-            >
-              ❌ Cancel
-            </button>
+
+            <div style="margin-top: 25px">
+              <input type="hidden" id="class-edit-key" value="" />
+              <button type="submit" class="btn-primary">💾 Save Class</button>
+              <button
+                type="button"
+                class="btn-cancel"
+                onclick="cancelClassForm()"
+              >
+                ❌ Cancel
+              </button>
+            </div>
           </form>
         </div>
 
@@ -799,30 +1021,248 @@
                   <option value="📊">📊 Statistics</option>
                 </select>
               </div>
-              <div class="form-group">
-                <label>Select Color*</label>
+            </div>
+
+            <!-- Color Configuration Section -->
+            <div
+              style="
+                background: linear-gradient(135deg, #fff5f7 0%, #ffe8f0 100%);
+                padding: 25px;
+                border-radius: 12px;
+                margin-top: 20px;
+                border: 2px solid #ffc0cb;
+              "
+            >
+              <h4
+                style="
+                  color: #f093fb;
+                  margin-bottom: 20px;
+                  font-size: 1.1rem;
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                "
+              >
+                <span style="font-size: 1.3rem">🎨</span>
+                Card Appearance
+              </h4>
+
+              <div class="form-group" style="margin-bottom: 20px">
+                <label
+                  style="
+                    font-weight: 600;
+                    color: #555;
+                    margin-bottom: 8px;
+                    display: block;
+                  "
+                  >Color Style*</label
+                >
+                <select
+                  id="subject-color-type"
+                  onchange="toggleSubjectColorInputs()"
+                  required
+                  style="
+                    width: 100%;
+                    padding: 12px;
+                    border: 2px solid #d1d5db;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    background: white;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                  "
+                >
+                  <option value="solid">🎨 Solid Color</option>
+                  <option value="gradient">🌈 Gradient</option>
+                </select>
+              </div>
+
+              <div
+                id="subject-solid-color-group"
+                style="
+                  background: white;
+                  padding: 20px;
+                  border-radius: 10px;
+                  border: 2px solid #ffc0cb;
+                "
+              >
+                <label
+                  style="
+                    font-weight: 600;
+                    color: #555;
+                    margin-bottom: 12px;
+                    display: block;
+                  "
+                >
+                  <span style="font-size: 1.1rem; margin-right: 5px">🎨</span>
+                  Card Color*
+                </label>
                 <input
                   type="color"
                   id="subject-color"
                   value="#FF9800"
                   required
+                  style="
+                    width: 100%;
+                    height: 60px;
+                    border: 2px solid #d1d5db;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    padding: 5px;
+                  "
                 />
-                <!-- <span
-                  class="color-preview"
-                  id="subject-color-preview"
-                  style="background: #ff9800"
-                ></span> -->
+              </div>
+
+              <div
+                id="subject-gradient-group"
+                style="
+                  display: none;
+                  background: white;
+                  padding: 20px;
+                  border-radius: 10px;
+                  border: 2px solid #ffc0cb;
+                "
+              >
+                <label
+                  style="
+                    font-weight: 600;
+                    color: #555;
+                    margin-bottom: 15px;
+                    display: block;
+                  "
+                >
+                  <span style="font-size: 1.1rem; margin-right: 5px">🌈</span>
+                  Gradient Colors*
+                </label>
+                <div style="display: flex; gap: 20px; align-items: stretch">
+                  <div style="flex: 1">
+                    <div
+                      style="
+                        background: #fef5f9;
+                        padding: 15px;
+                        border-radius: 8px;
+                        border: 1px solid #ffc0cb;
+                        margin-bottom: 15px;
+                      "
+                    >
+                      <label
+                        style="
+                          font-size: 0.9rem;
+                          color: #f093fb;
+                          display: block;
+                          margin-bottom: 8px;
+                          font-weight: 600;
+                        "
+                        >🟣 Start Color</label
+                      >
+                      <input
+                        type="color"
+                        id="subject-gradient-start"
+                        value="#f093fb"
+                        style="
+                          width: 100%;
+                          height: 50px;
+                          border: 2px solid #d1d5db;
+                          border-radius: 8px;
+                          cursor: pointer;
+                          padding: 3px;
+                        "
+                      />
+                    </div>
+                    <div
+                      style="
+                        background: #fef5f9;
+                        padding: 15px;
+                        border-radius: 8px;
+                        border: 1px solid #ffc0cb;
+                      "
+                    >
+                      <label
+                        style="
+                          font-size: 0.9rem;
+                          color: #f5576c;
+                          display: block;
+                          margin-bottom: 8px;
+                          font-weight: 600;
+                        "
+                        >🔴 End Color</label
+                      >
+                      <input
+                        type="color"
+                        id="subject-gradient-end"
+                        value="#f5576c"
+                        style="
+                          width: 100%;
+                          height: 50px;
+                          border: 2px solid #d1d5db;
+                          border-radius: 8px;
+                          cursor: pointer;
+                          padding: 3px;
+                        "
+                      />
+                    </div>
+                  </div>
+                  <div style="flex: 1">
+                    <div
+                      style="
+                        background: #fef5f9;
+                        padding: 15px;
+                        border-radius: 8px;
+                        border: 1px solid #ffc0cb;
+                        height: 100%;
+                      "
+                    >
+                      <label
+                        style="
+                          font-size: 0.9rem;
+                          color: #555;
+                          display: block;
+                          margin-bottom: 8px;
+                          font-weight: 600;
+                        "
+                        >👁️ Live Preview</label
+                      >
+                      <div
+                        id="subject-gradient-preview"
+                        style="
+                          height: calc(100% - 30px);
+                          min-height: 120px;
+                          border-radius: 10px;
+                          background: linear-gradient(
+                            135deg,
+                            #f093fb 0%,
+                            #f5576c 100%
+                          );
+                          border: 3px solid #d1d5db;
+                          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          color: white;
+                          font-size: 0.9rem;
+                          font-weight: 600;
+                          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                        "
+                      >
+                        <span style="opacity: 0.8">Gradient Preview</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <input type="hidden" id="subject-edit-key" value="" />
-            <button type="submit" class="btn-primary">💾 Save Subject</button>
-            <button
-              type="button"
-              class="btn-cancel"
-              onclick="cancelSubjectForm()"
-            >
-              ❌ Cancel
-            </button>
+
+            <div style="margin-top: 25px">
+              <input type="hidden" id="subject-edit-key" value="" />
+              <button type="submit" class="btn-primary">💾 Save Subject</button>
+              <button
+                type="button"
+                class="btn-cancel"
+                onclick="cancelSubjectForm()"
+              >
+                ❌ Cancel
+              </button>
+            </div>
           </form>
         </div>
 
@@ -908,30 +1348,250 @@
                   <option value="⏱️">⏱️ Quick Quiz</option>
                 </select>
               </div>
-              <div class="form-group">
-                <label>Select Color*</label>
+            </div>
+
+            <!-- Color Configuration Section -->
+            <div
+              style="
+                background: linear-gradient(135deg, #e0f7ff 0%, #cfe9ff 100%);
+                padding: 25px;
+                border-radius: 12px;
+                margin-top: 20px;
+                border: 2px solid #4facfe;
+              "
+            >
+              <h4
+                style="
+                  color: #4facfe;
+                  margin-bottom: 20px;
+                  font-size: 1.1rem;
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                "
+              >
+                <span style="font-size: 1.3rem">🎨</span>
+                Card Appearance
+              </h4>
+
+              <div class="form-group" style="margin-bottom: 20px">
+                <label
+                  style="
+                    font-weight: 600;
+                    color: #555;
+                    margin-bottom: 8px;
+                    display: block;
+                  "
+                  >Color Style*</label
+                >
+                <select
+                  id="testtype-color-type"
+                  onchange="toggleTestTypeColorInputs()"
+                  required
+                  style="
+                    width: 100%;
+                    padding: 12px;
+                    border: 2px solid #d1d5db;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    background: white;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                  "
+                >
+                  <option value="solid">🎨 Solid Color</option>
+                  <option value="gradient">🌈 Gradient</option>
+                </select>
+              </div>
+
+              <div
+                id="testtype-solid-color-group"
+                style="
+                  background: white;
+                  padding: 20px;
+                  border-radius: 10px;
+                  border: 2px solid #4facfe;
+                "
+              >
+                <label
+                  style="
+                    font-weight: 600;
+                    color: #555;
+                    margin-bottom: 12px;
+                    display: block;
+                  "
+                >
+                  <span style="font-size: 1.1rem; margin-right: 5px">🎨</span>
+                  Card Color*
+                </label>
                 <input
                   type="color"
                   id="testtype-color"
                   value="#2196F3"
                   required
+                  style="
+                    width: 100%;
+                    height: 60px;
+                    border: 2px solid #d1d5db;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    padding: 5px;
+                  "
                 />
-                <!-- <span
-                  class="color-preview"
-                  id="testtype-color-preview"
-                  style="background: #2196f3"
-                ></span> -->
+              </div>
+
+              <div
+                id="testtype-gradient-group"
+                style="
+                  display: none;
+                  background: white;
+                  padding: 20px;
+                  border-radius: 10px;
+                  border: 2px solid #4facfe;
+                "
+              >
+                <label
+                  style="
+                    font-weight: 600;
+                    color: #555;
+                    margin-bottom: 15px;
+                    display: block;
+                  "
+                >
+                  <span style="font-size: 1.1rem; margin-right: 5px">🌈</span>
+                  Gradient Colors*
+                </label>
+                <div style="display: flex; gap: 20px; align-items: stretch">
+                  <div style="flex: 1">
+                    <div
+                      style="
+                        background: #f0f9ff;
+                        padding: 15px;
+                        border-radius: 8px;
+                        border: 1px solid #4facfe;
+                        margin-bottom: 15px;
+                      "
+                    >
+                      <label
+                        style="
+                          font-size: 0.9rem;
+                          color: #4facfe;
+                          display: block;
+                          margin-bottom: 8px;
+                          font-weight: 600;
+                        "
+                        >🔵 Start Color</label
+                      >
+                      <input
+                        type="color"
+                        id="testtype-gradient-start"
+                        value="#4facfe"
+                        style="
+                          width: 100%;
+                          height: 50px;
+                          border: 2px solid #d1d5db;
+                          border-radius: 8px;
+                          cursor: pointer;
+                          padding: 3px;
+                        "
+                      />
+                    </div>
+                    <div
+                      style="
+                        background: #f0f9ff;
+                        padding: 15px;
+                        border-radius: 8px;
+                        border: 1px solid #4facfe;
+                      "
+                    >
+                      <label
+                        style="
+                          font-size: 0.9rem;
+                          color: #00f2fe;
+                          display: block;
+                          margin-bottom: 8px;
+                          font-weight: 600;
+                        "
+                        >🔷 End Color</label
+                      >
+                      <input
+                        type="color"
+                        id="testtype-gradient-end"
+                        value="#00f2fe"
+                        style="
+                          width: 100%;
+                          height: 50px;
+                          border: 2px solid #d1d5db;
+                          border-radius: 8px;
+                          cursor: pointer;
+                          padding: 3px;
+                        "
+                      />
+                    </div>
+                  </div>
+                  <div style="flex: 1">
+                    <div
+                      style="
+                        background: #f0f9ff;
+                        padding: 15px;
+                        border-radius: 8px;
+                        border: 1px solid #4facfe;
+                        height: 100%;
+                      "
+                    >
+                      <label
+                        style="
+                          font-size: 0.9rem;
+                          color: #555;
+                          display: block;
+                          margin-bottom: 8px;
+                          font-weight: 600;
+                        "
+                        >👁️ Live Preview</label
+                      >
+                      <div
+                        id="testtype-gradient-preview"
+                        style="
+                          height: calc(100% - 30px);
+                          min-height: 120px;
+                          border-radius: 10px;
+                          background: linear-gradient(
+                            135deg,
+                            #4facfe 0%,
+                            #00f2fe 100%
+                          );
+                          border: 3px solid #d1d5db;
+                          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          color: white;
+                          font-size: 0.9rem;
+                          font-weight: 600;
+                          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                        "
+                      >
+                        <span style="opacity: 0.8">Gradient Preview</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <input type="hidden" id="testtype-edit-key" value="" />
-            <button type="submit" class="btn-primary">💾 Save Test Type</button>
-            <button
-              type="button"
-              class="btn-cancel"
-              onclick="cancelTestTypeForm()"
-            >
-              ❌ Cancel
-            </button>
+
+            <div style="margin-top: 25px">
+              <input type="hidden" id="testtype-edit-key" value="" />
+              <button type="submit" class="btn-primary">
+                💾 Save Test Type
+              </button>
+              <button
+                type="button"
+                class="btn-cancel"
+                onclick="cancelTestTypeForm()"
+              >
+                ❌ Cancel
+              </button>
+            </div>
           </form>
         </div>
 
@@ -2270,12 +2930,26 @@
       window.saveClass = async function (event) {
         event.preventDefault();
 
+        const colorType = document.getElementById("class-color-type").value;
+        let color;
+
+        if (colorType === "gradient") {
+          const gradientStart = document.getElementById(
+            "class-gradient-start"
+          ).value;
+          const gradientEnd =
+            document.getElementById("class-gradient-end").value;
+          color = `linear-gradient(135deg, ${gradientStart} 0%, ${gradientEnd} 100%)`;
+        } else {
+          color = document.getElementById("class-color").value;
+        }
+
         const classData = {
           coachingId: document.getElementById("class-coaching-id").value,
           classId: document.getElementById("class-id").value.trim(),
           name: document.getElementById("class-name").value.trim(),
           icon: document.getElementById("class-icon").value,
-          color: document.getElementById("class-color").value,
+          color: color,
           createdAt: new Date().toISOString(),
         };
 
@@ -2379,7 +3053,7 @@
                                     <td style="font-size: 1.5rem;">${classItem.icon}</td>
                                     <td><code>${classItem.classId}</code></td>
                                     <td><strong>${classItem.name}</strong></td>
-                                    <td><span class="color-preview" style="background: ${classItem.color};"></span> ${classItem.color}</td>
+                                    <td><span class="color-preview" style="background: ${classItem.color};"></span></td>
                                     <td class="action-buttons">
                                         <button class="btn-small btn-edit" onclick="editClass('${classItem.key}')">Edit</button>
                                         <button class="btn-small btn-delete" onclick="deleteClass('${classItem.key}', '${classItem.name}')">Del</button>
@@ -2416,9 +3090,32 @@
             document.getElementById("class-id").value = classData.classId;
             document.getElementById("class-name").value = classData.name;
             document.getElementById("class-icon").value = classData.icon;
-            document.getElementById("class-color").value = classData.color;
-            document.getElementById("class-color-preview").style.background =
-              classData.color;
+
+            // Check if color is gradient or solid
+            if (
+              classData.color &&
+              classData.color.startsWith("linear-gradient")
+            ) {
+              document.getElementById("class-color-type").value = "gradient";
+              // Extract gradient colors using regex
+              const matches = classData.color.match(/#[0-9a-fA-F]{6}/g);
+              if (matches && matches.length >= 2) {
+                document.getElementById("class-gradient-start").value =
+                  matches[0];
+                document.getElementById("class-gradient-end").value =
+                  matches[1];
+                document.getElementById(
+                  "class-gradient-preview"
+                ).style.background = classData.color;
+              }
+              toggleClassColorInputs();
+            } else {
+              document.getElementById("class-color-type").value = "solid";
+              document.getElementById("class-color").value =
+                classData.color || "#4CAF50";
+              toggleClassColorInputs();
+            }
+
             document.getElementById("class-edit-key").value = key;
             document.getElementById("add-class-form").style.display = "block";
           }
@@ -2569,12 +3266,27 @@
       window.saveSubject = async function (event) {
         event.preventDefault();
 
+        const colorType = document.getElementById("subject-color-type").value;
+        let color;
+
+        if (colorType === "gradient") {
+          const gradientStart = document.getElementById(
+            "subject-gradient-start"
+          ).value;
+          const gradientEnd = document.getElementById(
+            "subject-gradient-end"
+          ).value;
+          color = `linear-gradient(135deg, ${gradientStart} 0%, ${gradientEnd} 100%)`;
+        } else {
+          color = document.getElementById("subject-color").value;
+        }
+
         const subjectData = {
           coachingId: document.getElementById("subject-coaching-id").value,
           classId: document.getElementById("subject-class-id").value,
           name: document.getElementById("subject-name").value.trim(),
           icon: document.getElementById("subject-icon").value,
-          color: document.getElementById("subject-color").value,
+          color: color,
           createdAt: new Date().toISOString(),
         };
 
@@ -2695,7 +3407,7 @@
                                 <tr>
                                     <td style="font-size: 1.5rem;">${subject.icon}</td>
                                     <td><strong>${subject.name}</strong></td>
-                                    <td><span class="color-preview" style="background: ${subject.color};"></span> ${subject.color}</td>
+                                    <td><span class="color-preview" style="background: ${subject.color};"></span></td>
                                     <td class="action-buttons">
                                         <button class="btn-small btn-edit" onclick="editSubject('${subject.key}')">Edit</button>
                                         <button class="btn-small btn-delete" onclick="deleteSubject('${subject.key}', '${subject.name}')">Del</button>
@@ -2734,9 +3446,31 @@
               subjectData.classId;
             document.getElementById("subject-name").value = subjectData.name;
             document.getElementById("subject-icon").value = subjectData.icon;
-            document.getElementById("subject-color").value = subjectData.color;
-            document.getElementById("subject-color-preview").style.background =
-              subjectData.color;
+
+            // Check if color is gradient or solid
+            if (
+              subjectData.color &&
+              subjectData.color.startsWith("linear-gradient")
+            ) {
+              document.getElementById("subject-color-type").value = "gradient";
+              const matches = subjectData.color.match(/#[0-9a-fA-F]{6}/g);
+              if (matches && matches.length >= 2) {
+                document.getElementById("subject-gradient-start").value =
+                  matches[0];
+                document.getElementById("subject-gradient-end").value =
+                  matches[1];
+                document.getElementById(
+                  "subject-gradient-preview"
+                ).style.background = subjectData.color;
+              }
+              toggleSubjectColorInputs();
+            } else {
+              document.getElementById("subject-color-type").value = "solid";
+              document.getElementById("subject-color").value =
+                subjectData.color || "#FF9800";
+              toggleSubjectColorInputs();
+            }
+
             document.getElementById("subject-edit-key").value = key;
             document.getElementById("add-subject-form").style.display = "block";
           }
@@ -2843,6 +3577,208 @@
         }
       };
 
+      // Toggle class color inputs
+      window.toggleClassColorInputs = function () {
+        const colorType = document.getElementById("class-color-type").value;
+        const solidGroup = document.getElementById("class-solid-color-group");
+        const gradientGroup = document.getElementById("class-gradient-group");
+
+        if (colorType === "gradient") {
+          solidGroup.style.display = "none";
+          gradientGroup.style.display = "block";
+          document.getElementById("class-color").removeAttribute("required");
+        } else {
+          solidGroup.style.display = "block";
+          gradientGroup.style.display = "none";
+          document
+            .getElementById("class-color")
+            .setAttribute("required", "required");
+        }
+      };
+
+      // Update class gradient preview
+      document.addEventListener("DOMContentLoaded", function () {
+        const gradientStart = document.getElementById("class-gradient-start");
+        const gradientEnd = document.getElementById("class-gradient-end");
+        const gradientPreview = document.getElementById(
+          "class-gradient-preview"
+        );
+
+        if (gradientStart && gradientEnd && gradientPreview) {
+          gradientStart.addEventListener("input", function () {
+            gradientPreview.style.background = `linear-gradient(135deg, ${gradientStart.value} 0%, ${gradientEnd.value} 100%)`;
+          });
+
+          gradientEnd.addEventListener("input", function () {
+            gradientPreview.style.background = `linear-gradient(135deg, ${gradientStart.value} 0%, ${gradientEnd.value} 100%)`;
+          });
+        }
+      });
+
+      // ============ SUBJECT COLOR TOGGLE & GRADIENT PREVIEW ============
+
+      // Toggle subject color inputs between solid and gradient
+      window.toggleSubjectColorInputs = function () {
+        const colorType = document.getElementById("subject-color-type").value;
+        const solidGroup = document.getElementById("subject-solid-color-group");
+        const gradientGroup = document.getElementById("subject-gradient-group");
+
+        if (colorType === "gradient") {
+          solidGroup.style.display = "none";
+          gradientGroup.style.display = "block";
+          document.getElementById("subject-color").removeAttribute("required");
+        } else {
+          solidGroup.style.display = "block";
+          gradientGroup.style.display = "none";
+          document
+            .getElementById("subject-color")
+            .setAttribute("required", "required");
+        }
+      };
+
+      // Update subject gradient preview on color change
+      document.addEventListener("DOMContentLoaded", function () {
+        const gradientStart = document.getElementById("subject-gradient-start");
+        const gradientEnd = document.getElementById("subject-gradient-end");
+        const gradientPreview = document.getElementById(
+          "subject-gradient-preview"
+        );
+
+        if (gradientStart && gradientEnd && gradientPreview) {
+          gradientStart.addEventListener("input", function () {
+            gradientPreview.style.background = `linear-gradient(135deg, ${gradientStart.value} 0%, ${gradientEnd.value} 100%)`;
+          });
+
+          gradientEnd.addEventListener("input", function () {
+            gradientPreview.style.background = `linear-gradient(135deg, ${gradientStart.value} 0%, ${gradientEnd.value} 100%)`;
+          });
+        }
+      });
+
+      // ============ TEST TYPE COLOR TOGGLE & GRADIENT PREVIEW ============
+
+      // Toggle test type color inputs between solid and gradient
+      window.toggleTestTypeColorInputs = function () {
+        const colorType = document.getElementById("testtype-color-type").value;
+        const solidGroup = document.getElementById(
+          "testtype-solid-color-group"
+        );
+        const gradientGroup = document.getElementById(
+          "testtype-gradient-group"
+        );
+
+        if (colorType === "gradient") {
+          solidGroup.style.display = "none";
+          gradientGroup.style.display = "block";
+          document.getElementById("testtype-color").removeAttribute("required");
+        } else {
+          solidGroup.style.display = "block";
+          gradientGroup.style.display = "none";
+          document
+            .getElementById("testtype-color")
+            .setAttribute("required", "required");
+        }
+      };
+
+      // Update test type gradient preview on color change
+      document.addEventListener("DOMContentLoaded", function () {
+        const gradientStart = document.getElementById(
+          "testtype-gradient-start"
+        );
+        const gradientEnd = document.getElementById("testtype-gradient-end");
+        const gradientPreview = document.getElementById(
+          "testtype-gradient-preview"
+        );
+
+        if (gradientStart && gradientEnd && gradientPreview) {
+          gradientStart.addEventListener("input", function () {
+            gradientPreview.style.background = `linear-gradient(135deg, ${gradientStart.value} 0%, ${gradientEnd.value} 100%)`;
+          });
+
+          gradientEnd.addEventListener("input", function () {
+            gradientPreview.style.background = `linear-gradient(135deg, ${gradientStart.value} 0%, ${gradientEnd.value} 100%)`;
+          });
+        }
+      });
+
+      // Toggle class color inputs between solid and gradient
+      window.toggleClassColorInputs = function () {
+        const colorType = document.getElementById("class-color-type").value;
+        const solidGroup = document.getElementById("class-solid-color-group");
+        const gradientGroup = document.getElementById("class-gradient-group");
+
+        if (colorType === "gradient") {
+          solidGroup.style.display = "none";
+          gradientGroup.style.display = "block";
+          document.getElementById("class-color").removeAttribute("required");
+        } else {
+          solidGroup.style.display = "block";
+          gradientGroup.style.display = "none";
+          document
+            .getElementById("class-color")
+            .setAttribute("required", "required");
+        }
+      };
+
+      // Update class gradient preview on color change
+      document.addEventListener("DOMContentLoaded", function () {
+        const gradientStart = document.getElementById("class-gradient-start");
+        const gradientEnd = document.getElementById("class-gradient-end");
+        const gradientPreview = document.getElementById(
+          "class-gradient-preview"
+        );
+
+        if (gradientStart && gradientEnd && gradientPreview) {
+          gradientStart.addEventListener("input", function () {
+            gradientPreview.style.background = `linear-gradient(135deg, ${gradientStart.value} 0%, ${gradientEnd.value} 100%)`;
+          });
+
+          gradientEnd.addEventListener("input", function () {
+            gradientPreview.style.background = `linear-gradient(135deg, ${gradientStart.value} 0%, ${gradientEnd.value} 100%)`;
+          });
+        }
+      });
+
+      // ============ CLASS COLOR TOGGLE & GRADIENT PREVIEW ============
+
+      // Toggle class color inputs between solid and gradient
+      window.toggleClassColorInputs = function () {
+        const colorType = document.getElementById("class-color-type").value;
+        const solidGroup = document.getElementById("class-solid-color-group");
+        const gradientGroup = document.getElementById("class-gradient-group");
+
+        if (colorType === "gradient") {
+          solidGroup.style.display = "none";
+          gradientGroup.style.display = "block";
+          document.getElementById("class-color").removeAttribute("required");
+        } else {
+          solidGroup.style.display = "block";
+          gradientGroup.style.display = "none";
+          document
+            .getElementById("class-color")
+            .setAttribute("required", "required");
+        }
+      };
+
+      // Update class gradient preview on color change
+      document.addEventListener("DOMContentLoaded", function () {
+        const gradientStart = document.getElementById("class-gradient-start");
+        const gradientEnd = document.getElementById("class-gradient-end");
+        const gradientPreview = document.getElementById(
+          "class-gradient-preview"
+        );
+
+        if (gradientStart && gradientEnd && gradientPreview) {
+          gradientStart.addEventListener("input", function () {
+            gradientPreview.style.background = `linear-gradient(135deg, ${gradientStart.value} 0%, ${gradientEnd.value} 100%)`;
+          });
+
+          gradientEnd.addEventListener("input", function () {
+            gradientPreview.style.background = `linear-gradient(135deg, ${gradientStart.value} 0%, ${gradientEnd.value} 100%)`;
+          });
+        }
+      });
+
       // Color preview update for test type
       document.addEventListener("DOMContentLoaded", function () {
         const testtypeColorInput = document.getElementById("testtype-color");
@@ -2859,13 +3795,28 @@
       window.saveTestType = async function (event) {
         event.preventDefault();
 
+        const colorType = document.getElementById("testtype-color-type").value;
+        let color;
+
+        if (colorType === "gradient") {
+          const gradientStart = document.getElementById(
+            "testtype-gradient-start"
+          ).value;
+          const gradientEnd = document.getElementById(
+            "testtype-gradient-end"
+          ).value;
+          color = `linear-gradient(135deg, ${gradientStart} 0%, ${gradientEnd} 100%)`;
+        } else {
+          color = document.getElementById("testtype-color").value;
+        }
+
         const testtypeData = {
           coachingId: document.getElementById("testtype-coaching-id").value,
           classId: document.getElementById("testtype-class-id").value,
           subjectName: document.getElementById("testtype-subject-name").value,
           name: document.getElementById("testtype-name").value.trim(),
           icon: document.getElementById("testtype-icon").value,
-          color: document.getElementById("testtype-color").value,
+          color: color,
           createdAt: new Date().toISOString(),
         };
 
@@ -2990,7 +3941,7 @@
                                 <tr>
                                     <td style="font-size: 1.5rem;">${testtype.icon}</td>
                                     <td><strong>${testtype.name}</strong></td>
-                                    <td><span class="color-preview" style="background: ${testtype.color};"></span> ${testtype.color}</td>
+                                    <td><span class="color-preview" style="background: ${testtype.color};"></span></td>
                                     <td class="action-buttons">
                                         <button class="btn-small btn-edit" onclick="editTestType('${testtype.key}')">Edit</button>
                                         <button class="btn-small btn-delete" onclick="deleteTestType('${testtype.key}', '${testtype.name}')">Del</button>
@@ -3032,10 +3983,31 @@
               testtypeData.subjectName;
             document.getElementById("testtype-name").value = testtypeData.name;
             document.getElementById("testtype-icon").value = testtypeData.icon;
-            document.getElementById("testtype-color").value =
-              testtypeData.color;
-            document.getElementById("testtype-color-preview").style.background =
-              testtypeData.color;
+
+            // Check if color is gradient or solid
+            if (
+              testtypeData.color &&
+              testtypeData.color.startsWith("linear-gradient")
+            ) {
+              document.getElementById("testtype-color-type").value = "gradient";
+              const matches = testtypeData.color.match(/#[0-9a-fA-F]{6}/g);
+              if (matches && matches.length >= 2) {
+                document.getElementById("testtype-gradient-start").value =
+                  matches[0];
+                document.getElementById("testtype-gradient-end").value =
+                  matches[1];
+                document.getElementById(
+                  "testtype-gradient-preview"
+                ).style.background = testtypeData.color;
+              }
+              toggleTestTypeColorInputs();
+            } else {
+              document.getElementById("testtype-color-type").value = "solid";
+              document.getElementById("testtype-color").value =
+                testtypeData.color || "#2196F3";
+              toggleTestTypeColorInputs();
+            }
+
             document.getElementById("testtype-edit-key").value = key;
             document.getElementById("add-testtype-form").style.display =
               "block";
